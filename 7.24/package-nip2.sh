@@ -2,7 +2,7 @@
 
 basedir=`pwd`
 package=nip2
-version=7.22.4
+version=7.24.0
 
 installdir=$basedir/inst
 repackagedir=$basedir/$package-$version
