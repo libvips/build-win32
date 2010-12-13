@@ -222,8 +222,9 @@
        add -lmingwex to get ftello & friends, but we seem to be linking this
        already when we compile vips ... why can't it find ftello()?
 
-    -->
+       do we need to call as _ftello() etc.?
 
+    -->
 
   <autotools id="cfitsio" 
     autogen-sh="configure"
@@ -247,13 +248,13 @@
 
   <autotools id="libvips" 
     autogen-sh="configure"
-    autogenargs="--without-OpenEXR --without-matio "
+    autogenargs="--without-OpenEXR --without-matio --without-cfitsio --without-orc"
     >
     <branch
       repo="vips"
-      module="7.24/vips-7.24.0beta1.tar.gz"
-      version="7.24.0"
-      checkoutdir="vips-7.24.0"
+      module="7.24/vips-7.24.1beta2.tar.gz"
+      version="7.24.1"
+      checkoutdir="vips-7.24.1"
       >
       <patch file="file:///home/john/develop/transform-7.14/transform.patch" strip="1"/>
     </branch>
@@ -264,8 +265,10 @@
       <dep package="imagemagick"/>
       <dep package="jpeg"/>
       <dep package="tiff"/>
+      <!--
       <dep package="cfitsio"/>
       <dep package="orc-0.4"/>
+      -->
     </dependencies>
   </autotools>
 
@@ -360,9 +363,9 @@
     >
     <branch
       repo="vips"
-      module="7.24/nip2-7.24.0beta1.tar.gz"
-      version="7.24.0"
-      checkoutdir="nip2-7.24.0"
+      module="7.24/nip2-7.24.1beta2.tar.gz"
+      version="7.24.1"
+      checkoutdir="nip2-7.24.1"
     />
     <dependencies>
       <dep package="libvips"/>
