@@ -170,7 +170,7 @@
 
   <autotools id="imagemagick" 
     autogen-sh="configure"
-    autogenargs="--without-threads --without-x --with-modules=no --with-openexr=no --without-gvc"
+    autogenargs="--without-threads --without-x --with-modules=no --with-openexr=no --without-gvc --without-lqr"
     >
     <branch
       repo="magick"
