@@ -174,8 +174,8 @@
     >
     <branch
       repo="magick"
-      module="ImageMagick/ImageMagick-6.6.4-8.tar.gz"
-      version="6.6.4-8"
+      module="ImageMagick/ImageMagick-6.6.6-5.tar.gz"
+      version="6.6.6-5"
     />
     <dependencies>
       <dep package="lcms"/>

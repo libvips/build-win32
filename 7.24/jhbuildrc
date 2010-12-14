@@ -33,8 +33,9 @@ os.environ['PKG_CONFIG_PATH'] = ''
 # addpath('PKG_CONFIG_PATH', os.path.join(os.sep, 'usr', 'lib', 'pkgconfig'))
 # addpath('PKG_CONFIG_PATH', os.path.join(os.sep, 'usr', 'share', 'pkgconfig'))
 
-#Prefix for all the tools
-mingw_tool_prefix = '/home/john/mingw/mingw32/bin/i586-pc-mingw32-'
+# Prefix for all the tools
+# mingw_tool_prefix = '/home/john/mingw/mingw32/bin/i586-pc-mingw32-'
+mingw_tool_prefix = '/home/john/packages/mingw/mingw32/bin/i586-pc-mingw32-'
 
 mingw_tools = {'ADDR2LINE': 'addr2line',
 	'AS': 'as', 'CC': 'gcc', 'CPP': 'cpp',
