@@ -35,14 +35,5 @@
 
 TODO
 
-- businesscard.ws does not load
-- 1pt_mosaic does not load
-- but 2pt does, odd
-- framing sort-of half-works
-
-can we build with debugging? we'd get a stacktrace at least
-
-try without the new libs, perhaps one of them is broken
-
-	nope, turned off orc and cfitsio, still fails
-
+- cfitsio broken? we get some warning messages about the lack of a DLL
+- is Orc really working? puzzling

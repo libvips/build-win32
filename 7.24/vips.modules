@@ -248,7 +248,7 @@
 
   <autotools id="libvips" 
     autogen-sh="configure"
-    autogenargs="--without-OpenEXR --without-matio --without-cfitsio --without-orc"
+    autogenargs="--without-OpenEXR --without-matio"
     >
     <branch
       repo="vips"
