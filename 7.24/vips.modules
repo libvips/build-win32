@@ -265,10 +265,8 @@
       <dep package="imagemagick"/>
       <dep package="jpeg"/>
       <dep package="tiff"/>
-      <!--
       <dep package="cfitsio"/>
       <dep package="orc-0.4"/>
-      -->
     </dependencies>
   </autotools>
 
