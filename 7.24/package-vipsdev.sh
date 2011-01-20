@@ -2,7 +2,7 @@
 
 basedir=`pwd`
 package=vips-dev
-version=7.24.0
+version=7.24.2
 
 installdir=$basedir/inst
 repackagedir=$basedir/$package-$version

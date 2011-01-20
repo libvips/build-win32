@@ -168,14 +168,17 @@
     </dependencies>
   </autotools>
 
+  <!-- libMagick++.dll fails to link due to some exception problem, disable it
+    -->
+
   <autotools id="imagemagick" 
     autogen-sh="configure"
-    autogenargs="--without-threads --without-x --with-modules=no --with-openexr=no --without-gvc --without-lqr"
+    autogenargs="--without-threads --without-x --with-modules=no --with-openexr=no --without-gvc --without-lqr --without-magick-plus-plus"
     >
     <branch
       repo="magick"
-      module="ImageMagick/ImageMagick-6.6.6-5.tar.gz"
-      version="6.6.6-5"
+      module="ImageMagick/ImageMagick-6.6.6-10.tar.gz"
+      version="6.6.6-10"
     />
     <dependencies>
       <dep package="lcms"/>
@@ -189,12 +192,12 @@
 
   <autotools id="imagemagick-tiff4" 
     autogen-sh="configure"
-    autogenargs="--without-threads --without-x --with-modules=no --with-openexr=no --without-gvc"
+    autogenargs="--without-threads --without-x --with-modules=no --with-openexr=no --without-gvc --without-magick-plus-plus"
     >
     <branch
       repo="magick"
-      module="ImageMagick/ImageMagick-6.6.3-2.tar.gz"
-      version="6.6.3-2"
+      module="ImageMagick/ImageMagick-6.6.6-10.tar.gz"
+      version="6.6.6-10"
     />
     <dependencies>
       <dep package="lcms"/>
@@ -203,6 +206,9 @@
       <dep package="jpeg"/>
     </dependencies>
   </autotools>
+
+  <!-- the orc stuff we use needs 64-bit SSE, so we can't use it under 
+       windows -->
 
   <autotools id="orc-0.4" 
     autogen-sh="configure"
@@ -240,21 +246,24 @@
     </branch>
   </autotools>
 
-  <!-- openexr has problems on win, matio fails to
-       build and link on win, the transform patch is some non-LGPL code we
-       paste into binaries 
+  <!-- openexr has problems on win
+       
+       matio fails to build and link on win
+       
+       the transform patch is some non-LGPL code we paste into binaries 
+
+       orc needs 64-bit SSE, so we can't use it under windows
 
     -->
 
   <autotools id="libvips" 
     autogen-sh="configure"
-    autogenargs="--without-OpenEXR --without-matio"
+    autogenargs="--without-OpenEXR --without-matio --without-orc"
     >
     <branch
       repo="vips"
-      module="7.24/vips-7.24.1beta2.tar.gz"
-      version="7.24.1"
-      checkoutdir="vips-7.24.1"
+      module="7.24/vips-7.24.2.tar.gz"
+      version="7.24.2"
       >
       <patch file="file:///home/john/develop/transform-7.14/transform.patch" strip="1"/>
     </branch>
@@ -266,7 +275,6 @@
       <dep package="jpeg"/>
       <dep package="tiff"/>
       <dep package="cfitsio"/>
-      <dep package="orc-0.4"/>
     </dependencies>
   </autotools>
 
@@ -278,9 +286,8 @@
     >
     <branch
       repo="vips"
-      module="7.24/vips-7.24.0beta1.tar.gz"
-      version="7.24.0"
-      checkoutdir="vips-7.24.0"
+      module="7.24/vips-7.24.2.tar.gz"
+      version="7.24.2"
       >
       <patch file="file:///home/john/develop/transform-7.14/transform.patch" strip="1"/>
     </branch>
@@ -361,9 +368,8 @@
     >
     <branch
       repo="vips"
-      module="7.24/nip2-7.24.1beta2.tar.gz"
+      module="7.24/nip2-7.24.1.tar.gz"
       version="7.24.1"
-      checkoutdir="nip2-7.24.1"
     />
     <dependencies>
       <dep package="libvips"/>

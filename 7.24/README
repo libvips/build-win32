@@ -14,6 +14,18 @@
 
 	./unpack.sh
 
+4a) build vips
+
+	jhbuild --file=jhbuildrc --moduleset=vips.modules build libvips
+
+4b) package libvips
+
+	./package-vipsdev.sh
+
+	(if you run package-vipsdev.sh after building nip2, you'll get some
+	nip2 stuff in the vipsdev package as well ... best to build in two
+	stages if you need vipsdev)
+
 5) build nip2
 
 	jhbuild --file=jhbuildrc --moduleset=vips.modules build nip2
@@ -36,4 +48,9 @@
 TODO
 
 - cfitsio broken? we get some warning messages about the lack of a DLL
+
+	(seems to work OK, as far as I can tell)
+
 - is Orc really working? puzzling
+
+	(seems to be a 32-bit problem)
