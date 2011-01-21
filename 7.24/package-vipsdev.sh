@@ -49,6 +49,20 @@ echo cleaning build $repackagedir
 ( cd $repackagedir/lib ; rm -rf *atk* *cairo* *gdk* *gtk*  )
 ( cd $repackagedir/lib ; find . -name "*.la" -exec rm {} \; )
 
+# we need to copy the STL runtime dll in there
+if [ -f /usr/lib/gcc/i586-mingw32msvc/4.2.1-sjlj/libgcc_sjlj_1.dll ]; then
+	cp /usr/lib/gcc/i586-mingw32msvc/4.2.1-sjlj/libgcc_sjlj_1.dll $repackagedir/bin
+fi
+
+# ... and test we startup OK
+echo -n "testing build ... "
+$repackagedir/bin/vips.exe --help > /dev/null
+if [ "$?" -ne "0" ]; then
+	echo vips.exe failed to run argh
+	exit 1
+fi
+echo ok
+
 echo creating $package-$version.zip
 rm -f $package-$version.zip
 zip -r -qq $package-$version.zip $package-$version
