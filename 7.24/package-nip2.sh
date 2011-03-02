@@ -59,6 +59,11 @@ echo cleaning build $repackagedir
 
 ( cd $repackagedir ; rm -rf src )
 
+# we need to copy the STL runtime dll in there
+if [ -f /usr/lib/gcc/i586-mingw32msvc/4.2.1-sjlj/libgcc_sjlj_1.dll ]; then
+	cp /usr/lib/gcc/i586-mingw32msvc/4.2.1-sjlj/libgcc_sjlj_1.dll $repackagedir/bin
+fi
+
 # turn on the theme
 cat > $repackagedir/etc/gtk-2.0/gtkrc <<EOF
 gtk-theme-name = "Clearlooks"

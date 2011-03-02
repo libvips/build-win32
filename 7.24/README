@@ -36,7 +36,7 @@
 
 7) upload to website
 
-	scp nip2-7.24.2.setup-exe jrgc@login.ecs.soton.ac.uk:/home/www.vips/htdocs/supported/7.24/win32
+	scp nip2-7.24.1.setup-exe jrgc@login.ecs.soton.ac.uk:/home/www.vips/htdocs/supported/7.24/win32
 
 7) clean up
 
