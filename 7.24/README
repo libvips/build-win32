@@ -1,11 +1,37 @@
-1) check the variables in package-*.sh and jhbuildrc
+1) check the variables in jhbuildrc to set the dir you are doing the build 
+   in and the prefix for your cross-compiler
 
-	basedir = os.path.expanduser('~/windows-jhbuild')
+	basedir = os.path.expanduser('~/GIT/build-win32/7.24')
+	mingw_tool_prefix = 'i586-mingw32msvc-'
+
+  check the version numbers in package-*.sh 
+
+	version=7.24.1
 
 2) update the pre-built binary zips in packages from gnome ftp:
 
 	ftp://ftp.gnome.org/pub/GNOME/binaries/win32/dependencies/
 	ftp://ftp.gnome.org/pub/GNOME/binaries/win32/
+
+   my packages/ dir looks like this:
+
+   $ ls packages
+   atk_1.30.0-1_win32.zip            libglade_2.6.4-1_win32.zip
+   atk-dev_1.30.0-1_win32.zip        libglade-dev_2.6.4-1_win32.zip
+   cairo_1.8.10-3_win32.zip          libgsf_1.14.17-1_win32.zip
+   cairo-dev_1.8.10-3_win32.zip      libgsf-dev_1.14.17-1_win32.zip
+   expat_2.0.1-1_win32.zip           libpng_1.4.0-1_win32.zip
+   expat-dev_2.0.1-1_win32.zip       libpng-dev_1.4.0-1_win32.zip
+   fontconfig_2.8.0-2_win32.zip      libxml2_2.7.7-1_win32.zip
+   fontconfig-dev_2.8.0-2_win32.zip  libxml2-dev_2.7.7-1_win32.zip
+   freetype_2.3.12-1_win32.zip       pango_1.28.1-1_win32.zip
+   freetype-dev_2.3.12-1_win32.zip   pango-dev_1.28.1-1_win32.zip
+   gettext-runtime-0.17-1.zip        tango-icon-theme-dev-0.8.1.zip
+   gettext-runtime-dev-0.17-1.zip    win-iconv-dll-dev_tml-20090213_win32.zip
+   glib_2.24.1-1_win32.zip           win-iconv-dll_tml-20090213_win32.zip
+   glib-dev_2.24.1-1_win32.zip       zlib_1.2.4-2_win32.zip
+   gtk+_2.20.1-1_win32.zip           zlib-dev_1.2.4-2_win32.zip
+   gtk+-dev_2.20.1-1_win32.zip
 
 3) check and update the version numbers in vips.modules 
 
