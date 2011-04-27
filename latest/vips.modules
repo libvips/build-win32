@@ -377,10 +377,11 @@
     autogen-sh="configure"
     >
     <branch
-      repo="checkout"
-      module="ptmfit-2.2.tar.gz"
-      version="2.2"
-    />
+      repo="git"
+      module="jcupitt/ptmfit2.git"
+      branch="master"
+	  revision="HEAD">
+    </branch>
     <dependencies>
       <dep package="libvips"/>
     </dependencies>
