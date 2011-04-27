@@ -108,6 +108,7 @@ As we are building a win32 executable, we need some DLL's to link against, and t
 	ftp://ftp.gnome.org/pub/GNOME/binaries/win32/dependencies/zlib-dev_1.2.4-2_win32.zip 
 
 Edit the ~/dev/build-win32/7.24/clean.sh script and update the versions for nip2 and vips. They currently default to 7.24.5-1 run
+
 	~/dev/build-win32/7.24/unpack.sh
 	
 BUILD
