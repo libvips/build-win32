@@ -121,12 +121,12 @@ PACKAGE
 UPLOAD YOUR PACKAGE
 ===================
 Assuming everything has worked perfectly up to this point, you will find vips-dev-7.24.5-1.zip all packaged up and ready to go. You might upload it to your favorite server via scp like this:
-	scp ~/dev/build-win32/7.24/vips-dev-7.24.DayMonthYear.zip <YOURID>@<YOURSERVER>:/your/favorite/directory
+	scp ~/dev/build-win32/latest/vips-dev-7.24.DayMonthYear.zip <YOURID>@<YOURSERVER>:/your/favorite/directory
 
 CLEAN UP
 ========
 It is always good to clean up after yourself!
-	~/dev/build-win32/7.24/clean.sh
+	~/dev/build-win32/latest/clean.sh
 
 OTHER NOTES
 ===========
