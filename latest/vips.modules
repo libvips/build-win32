@@ -251,7 +251,7 @@
     -->
 
   <autotools id="libvips" 
-    autogen-sh="configure"
+    autogen-sh="bootstrap.sh;configure"
     autogenargs="--without-OpenEXR --without-matio --without-orc"
     >
     <branch
@@ -275,7 +275,7 @@
   <!-- and a tiff4 version -->
 
   <autotools id="libvips-tiff4" 
-    autogen-sh="configure"
+    autogen-sh="bootstrap.sh;configure"
     autogenargs="--without-OpenEXR --without-matio --without-magick "
     >
     <branch
