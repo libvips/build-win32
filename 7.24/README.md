@@ -67,7 +67,7 @@ git This
 	mkdir ~/dev
 	cd ~/dev
 	git clone https://bubba-h57@github.com/bubba-h57/vips-win32.git
-	cd ~/dev/build-win32/7.24
+	cd ~/dev/vips-win32/7.24
 
 GNOME win32 Packages
 ---------
@@ -107,28 +107,28 @@ As we are building a win32 executable, we need some DLL's to link against, and t
 	ftp://ftp.gnome.org/pub/GNOME/binaries/win32/dependencies/zlib_1.2.4-2_win32.zip \
 	ftp://ftp.gnome.org/pub/GNOME/binaries/win32/dependencies/zlib-dev_1.2.4-2_win32.zip 
 
-Edit the ~/dev/build-win32/7.24/clean.sh script and update the versions for nip2 and vips. They currently default to 7.24.5-1 run
+Edit the ~/dev/build-win32/7.24/clean.sh script and update the versions for vips. They currently default to 7.24.5 run
 
-	cd ~/dev/build-win32/7.24/
-	~/dev/build-win32/7.24/unpack.sh
+	cd ~~/dev/vips-win32/7.24
+	~/dev/vips-win32/7.24/unpack.sh
 	
 BUILD
 =====
-	~/dev/build-win32/7.24/jhbuild --file=jhbuildrc --moduleset=vips.modules build libvips
+	~/dev/vips-win32/7.24/jhbuild --file=jhbuildrc --moduleset=vips.modules build libvips
 
 PACKAGE
 =======
-	~/dev/build-win32/7.24/package-vipsdev.sh
+	~/dev/vips-win32/7.24/package-vipsdev.sh
 
 UPLOAD YOUR PACKAGE
 ===================
-Assuming everything has worked perfectly up to this point, you will find vips-dev-7.24.5-1.zip all packaged up and ready to go. You might upload it to your favorite server via scp like this:
-	scp ~/dev/build-win32/7.24/vips-dev-7.24.5-1.zip <YOURID>@<YOURSERVER>:/your/favorite/directory
+Assuming everything has worked perfectly up to this point, you will find vips-dev-7.24.5.zip all packaged up and ready to go. You might upload it to your favorite server via scp like this:
+	scp ~/dev/vips-win32/7.24/vips-dev-7.24.5.zip <YOURID>@<YOURSERVER>:/your/favorite/directory
 
 CLEAN UP
 ========
 It is always good to clean up after yourself!
-	~/dev/build-win32/7.24/clean.sh
+	~/dev/vips-win32/7.24/clean.sh
 
 OTHER NOTES
 ===========
