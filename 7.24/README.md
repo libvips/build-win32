@@ -121,7 +121,7 @@ PACKAGE
 UPLOAD YOUR PACKAGE
 ===================
 Assuming everything has worked perfectly up to this point, you will find vips-dev-7.24.5-1.zip all packaged up and ready to go. You might upload it to your favorite server via scp like this:
-	scp ~/dev/build-win32/7.24/vips-dev-7.24.DayMonthYear.zip <YOURID>@<YOURSERVER>:/your/favorite/directory
+	scp ~/dev/build-win32/7.24/vips-dev-7.24.5-1.zip <YOURID>@<YOURSERVER>:/your/favorite/directory
 
 CLEAN UP
 ========
@@ -132,12 +132,10 @@ OTHER NOTES
 ===========
 Version Numbers
 ---------------
-The scripts currently default to a versioning system of package-major.minor.DayMonthYear like so 7.24.$(date +%m%d%y) in order to make everything drop dead simple.
+The scripts currently default to a versioning system of package-major.minor.micro-release like so 7.24.5-1 in order to make everything drop dead simple.
 
-However, it is really preferred for you to version your packages/releases as package-major-minor.micro-release which would result in something like 7.24.5-1.
+However, it is really preferred for you to version your own package micro-releases.
 
 You can modify the versions by editing these scripts:
 	clean.sh
 	package-vipsdev.sh
-	
-
