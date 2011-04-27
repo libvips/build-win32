@@ -359,11 +359,12 @@
     autogen-sh="configure"
     autogenargs="--disable-debug --without-libgvc"
     >
-    <branch
-      repo="vips"
-      module="7.24/nip2-7.24.1.tar.gz"
-      version="7.24.1"
-    />
+<branch
+      repo="git"
+      module="jcupitt/nip2.git"
+      branch="master"
+	  revision="HEAD">
+
     <dependencies>
       <dep package="libvips"/>
       <dep package="gsl"/>
