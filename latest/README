@@ -118,91 +118,26 @@ PACKAGE
 =======
 	~/dev/build-win32/latest/package-vipsdev.sh
 
+UPLOAD YOUR PACKAGE
+===================
+Assuming everything has worked perfectly up to this point, you will find vips-dev-7.24.5-1.zip all packaged up and ready to go. You might upload it to your favorite server via scp like this:
+	scp ~/dev/build-win32/7.24/vips-dev-7.24.DayMonthYear.zip <YOURID>@<YOURSERVER>:/your/favorite/directory
 
+CLEAN UP
+========
+It is always good to clean up after yourself!
+	~/dev/build-win32/7.24/clean.sh
 
+OTHER NOTES
+===========
+Version Numbers
+---------------
+The scripts currently default to a versioning system of package-major.minor.DayMonthYear like so 7.24.$(date +%m%d%y) in order to make everything drop dead simple.
 
+However, it is really preferred for you to version your packages/releases as package-major-minor.micro-release which would result in something like 7.24.5-1.
 
-
+You can modify the versions by editing these scripts:
+	clean.sh
+	package-vipsdev.sh
 	
-1) check the variables in jhbuildrc to set the dir you are doing the build 
-   in and the prefix for your cross-compiler
 
-	basedir = os.path.expanduser('~/GIT/build-win32/7.24')
-	mingw_tool_prefix = 'i586-mingw32msvc-'
-
-  check the version numbers in package-*.sh 
-
-	version=7.24.1
-
-2) update the pre-built binary zips in packages from gnome ftp:
-
-	ftp://ftp.gnome.org/pub/GNOME/binaries/win32/dependencies/
-	ftp://ftp.gnome.org/pub/GNOME/binaries/win32/
-
-   my packages/ dir looks like this:
-
-   $ ls packages
-   atk_1.30.0-1_win32.zip            libglade_2.6.4-1_win32.zip
-   atk-dev_1.30.0-1_win32.zip        libglade-dev_2.6.4-1_win32.zip
-   cairo_1.8.10-3_win32.zip          libgsf_1.14.17-1_win32.zip
-   cairo-dev_1.8.10-3_win32.zip      libgsf-dev_1.14.17-1_win32.zip
-   expat_2.0.1-1_win32.zip           libpng_1.4.0-1_win32.zip
-   expat-dev_2.0.1-1_win32.zip       libpng-dev_1.4.0-1_win32.zip
-   fontconfig_2.8.0-2_win32.zip      libxml2_2.7.7-1_win32.zip
-   fontconfig-dev_2.8.0-2_win32.zip  libxml2-dev_2.7.7-1_win32.zip
-   freetype_2.3.12-1_win32.zip       pango_1.28.1-1_win32.zip
-   freetype-dev_2.3.12-1_win32.zip   pango-dev_1.28.1-1_win32.zip
-   gettext-runtime-0.17-1.zip        tango-icon-theme-dev-0.8.1.zip
-   gettext-runtime-dev-0.17-1.zip    win-iconv-dll-dev_tml-20090213_win32.zip
-   glib_2.24.1-1_win32.zip           win-iconv-dll_tml-20090213_win32.zip
-   glib-dev_2.24.1-1_win32.zip       zlib_1.2.4-2_win32.zip
-   gtk+_2.20.1-1_win32.zip           zlib-dev_1.2.4-2_win32.zip
-   gtk+-dev_2.20.1-1_win32.zip
-
-3) check and update the version numbers in vips.modules 
-
-4) wipe and recreate the install area, unpack the binary packages, 
-   clean the checkout area
-
-	./unpack.sh
-
-4a) build vips
-
-	jhbuild --file=jhbuildrc --moduleset=vips.modules build libvips
-
-4b) package libvips
-
-	./package-vipsdev.sh
-
-	(if you run package-vipsdev.sh after building nip2, you'll get some
-	nip2 stuff in the vipsdev package as well ... best to build in two
-	stages if you need vipsdev)
-
-5) build nip2
-
-	jhbuild --file=jhbuildrc --moduleset=vips.modules build nip2
-
-6) build the zipfile and installer
-
-	./package-nip2.sh
-
-7) upload to website
-
-	scp nip2-7.24.1.setup-exe jrgc@login.ecs.soton.ac.uk:/home/www.vips/htdocs/supported/7.24/win32
-
-7) clean up
-
-	./clean.sh
-
-
-
-
-TODO
-
-- cfitsio broken? we get some warning messages about the lack of a DLL
-
-	(seems to work OK, as far as I can tell)
-
-- is Orc really working? puzzling
-
-	(seems to be a 32-bit problem)
