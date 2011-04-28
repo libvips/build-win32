@@ -22,7 +22,8 @@ Build/Tool Related Dependencies
 	mingw32 \
 	jhbuild \
 	autoconf \
-	autotools-dev
+	autotools-dev \
+        gtk-doc-tools
 
 Library Dependencies
 -------
