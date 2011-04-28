@@ -22,7 +22,8 @@ Build/Tool Related Dependencies
 	mingw32 \
 	jhbuild \
 	autoconf \
-	autotools-dev
+	autotools-dev \
+        gtk-doc-tools
 
 Library Dependencies
 -------
@@ -73,42 +74,13 @@ GNOME win32 Packages
 ---------
 As we are building a win32 executable, we need some DLL's to link against, and the GNOME project kindly provides us with a large number of these ready to use! Just create a package directory, download them to that directory, and run the script. Something like this:
 
-	mkdir packages
-	cd packages 
-	wget ftp://ftp.gnome.org/pub/GNOME/binaries/win32/atk/1.30/atk_1.30.0-1_win32.zip \
-	ftp://ftp.gnome.org/pub/GNOME/binaries/win32/atk/1.30/atk-dev_1.30.0-1_win32.zip \
-	ftp://ftp.gnome.org/pub/GNOME/binaries/win32/glib/2.24/glib_2.24.1-1_win32.zip \
-	ftp://ftp.gnome.org/pub/GNOME/binaries/win32/glib/2.24/glib-dev_2.24.1-1_win32.zip \
-	ftp://ftp.gnome.org/pub/GNOME/binaries/win32/gtk+/2.20/gtk+_2.20.1-1_win32.zip \
-	ftp://ftp.gnome.org/pub/GNOME/binaries/win32/gtk+/2.20/gtk+-dev_2.20.1-1_win32.zip \
-	ftp://ftp.gnome.org/pub/GNOME/binaries/win32/libglade/2.6/libglade_2.6.4-1_win32.zip \
-	ftp://ftp.gnome.org/pub/GNOME/binaries/win32/libglade/2.6/libglade-dev_2.6.4-1_win32.zip \
-	ftp://ftp.gnome.org/pub/GNOME/binaries/win32/libgsf/1.14/libgsf_1.14.17-1_win32.zip \
-	ftp://ftp.gnome.org/pub/GNOME/binaries/win32/libgsf/1.14/libgsf-gnome-dev_1.14.17-1_win32.zip \
-	ftp://ftp.gnome.org/pub/GNOME/binaries/win32/pango/1.28/pango_1.28.1-1_win32.zip \
-	ftp://ftp.gnome.org/pub/GNOME/binaries/win32/pango/1.28/pango-dev_1.28.1-1_win32.zip \
-	ftp://ftp.gnome.org/pub/GNOME/binaries/win32/dependencies/cairo_1.8.10-3_win32.zip \
-	ftp://ftp.gnome.org/pub/GNOME/binaries/win32/dependencies/cairo-dev_1.8.10-3_win32.zip \
-	ftp://ftp.gnome.org/pub/GNOME/binaries/win32/dependencies/expat_2.0.1-1_win32.zip \
-	ftp://ftp.gnome.org/pub/GNOME/binaries/win32/dependencies/expat-dev_2.0.1-1_win32.zip \
-	ftp://ftp.gnome.org/pub/GNOME/binaries/win32/dependencies/fontconfig_2.8.0-2_win32.zip \
-	ftp://ftp.gnome.org/pub/GNOME/binaries/win32/dependencies/fontconfig-dev_2.8.0-2_win32.zip \
-	ftp://ftp.gnome.org/pub/GNOME/binaries/win32/dependencies/freetype_2.3.12-1_win32.zip \
-	ftp://ftp.gnome.org/pub/GNOME/binaries/win32/dependencies/freetype-dev_2.3.12-1_win32.zip \
-	ftp://ftp.gnome.org/pub/GNOME/binaries/win32/dependencies/gettext-runtime-0.17-1.zip \
-	ftp://ftp.gnome.org/pub/GNOME/binaries/win32/dependencies/gettext-runtime-dev-0.17-1.zip \
-	ftp://ftp.gnome.org/pub/GNOME/binaries/win32/dependencies/libpng_1.4.0-1_win32.zip \
-	ftp://ftp.gnome.org/pub/GNOME/binaries/win32/dependencies/libpng-dev_1.4.0-1_win32.zip \
-	ftp://ftp.gnome.org/pub/GNOME/binaries/win32/dependencies/libxml2_2.7.7-1_win32.zip \
-	ftp://ftp.gnome.org/pub/GNOME/binaries/win32/dependencies/libxml2-dev_2.7.7-1_win32.zip \
-	ftp://ftp.gnome.org/pub/GNOME/binaries/win32/dependencies/tango-icon-theme-0.8.1.zip \
-	ftp://ftp.gnome.org/pub/GNOME/binaries/win32/dependencies/win-iconv-dll-dev_tml-20090213_win32.zip \
-	ftp://ftp.gnome.org/pub/GNOME/binaries/win32/dependencies/win-iconv-dll_tml-20090213_win32.zip \
-	ftp://ftp.gnome.org/pub/GNOME/binaries/win32/dependencies/zlib_1.2.4-2_win32.zip \
-	ftp://ftp.gnome.org/pub/GNOME/binaries/win32/dependencies/zlib-dev_1.2.4-2_win32.zip 
+	~/dev/vips-win32/latest/get-win32-packages.sh
 
-Edit the ~/dev/vips-win32/latest/clean.sh script and update the versions for nip2 and vips. They currently default to major.minor.MonthDayYear Then run:
-	~/dev/vips-win32/latest/unpack.sh
+
+If you desire to modify the packages used, just open up the gnome-win32-libs-list and go to it! This is completely optional though, as the ones checked out "should" work just fine for you needs.
+
+	vi ~/dev/vips-win32/latest/gnome-win32-libs-list
+
 	
 BUILD
 =====
