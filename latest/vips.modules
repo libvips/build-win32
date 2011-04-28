@@ -238,7 +238,7 @@
       >
       <patch file="http://www.vips.ecs.soton.ac.uk/supported/7.24/win32/cfitsio.patch"/>
     </branch>
-  </autotools>
+  </autotools> 
 
   <!-- openexr has problems on win
        
@@ -251,14 +251,14 @@
     -->
 
   <autotools id="libvips" 
-    autogen-sh="bootstrap.sh;configure"
+    autogen-sh="bootstrap.sh; ./configure"
     autogenargs="--without-OpenEXR --without-matio --without-orc"
     >
     <branch
       repo="git"
-      module="jcupitt/libvips.git"
-      branch="master"
-	  revision="HEAD"
+      module="jcupitt/libvips"
+      revision="master"
+      checkoutdir="libvips"
       >
     </branch>
     <dependencies>
@@ -275,14 +275,13 @@
   <!-- and a tiff4 version -->
 
   <autotools id="libvips-tiff4" 
-    autogen-sh="bootstrap.sh;configure"
+    autogen-sh="bootstrap.sh; ./configure"
     autogenargs="--without-OpenEXR --without-matio --without-magick "
     >
     <branch
       repo="git"
-      module="jcupitt/libvips.git"
-      branch="master"
-	  revision="HEAD">
+      module="jcupitt/libvips"
+      >
     </branch>
     <dependencies>
       <dep package="lcms"/>
@@ -362,8 +361,7 @@
   <branch
       repo="git"
       module="jcupitt/nip2.git"
-      branch="master"
-	  revision="HEAD">
+      >
     </branch>
     <dependencies>
       <dep package="libvips"/>
@@ -379,8 +377,7 @@
     <branch
       repo="git"
       module="jcupitt/ptmfit2.git"
-      branch="master"
-	  revision="HEAD">
+      >
     </branch>
     <dependencies>
       <dep package="libvips"/>
