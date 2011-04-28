@@ -1,7 +1,19 @@
 VIPS WIN32
 ==========
 
-We use jhbuilder to git, compile, and package the vips source code for WIN32. 
+We use jhbuilder to git, mingw to compile, and good old zip to package the vips source code for WIN32. 
+
+[JHBuild] (http://live.gnome.org/Jhbuild)
+-----------------------------------------
+
+JHBuild is a tool designed to ease building collections of source packages, called “modules”. JHBuild uses “module set” files to describe the modules available to build. The “module set” files include dependency information that allows JHBuild to discover what modules need to be built and in what order. 
+
+[MinGW](http://www.mingw.org/)
+-----------------------------
+
+MinGW, a contraction of "Minimalist GNU for Windows", is a minimalist development environment for native Microsoft Windows applications.
+
+MinGW provides a complete Open Source programming tool set which is suitable for the development of native MS-Windows applications, and which do not depend on any 3rd-party C-Runtime DLLs. (It does depend on a number of DLLs provided by Microsoft themselves, as components of the operating system; most notable among these is MSVCRT.DLL, the Microsoft C runtime library. Additionally, threaded applications must ship with a freely distributable thread support DLL, provided as part of MinGW itself).
 
 PREREQUISITES
 =============
@@ -22,7 +34,12 @@ Build/Tool Related Dependencies
 	mingw32 \
 	jhbuild \
 	autoconf \
+	automake1.4 \
+	automake1.7 \
+	automake1.9 \
 	autotools-dev \
+	docbook-utils \
+        docbook2x \
         gtk-doc-tools
 
 Library Dependencies
@@ -81,7 +98,12 @@ If you desire to modify the packages used, just open up the gnome-win32-libs-lis
 
 	vi ~/dev/vips-win32/latest/gnome-win32-libs-list
 
+JHBUILD VERIFICATION
+====================
+We just want to make sure that jhbuild has everything it needs. If all steps have been properly followed up to this point, this should be a no brainer.
 	
+	~/dev/vips-win32/latest/jhbuild --file=jhbuildrc sanitycheck
+
 BUILD
 =====
 	~/dev/vips-win32/latest/jhbuild --file=jhbuildrc --moduleset=vips.modules build libvips
@@ -97,7 +119,7 @@ Assuming everything has worked perfectly up to this point, you will find vips-de
 
 CLEAN UP
 ========
-It is always good to clean up after yourself!
+It is always good to clean up after yourself. Be careful though, this command will delete the package you just created! You did upload it to your favorite server didn't you?
 	~/dev/vips-win32/7.24/clean.sh
 
 OTHER NOTES
