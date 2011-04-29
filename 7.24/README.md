@@ -1,7 +1,19 @@
 VIPS WIN32
 ==========
 
-We use jhbuilder to git, compile, and package the vips source code for WIN32. 
+We use jhbuilder to git, mingw to compile, and good old zip to package the vips source code for WIN32. 
+
+[JHBuild] (http://live.gnome.org/Jhbuild)
+-----------------------------------------
+
+JHBuild is a tool designed to ease building collections of source packages, called “modules”. JHBuild uses “module set” files to describe the modules available to build. The “module set” files include dependency information that allows JHBuild to discover what modules need to be built and in what order. 
+
+[MinGW](http://www.mingw.org/)
+-----------------------------
+
+MinGW, a contraction of "Minimalist GNU for Windows", is a minimalist development environment for native Microsoft Windows applications.
+
+MinGW provides a complete Open Source programming tool set which is suitable for the development of native MS-Windows applications, and which do not depend on any 3rd-party C-Runtime DLLs. (It does depend on a number of DLLs provided by Microsoft themselves, as components of the operating system; most notable among these is MSVCRT.DLL, the Microsoft C runtime library. Additionally, threaded applications must ship with a freely distributable thread support DLL, provided as part of MinGW itself).
 
 PREREQUISITES
 =============
@@ -22,7 +34,13 @@ Build/Tool Related Dependencies
 	mingw32 \
 	jhbuild \
 	autoconf \
-	autotools-dev
+	automake1.4 \
+	automake1.7 \
+	automake1.9 \
+	autotools-dev \
+	docbook-utils \
+        docbook2x \
+        gtk-doc-tools
 
 Library Dependencies
 -------
@@ -73,45 +91,22 @@ GNOME win32 Packages
 ---------
 As we are building a win32 executable, we need some DLL's to link against, and the GNOME project kindly provides us with a large number of these ready to use! Just create a package directory, download them to that directory, and run the script. Something like this:
 
-	mkdir packages
-	cd packages 
-	wget ftp://ftp.gnome.org/pub/GNOME/binaries/win32/atk/1.30/atk_1.30.0-1_win32.zip \
-	ftp://ftp.gnome.org/pub/GNOME/binaries/win32/atk/1.30/atk-dev_1.30.0-1_win32.zip \
-	ftp://ftp.gnome.org/pub/GNOME/binaries/win32/glib/2.24/glib_2.24.1-1_win32.zip \
-	ftp://ftp.gnome.org/pub/GNOME/binaries/win32/glib/2.24/glib-dev_2.24.1-1_win32.zip \
-	ftp://ftp.gnome.org/pub/GNOME/binaries/win32/gtk+/2.20/gtk+_2.20.1-1_win32.zip \
-	ftp://ftp.gnome.org/pub/GNOME/binaries/win32/gtk+/2.20/gtk+-dev_2.20.1-1_win32.zip \
-	ftp://ftp.gnome.org/pub/GNOME/binaries/win32/libglade/2.6/libglade_2.6.4-1_win32.zip \
-	ftp://ftp.gnome.org/pub/GNOME/binaries/win32/libglade/2.6/libglade-dev_2.6.4-1_win32.zip \
-	ftp://ftp.gnome.org/pub/GNOME/binaries/win32/libgsf/1.14/libgsf_1.14.17-1_win32.zip \
-	ftp://ftp.gnome.org/pub/GNOME/binaries/win32/libgsf/1.14/libgsf-gnome-dev_1.14.17-1_win32.zip \
-	ftp://ftp.gnome.org/pub/GNOME/binaries/win32/pango/1.28/pango_1.28.1-1_win32.zip \
-	ftp://ftp.gnome.org/pub/GNOME/binaries/win32/pango/1.28/pango-dev_1.28.1-1_win32.zip \
-	ftp://ftp.gnome.org/pub/GNOME/binaries/win32/dependencies/cairo_1.8.10-3_win32.zip \
-	ftp://ftp.gnome.org/pub/GNOME/binaries/win32/dependencies/cairo-dev_1.8.10-3_win32.zip \
-	ftp://ftp.gnome.org/pub/GNOME/binaries/win32/dependencies/expat_2.0.1-1_win32.zip \
-	ftp://ftp.gnome.org/pub/GNOME/binaries/win32/dependencies/expat-dev_2.0.1-1_win32.zip \
-	ftp://ftp.gnome.org/pub/GNOME/binaries/win32/dependencies/fontconfig_2.8.0-2_win32.zip \
-	ftp://ftp.gnome.org/pub/GNOME/binaries/win32/dependencies/fontconfig-dev_2.8.0-2_win32.zip \
-	ftp://ftp.gnome.org/pub/GNOME/binaries/win32/dependencies/freetype_2.3.12-1_win32.zip \
-	ftp://ftp.gnome.org/pub/GNOME/binaries/win32/dependencies/freetype-dev_2.3.12-1_win32.zip \
-	ftp://ftp.gnome.org/pub/GNOME/binaries/win32/dependencies/gettext-runtime-0.17-1.zip \
-	ftp://ftp.gnome.org/pub/GNOME/binaries/win32/dependencies/gettext-runtime-dev-0.17-1.zip \
-	ftp://ftp.gnome.org/pub/GNOME/binaries/win32/dependencies/libpng_1.4.0-1_win32.zip \
-	ftp://ftp.gnome.org/pub/GNOME/binaries/win32/dependencies/libpng-dev_1.4.0-1_win32.zip \
-	ftp://ftp.gnome.org/pub/GNOME/binaries/win32/dependencies/libxml2_2.7.7-1_win32.zip \
-	ftp://ftp.gnome.org/pub/GNOME/binaries/win32/dependencies/libxml2-dev_2.7.7-1_win32.zip \
-	ftp://ftp.gnome.org/pub/GNOME/binaries/win32/dependencies/tango-icon-theme-0.8.1.zip \
-	ftp://ftp.gnome.org/pub/GNOME/binaries/win32/dependencies/win-iconv-dll-dev_tml-20090213_win32.zip \
-	ftp://ftp.gnome.org/pub/GNOME/binaries/win32/dependencies/win-iconv-dll_tml-20090213_win32.zip \
-	ftp://ftp.gnome.org/pub/GNOME/binaries/win32/dependencies/zlib_1.2.4-2_win32.zip \
-	ftp://ftp.gnome.org/pub/GNOME/binaries/win32/dependencies/zlib-dev_1.2.4-2_win32.zip 
+	~/dev/vips-win32/latest/get-win32-packages.sh
 
-Edit the ~/dev/build-win32/7.24/clean.sh script and update the versions for vips. They currently default to 7.24.5 run
 
-	cd ~~/dev/vips-win32/7.24
-	~/dev/vips-win32/7.24/unpack.sh
+If you desire to modify the packages used, just open up the gnome-win32-libs-list and go to it! This is completely optional though, as the ones checked out "should" work just fine for you needs.
+
+	vi ~/dev/vips-win32/latest/gnome-win32-libs-list
+
+JHBUILD VERIFICATION
+====================
+We just want to make sure that jhbuild has everything it needs. If all steps have been properly followed up to this point, this should be a no brainer.
 	
+	~/dev/vips-win32/latest/jhbuild --file=jhbuildrc sanitycheck
+
+This will most likely complain that it couldn't find automake-1.8 which is fine, we didn't install that. If it complains about anything else, let me know.
+
+
 BUILD
 =====
 	~/dev/vips-win32/7.24/jhbuild --file=jhbuildrc --moduleset=vips.modules build libvips
@@ -127,7 +122,7 @@ Assuming everything has worked perfectly up to this point, you will find vips-de
 
 CLEAN UP
 ========
-It is always good to clean up after yourself!
+It is always good to clean up after yourself. Be careful though, this command will delete the package you just created! You did upload it to your favorite server didn't you?
 	~/dev/vips-win32/7.24/clean.sh
 
 OTHER NOTES
