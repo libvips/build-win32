@@ -39,8 +39,8 @@ Build/Tool Related Dependencies
 	automake1.9 \
 	autotools-dev \
 	docbook-utils \
-        docbook2x \
-        gtk-doc-tools
+	docbook2x \
+	gtk-doc-tools
 
 Library Dependencies
 -------
