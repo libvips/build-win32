@@ -29,7 +29,7 @@ It is possible that you already have some of these installed on your Ubuntu Desk
 
 Build/Tool Related Dependencies
 -------
-	sudo apt-get install build-essential \
+    sudo apt-get install build-essential \
 	wine \
 	mingw32 \
 	jhbuild \
@@ -136,3 +136,30 @@ However, it is really preferred for you to version your own package micro-releas
 You can modify the versions by editing these scripts:
 	clean.sh
 	package-vipsdev.sh
+
+
+Patching
+--------
+A primary reason one might desire to build their own executable, you simply want 
+to make a few changes to the code, or otherwise control how it was compiled. First
+clean it all up:
+    
+    ~/dev/vips-win32/7.24/clean.sh
+
+Remember that after cleaning, we need to redo the packages:
+
+    ~/dev/vips-win32/7.24/package-vipsdev.sh
+
+Then we tell jhbuild to simply download and set up the environment, but not actually
+build anything:
+
+    ~/dev/vips-win32/7.24/jhbuild --file=jhbuildrc --moduleset=vips.modules update libvips
+
+Now you are all set to open your favorite editor, apply someone elses patch, etc.
+Once you are done, you want to build without resetting the environment, the 
+--no-network flag is key in this next command, otherwise, your changes will be
+overwritten.
+
+    ~/dev/vips-win32/7.24/jhbuild --file=jhbuildrc --moduleset=vips.modules build libvips --no-network
+
+You should find your executable built with all your changes. Congratulations.
