@@ -9,7 +9,7 @@
 
 # checkoutroot: path to download packages elsewhere
 # prefix:       target path to install the compiled binaries
-basedir = os.path.expanduser('~/windows-jhbuild')
+basedir = os.path.expanduser('~/dev/vips-win32/latest')
 checkoutroot = os.path.join(os.sep, basedir, 'checkout')
 prefix = os.path.join(os.sep, basedir, 'inst')
 os.environ['prefix'] = prefix
@@ -26,11 +26,19 @@ os.environ['TARGET'] = 'i586-pc-mingw32'
 # don't use "--define-variable=prefix=/poop", pkg-config gets confused
 os.environ['PKG_CONFIG'] = '/usr/bin/pkg-config --define-variable prefix=' + prefix
 
-addpath('PKG_CONFIG_PATH', os.path.join(os.sep, 'usr', 'lib', 'pkgconfig'))
-addpath('PKG_CONFIG_PATH', os.path.join(os.sep, 'usr', 'share', 'pkgconfig'))
+# try to stop our enclsong pkg path getting in
+# basedir/lib/pkgconfig is added for us later
+os.environ['PKG_CONFIG_PATH'] = ''
 
-#Prefix for all the tools
-mingw_tool_prefix = '/home/john/packages/mingw/mingw32/bin/i586-pc-mingw32-'
+# addpath('PKG_CONFIG_PATH', os.path.join(os.sep, 'usr', 'lib', 'pkgconfig'))
+# addpath('PKG_CONFIG_PATH', os.path.join(os.sep, 'usr', 'share', 'pkgconfig'))
+
+# Prefix for all the tools
+# mingw_tool_prefix = '/home/john/mingw/mingw32/bin/i586-pc-mingw32-'
+# mingw_tool_prefix = '/home/john/packages/mingw/mingw32/bin/i586-pc-mingw32-'
+
+# the official debian package names them strangly
+mingw_tool_prefix = 'i586-mingw32msvc-'
 
 mingw_tools = {'ADDR2LINE': 'addr2line',
 	'AS': 'as', 'CC': 'gcc', 'CPP': 'cpp',
@@ -42,7 +50,7 @@ mingw_tools = {'ADDR2LINE': 'addr2line',
 	'STRINGS': 'strings', 'WINDRES': 'windres',
 	'AR': 'ar', 'RANLIB': 'ranlib', 'STRIP': 'strip'}
 
-#Exporting all as enviroment variables with its prefix
+#Exporting all as environment variables with its prefix
 mingw_tools_args = str()
 for tool in mingw_tools.keys():
 	fullpath_tool = mingw_tool_prefix + mingw_tools[tool]
@@ -63,11 +71,16 @@ os.environ['INSTALL']  = os.path.expanduser('~/bin/install-check')
 os.environ['CFLAGS']   += ' -O2 '
 os.environ['CXXFLAGS']   += ' -O2 '
 
+# turn on debugging
+# os.environ['CFLAGS']   += ' -g '
+# os.environ['CXXFLAGS']   += ' -g '
+
 #Populating autogenargs
 autogenargs  = ' --build='+os.environ['HOST']
 autogenargs += ' --host='+os.environ['TARGET']
 autogenargs += ' --target='+os.environ['TARGET']
 autogenargs += ' --disable-docs'
+autogenargs += ' --disable-debug'
 autogenargs += ' --enable-all-warnings --enable-maintainer-mode'
 
 for tool in ('AR', 'RANLIB', 'STRIP', 'AS',

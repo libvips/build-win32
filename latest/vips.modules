@@ -10,9 +10,27 @@
   />
 
   <repository 
+	type="git" 
+	name="git"
+    href="git://github.com/"
+  />
+  
+  <repository 
     type="tarball"
-    name="vips"
-    href="http://www.vips.ecs.soton.ac.uk/supported/"
+    name="orc"
+    href="http://code.entropywave.com/download/orc/"
+  />
+
+  <repository 
+    type="tarball"
+    name="graphviz"
+    href="http://www.graphviz.org/pub/graphviz/stable/SOURCES/"
+  />
+
+  <repository 
+    type="tarball"
+    name="cfitsio"
+    href="http://heasarc.gsfc.nasa.gov/FTP/software/fitsio/c/"
   />
 
   <repository 
@@ -53,12 +71,6 @@
 
   <repository 
     type="tarball" 
-    name="checkout" 
-    href="file:///home/john/windows-jhbuild/checkout"
-  />
-
-  <repository 
-    type="tarball" 
     name="gnome" 
     href="http://ftp.gnome.org/pub/GNOME/sources/"
   />
@@ -73,6 +85,8 @@
       version="3.2.2"
     />
   </autotools>
+
+  <!-- we'd like lcms2 for vips (it's faster) but IM needs plain lcms -->
 
   <autotools id="lcms" 
     autogen-sh="configure"
@@ -148,22 +162,23 @@
     </dependencies>
   </autotools>
 
-  <!-- we turn off IMs jpeg support: we don't need it and there's a conflict
-       with the jpeg8 binary we use anyway -->
+  <!-- libMagick++.dll fails to link due to some exception problem, disable it
+    -->
 
   <autotools id="imagemagick" 
     autogen-sh="configure"
-    autogenargs="--without-threads --without-x --with-modules=no --with-openexr=no --with-jpeg=no --without-gvc"
+    autogenargs="--without-threads --without-x --with-modules=no --with-openexr=no --without-gvc --without-lqr --without-magick-plus-plus"
     >
     <branch
       repo="magick"
-      module="ImageMagick/ImageMagick-6.6.3-10.tar.gz"
-      version="6.6.3-10"
+      module="ImageMagick/ImageMagick-6.6.6-10.tar.gz"
+      version="6.6.6-10"
     />
     <dependencies>
       <dep package="lcms"/>
       <dep package="fftw3"/>
       <dep package="tiff"/>
+      <dep package="jpeg"/>
     </dependencies>
   </autotools>
 
@@ -171,12 +186,12 @@
 
   <autotools id="imagemagick-tiff4" 
     autogen-sh="configure"
-    autogenargs="--without-threads --without-x --with-modules=no --with-openexr=no --without-gvc"
+    autogenargs="--without-threads --without-x --with-modules=no --with-openexr=no --without-gvc --without-magick-plus-plus"
     >
     <branch
       repo="magick"
-      module="ImageMagick/ImageMagick-6.6.3-10.tar.gz"
-      version="6.6.3-10"
+      module="ImageMagick/ImageMagick-6.6.6-10.tar.gz"
+      version="6.6.6-10"
     />
     <dependencies>
       <dep package="lcms"/>
@@ -186,20 +201,65 @@
     </dependencies>
   </autotools>
 
-  <!-- liboil is a bit useless, openexr has problems on win, matio fails to
-       build and link on win, the transform patch is some non-LGPL code we
-       paste into binaries -->
+  <!-- the orc stuff we use needs 64-bit SSE, so we can't use it under 
+       windows -->
 
-  <autotools id="libvips" 
+  <autotools id="orc-0.4" 
     autogen-sh="configure"
-    autogenargs="--without-liboil --without-OpenEXR --without-matio"
     >
     <branch
-      repo="vips"
-      module="7.22/vips-7.22.2.tar.gz"
-      version="7.22.2"
+      repo="orc"
+      module="orc-0.4.11.tar.gz"
+      version="0.4.11"
+    />
+  </autotools>
+
+  <!-- the patch just deletes the ftello()/fseeko() code, mingw does not
+       support this 
+
+       as a result, >2gb fits files will not work on win32 
+
+       add -lmingwex to get ftello & friends, but we seem to be linking this
+       already when we compile vips ... why can't it find ftello()?
+
+       do we need to call as _ftello() etc.?
+
+    -->
+
+  <autotools id="cfitsio" 
+    autogen-sh="configure"
+    autogenargs="--disable-reentrant --disable-hera --without-gsiftp"
+    >
+    <branch
+      repo="cfitsio"
+      module="cfitsio3250.tar.gz"
+      version="3.25"
+      checkoutdir="cfitsio"
       >
-      <patch file="file:///home/john/develop/transform-7.14/transform.patch" strip="1"/>
+      <patch file="http://www.vips.ecs.soton.ac.uk/supported/7.24/win32/cfitsio.patch"/>
+    </branch>
+  </autotools> 
+
+  <!-- openexr has problems on win
+       
+       matio fails to build and link on win
+       
+       the transform patch is some non-LGPL code we paste into binaries 
+
+       orc needs 64-bit SSE, so we can't use it under windows
+
+    -->
+
+  <autotools id="libvips" 
+    autogen-sh="bootstrap.sh &amp;&amp; ./configure"
+    autogenargs="--without-OpenEXR --without-matio --without-orc"
+    >
+    <branch
+      repo="git"
+      module="jcupitt/libvips"
+      revision="master"
+      checkoutdir="libvips"
+      >
     </branch>
     <dependencies>
       <dep package="lcms"/>
@@ -208,21 +268,20 @@
       <dep package="imagemagick"/>
       <dep package="jpeg"/>
       <dep package="tiff"/>
+      <dep package="cfitsio"/>
     </dependencies>
   </autotools>
 
   <!-- and a tiff4 version -->
 
   <autotools id="libvips-tiff4" 
-    autogen-sh="configure"
-    autogenargs="--without-liboil --without-OpenEXR --without-matio --without-magick"
+    autogen-sh="bootstrap.sh &amp;&amp; ./configure"
+    autogenargs="--without-OpenEXR --without-matio --without-magick "
     >
     <branch
-      repo="vips"
-      module="7.22/vips-7.22.2.tar.gz"
-      version="7.22.2"
+      repo="git"
+      module="jcupitt/libvips"
       >
-      <patch file="file:///home/john/develop/transform-7.14/transform.patch" strip="1"/>
     </branch>
     <dependencies>
       <dep package="lcms"/>
@@ -231,6 +290,8 @@
       <dep package="jpeg"/>
       <dep package="tiff4"/>
       <dep package="imagemagick-tiff4"/>
+      <dep package="cfitsio"/>
+      <dep package="orc-0.4"/>
     </dependencies>
   </autotools>
 
@@ -245,6 +306,7 @@
   </autotools>
 
   <!-- our own goffice module, we don't want the print stuff -->
+
   <autotools id="goffice-noprint"
     autogen-sh="configure"
     autogenargs="--without-gconf"
@@ -257,7 +319,30 @@
     </branch>
   </autotools>
 
+  <!-- fails linking 
+       
+       add -liberty to get regcomp() and friends 
+
+	edit lib/gvc/Makefile.am, append -liberty toi line 69
+
+	edit lib/gvpr/gprstate.c, remove WIN32 stuff
+
+	gvrender_core_dot.c fails with a variety of linking errors
+
+    -->
+
+  <autotools id="graphviz"
+    autogenargs="--enable-swig=no --enable-sharp=no --enable-guile=no --enable-java=no--enable-io=no --enable-lua=no --enable-ocaml=no --enable-perl=no --enable-php=no --enable-python=no --enable-r=no --enable-ruby=no --enable-tcl=no --with-rsvg=no --with-ghostscript=no"
+    >
+    <branch
+      repo="graphviz"
+      module="graphviz-2.26.3.tar.gz"
+      version="2.26.3">
+    </branch>
+  </autotools>
+
   <!-- our theme ... disable all but clearlooks -->
+
   <autotools id="gtkengines"
     autogen-sh="configure"
     autogenargs="--disable-crux --disable-hc --disable-industrial --disable-mist --disable-redmond --disable-glide --disable-thinice"
@@ -271,12 +356,13 @@
 
   <autotools id="nip2" 
     autogen-sh="configure"
+    autogenargs="--disable-debug --without-libgvc"
     >
-    <branch
-      repo="vips"
-      module="7.22/nip2-7.22.2.tar.gz"
-      version="7.22.2"
-    />
+  <branch
+      repo="git"
+      module="jcupitt/nip2.git"
+      >
+    </branch>
     <dependencies>
       <dep package="libvips"/>
       <dep package="gsl"/>
@@ -289,10 +375,10 @@
     autogen-sh="configure"
     >
     <branch
-      repo="checkout"
-      module="ptmfit-2.2.tar.gz"
-      version="2.2"
-    />
+      repo="git"
+      module="jcupitt/ptmfit2.git"
+      >
+    </branch>
     <dependencies>
       <dep package="libvips"/>
     </dependencies>

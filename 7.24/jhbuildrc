@@ -9,7 +9,7 @@
 
 # checkoutroot: path to download packages elsewhere
 # prefix:       target path to install the compiled binaries
-basedir = os.path.expanduser('~/GIT/build-win32/7.24')
+basedir = os.path.expanduser('~/dev/vips-win32/7.24')
 checkoutroot = os.path.join(os.sep, basedir, 'checkout')
 prefix = os.path.join(os.sep, basedir, 'inst')
 os.environ['prefix'] = prefix

@@ -2,7 +2,10 @@
 
 basedir=`pwd`
 package=nip2
-version=7.22.2
+version=7.24.$(date +%m%d%y) 
+
+vips_package=vips
+vips_version=7.24.$(date +%m%d%y) 
 
 installdir=$basedir/inst
 packagedir=$basedir/packages
@@ -31,6 +34,8 @@ rm -rf $repackagedir
 
 rm -rf nsis/$package-$version
 rm -f nsis/$package-$version-setup.exe
+rm -f nsis/makensis.log
 
+rm -rf $basedir/$vips_package-dev-$vips_version
 
 

@@ -5,7 +5,7 @@ package=nip2
 version=7.24.1
 
 vips_package=vips
-vips_version=7.24.3
+vips_version=7.24.5
 
 installdir=$basedir/inst
 packagedir=$basedir/packages
