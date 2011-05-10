@@ -192,7 +192,7 @@
 
   <autotools id="imagemagick-tiff4" 
     autogen-sh="configure"
-    autogenargs="--without-threads --without-x --with-modules=no --with-openexr=no --without-gvc --without-magick-plus-plus"
+    autogenargs="--without-threads --without-x --with-modules=no --with-openexr=no --without-gvc --without-lqr --without-magick-plus-plus"
     >
     <branch
       repo="magick"
@@ -281,7 +281,7 @@
 
   <autotools id="libvips-tiff4" 
     autogen-sh="configure"
-    autogenargs="--without-OpenEXR --without-matio --without-magick "
+    autogenargs="--without-OpenEXR --without-matio --without-orc "
     >
     <branch
       repo="vips"
@@ -297,7 +297,6 @@
       <dep package="tiff4"/>
       <dep package="imagemagick-tiff4"/>
       <dep package="cfitsio"/>
-      <dep package="orc-0.4"/>
     </dependencies>
   </autotools>
 
