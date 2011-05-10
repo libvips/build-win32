@@ -1,10 +1,9 @@
 #!/bin/bash
 
-basedir=/home/john/windows-jhbuild
-version=2.2
+version=2.3
 
-installdir=$basedir/inst
-repackagedir=$basedir/ptmfit-$version
+installdir=inst
+repackagedir=ptmfit-$version
 
 echo copying install area $installdir
 

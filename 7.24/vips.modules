@@ -381,8 +381,8 @@
     >
     <branch
       repo="checkout"
-      module="ptmfit-2.2.tar.gz"
-      version="2.2"
+      module="ptmfit-2.3.tar.gz"
+      version="2.3"
     />
     <dependencies>
       <dep package="libvips"/>
