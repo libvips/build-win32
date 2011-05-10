@@ -1,11 +1,10 @@
 #!/bin/bash
 
-basedir=`pwd`
 package=nip2
 version=7.24.1
 
-installdir=$basedir/inst
-repackagedir=$basedir/$package-$version
+installdir=inst
+repackagedir=$package-$version
 
 echo copying install area $installdir
 
@@ -60,8 +59,10 @@ echo cleaning build $repackagedir
 ( cd $repackagedir ; rm -rf src )
 
 # we need to copy the STL runtime dll in there
-if [ -f /usr/lib/gcc/i586-mingw32msvc/4.2.1-sjlj/libgcc_sjlj_1.dll ]; then
-	cp /usr/lib/gcc/i586-mingw32msvc/4.2.1-sjlj/libgcc_sjlj_1.dll $repackagedir/bin
+# only for some versions of mingw though, curious
+mingwlibdir=/usr/lib/gcc/i586-mingw32msvc/4.2.1-sjlj
+if [ -f $mingwlibdir/libgcc_sjlj_1.dll ]; then
+	cp $mingwlibdir/libgcc_sjlj_1.dll $repackagedir/bin
 fi
 
 # turn on the theme

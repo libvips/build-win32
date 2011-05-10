@@ -1,15 +1,13 @@
 #!/bin/bash
 
-basedir=`pwd`
-
-installdir=$basedir/inst
-packagedir=$basedir/packages
-checkoutdir=$basedir/checkout
+installdir=inst
+packagedir=packages
+checkoutdir=checkout
 
 ./clean.sh
 
 for i in $packagedir/*.zip ; do
 	echo installing $i
-	( cd $installdir ; unzip -o -qq $i )
+	( cd $installdir ; unzip -o -qq ../$i )
 done
 

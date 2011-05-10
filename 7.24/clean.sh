@@ -1,16 +1,15 @@
 #!/bin/bash
 
-basedir=`pwd`
 package=nip2
 version=7.24.1
 
 vips_package=vips
 vips_version=7.24.5
 
-installdir=$basedir/inst
-packagedir=$basedir/packages
-repackagedir=$basedir/$package-$version
-checkoutdir=$basedir/checkout
+installdir=inst
+packagedir=packages
+repackagedir=$package-$version
+checkoutdir=checkout
 
 echo wiping install area $installdir
 
@@ -37,5 +36,3 @@ rm -f nsis/$package-$version-setup.exe
 rm -f nsis/makensis.log
 
 rm -rf $basedir/$vips_package-dev-$vips_version
-
-

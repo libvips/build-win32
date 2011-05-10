@@ -7,11 +7,16 @@
 #
 # Author: Alberto Ruiz <aruiz@gnome.org>
 
+# get the directory this source is in ... we assume we are always run in this
+# directory
+basedir = os.getcwd()
+
 # checkoutroot: path to download packages elsewhere
 # prefix:       target path to install the compiled binaries
-basedir = os.path.expanduser('~/dev/vips-win32/7.24')
-checkoutroot = os.path.join(os.sep, basedir, 'checkout')
-prefix = os.path.join(os.sep, basedir, 'inst')
+# jhbuild hates relative paths, sadly
+
+checkoutroot = os.path.join(basedir, 'checkout')
+prefix = os.path.join(basedir, 'inst')
 os.environ['prefix'] = prefix
 
 #The host value is obtained with the result of executing
@@ -111,5 +116,5 @@ use_lib64 = False
 use_local_modulesets = True
 
 # only rebuild on a change
-#build_policy = "updated-deps"
+build_policy = "updated-deps"
 
