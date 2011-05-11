@@ -29,9 +29,10 @@ DLL, provided as part of MinGW itself).
 
 PREREQUISITES
 =============
-[Ubuntu Desktop 10.10 x32] (http://www.ubuntu.com/desktop/get-ubuntu/download)
+[Ubuntu Desktop] (http://www.ubuntu.com/desktop/get-ubuntu/download)
 - This doesn't mean you can't get the process to work on anything else. This
-is simply what we are using and know to work.
+is simply what we are using and know to work. Tested on 10.10 and 11.04, 32-
+and 64-bit. Though you can only make a 32-bit Windows binary for now.
 
 OPTIONAL
 ========
@@ -94,6 +95,11 @@ Library Dependencies
 	zlib1g-dev \
 	zlibc 
 
+These are Ubuntu binaries and of course we will be building a Windows
+binary. However, some of the packages we build are not very good at
+cross-compiling and builds can fail unless they can find a native library as
+well.
+
 CONFIGURATION
 =============
 You will need to first check out this repository, if you haven't already. 
@@ -123,7 +129,7 @@ as the ones checked out "should" work just fine for you needs.
 After downloading, run the unpack script to unzip the files to your build
 area:
 
-    ./unpack.sh
+	./unpack.sh
 
 JHBUILD VERIFICATION
 ====================
@@ -147,6 +153,7 @@ PACKAGE
 BUILD NIP2
 ==========
 	jhbuild --file=jhbuildrc --moduleset=vips.modules build nip2
+
 	./package-nip2.sh
 
 UPLOAD YOUR PACKAGE
@@ -156,6 +163,7 @@ vips-dev-7.24.5.zip all packaged up and ready to go. You might upload it
 to your favorite server via scp like this:
 
 	scp vips-dev-7.24.5.zip <YOURID>@<YOURSERVER>:/your/favorite/directory
+
 	scp nip2-7.24.5-setup.exe <YOURID>@<YOURSERVER>:/your/favorite/directory
 
 CLEAN UP
@@ -184,6 +192,7 @@ You can modify the versions by editing these scripts:
 
 	clean.sh
 	package-vipsdev.sh
+	package-nip2.sh
 
 Patching
 --------
@@ -193,7 +202,8 @@ compiled.
 
 First, build as described above:
 
-    ./unpack.sh
+	./unpack.sh
+
 	jhbuild --file=jhbuildrc --moduleset=vips.modules build libvips
 
 Now go to checkout/vips-7.24.5 and make any source changes you want. Build
@@ -203,5 +213,8 @@ again to compile your changes.
 
 And package your new version.
 
-    ./package-vipsdev.sh
+	./package-vipsdev.sh
+
+I suggest you rename your zip to avoid confusion. Call it something like
+vips-dev-7.24.5-rob1.zip.
 

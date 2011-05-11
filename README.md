@@ -29,9 +29,10 @@ DLL, provided as part of MinGW itself).
 
 PREREQUISITES
 =============
-[Ubuntu Desktop 10.10 x32] (http://www.ubuntu.com/desktop/get-ubuntu/download)
+[Ubuntu Desktop] (http://www.ubuntu.com/desktop/get-ubuntu/download)
 - This doesn't mean you can't get the process to work on anything else. This
-is simply what we are using and know to work.
+is simply what we are using and know to work. Tested on 10.10 and 11.04, 32-
+and 64-bit. Though you can only make a 32-bit Windows binary for now.
 
 OPTIONAL
 ========
@@ -93,6 +94,11 @@ Library Dependencies
 	zlib1g \
 	zlib1g-dev \
 	zlibc 
+
+These are Ubuntu binaries and of course we will be building a Windows
+binary. However, some of the packages we build are not very good at
+cross-compiling and builds can fail unless they can find a native library as
+well.
 
 SUMMARY
 =======
