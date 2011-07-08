@@ -1,7 +1,7 @@
 #!/bin/bash
 
 package=vips-dev
-version=7.24.5
+version=7.24.7
 
 installdir=inst
 repackagedir=$package-$version

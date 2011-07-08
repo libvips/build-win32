@@ -159,12 +159,12 @@ BUILD NIP2
 UPLOAD YOUR PACKAGE
 ===================
 Assuming everything has worked perfectly up to this point, you will find
-vips-dev-7.24.5.zip all packaged up and ready to go. You might upload it
+vips-dev-7.24.x.zip all packaged up and ready to go. You might upload it
 to your favorite server via scp like this:
 
-	scp vips-dev-7.24.5.zip <YOURID>@<YOURSERVER>:/your/favorite/directory
+	scp vips-dev-7.24.x.zip <YOURID>@<YOURSERVER>:/your/favorite/directory
 
-	scp nip2-7.24.5-setup.exe <YOURID>@<YOURSERVER>:/your/favorite/directory
+	scp nip2-7.24.x-setup.exe <YOURID>@<YOURSERVER>:/your/favorite/directory
 
 CLEAN UP
 ========
@@ -181,8 +181,8 @@ OTHER NOTES
 ===========
 Version Numbers
 ---------------
-The scripts currently default to a versioning system
-of package-major.minor.micro-release like so 7.24.5-1 in order to make
+The scripts currently default to a versioning system of 
+package-major.minor.micro-release like so 7.24.5-1 in order to make
 everything drop dead simple.
 
 However, it is really preferred for you to version your own package

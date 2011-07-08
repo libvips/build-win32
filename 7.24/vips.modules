@@ -72,7 +72,7 @@
   <repository 
     type="tarball" 
     name="checkout" 
-    href="file:///home/john/windows-jhbuild/checkout"
+    href="file:///home/john/GIT/build-win32/7.24/checkout"
   />
 
   <repository 
@@ -262,8 +262,8 @@
     >
     <branch
       repo="vips"
-      module="7.24/vips-7.24.5.tar.gz"
-      version="7.24.5"
+      module="7.24/vips-7.24.7.tar.gz"
+      version="7.24.7"
       >
     </branch>
     <dependencies>
@@ -285,8 +285,8 @@
     >
     <branch
       repo="vips"
-      module="7.24/vips-7.24.5.tar.gz"
-      version="7.24.5"
+      module="7.24/vips-7.24.7.tar.gz"
+      version="7.24.7"
       >
     </branch>
     <dependencies>
@@ -365,8 +365,8 @@
     >
     <branch
       repo="vips"
-      module="7.24/nip2-7.24.1.tar.gz"
-      version="7.24.1"
+      module="7.24/nip2-7.24.2.tar.gz"
+      version="7.24.2"
     />
     <dependencies>
       <dep package="libvips"/>

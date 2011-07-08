@@ -1,7 +1,7 @@
 #!/bin/bash
 
 package=nip2
-version=7.24.1
+version=7.24.2
 
 installdir=inst
 repackagedir=$package-$version
