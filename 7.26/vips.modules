@@ -23,6 +23,12 @@
 
   <repository 
     type="tarball"
+    name="cam"
+    href="ftp://ftp.csx.cam.ac.uk/pub/software/programming/"
+  />
+
+  <repository 
+    type="tarball"
     name="graphviz"
     href="http://www.graphviz.org/pub/graphviz/stable/SOURCES/"
   />
@@ -111,9 +117,9 @@
     >
     <branch
       repo="jpeg"
-      module="jpegsrc.v8b.tar.gz"
-      version="8b"
-      checkoutdir="jpeg-8b"
+      module="jpegsrc.v8c.tar.gz"
+      version="8c"
+      checkoutdir="jpeg-8c"
       >
     </branch>
   </autotools>
@@ -129,8 +135,8 @@
     >
     <branch
       repo="sourceforge"
-      module="libexif/libexif-0.6.19.tar.gz"
-      version="0.6.19"
+      module="libexif/libexif-0.6.20.tar.gz"
+      version="0.6.20"
     />
   </autotools>
 
@@ -142,8 +148,8 @@
     >
     <branch
       repo="tiff"
-      module="tiff-3.9.4.tar.gz"
-      version="3.9.4"
+      module="tiff-3.9.5.tar.gz"
+      version="3.9.5"
     />
     <dependencies>
       <dep package="jpeg"/>
@@ -158,8 +164,8 @@
     >
     <branch
       repo="tiff"
-      module="tiff-4.0.0beta6.tar.gz"
-      version="4.0.0beta6"
+      module="tiff-4.0.0beta7.tar.gz"
+      version="4.0.0beta7"
       >
       <patch file="http://www.vips.ecs.soton.ac.uk/supported/7.22/win32/tiff4.0.0beta6.patch" strip="1"/>
     </branch>
@@ -177,8 +183,8 @@
     >
     <branch
       repo="magick"
-      module="ImageMagick/ImageMagick-6.6.6-10.tar.gz"
-      version="6.6.6-10"
+      module="ImageMagick/ImageMagick-6.7.1-0.tar.gz"
+      version="6.7.1-0"
     />
     <dependencies>
       <dep package="lcms"/>
@@ -196,8 +202,8 @@
     >
     <branch
       repo="magick"
-      module="ImageMagick/ImageMagick-6.6.6-10.tar.gz"
-      version="6.6.6-10"
+      module="ImageMagick/ImageMagick-6.7.1-0.tar.gz"
+      version="6.7.1-0"
     />
     <dependencies>
       <dep package="lcms"/>
@@ -238,8 +244,8 @@
     >
     <branch
       repo="cfitsio"
-      module="cfitsio3250.tar.gz"
-      version="3.25"
+      module="cfitsio3280.tar.gz"
+      version="3.28"
       checkoutdir="cfitsio"
       >
       <patch file="http://www.vips.ecs.soton.ac.uk/development/7.26/win32/cfitsio.patch"/>
@@ -247,9 +253,9 @@
   </autotools>
 
   <!-- openexr has problems on win
-       
+  
        matio fails to build and link on win
-       
+
        the transform patch is some non-LGPL code we paste into binaries 
 
        orc needs 64-bit SSE, so we can't use it under windows
@@ -307,8 +313,8 @@
     >
     <branch
       repo="gnu"
-      module="gsl/gsl-1.14.tar.gz"
-      version="1.14"
+      module="gsl/gsl-1.15.tar.gz"
+      version="1.15"
     />
   </autotools>
 
@@ -320,9 +326,8 @@
     >
     <branch
       repo="gnome"
-      module="goffice/0.8/goffice-0.8.7.tar.gz"
-      version="0.8.7">
-      <patch file="http://www.vips.ecs.soton.ac.uk/supported/7.22/win32/goffice-finitel.patch" strip="1"/>
+      module="goffice/0.8/goffice-0.8.13.tar.gz"
+      version="0.8.13">
     </branch>
   </autotools>
 
@@ -343,8 +348,8 @@
     >
     <branch
       repo="graphviz"
-      module="graphviz-2.26.3.tar.gz"
-      version="2.26.3">
+      module="graphviz-2.28.0.tar.gz"
+      version="2.28.0">
     </branch>
   </autotools>
 
@@ -356,8 +361,8 @@
     >
     <branch
       repo="gnome"
-      module="gtk-engines/2.20/gtk-engines-2.20.1.tar.gz"
-      version="2.20.1"
+      module="gtk-engines/2.20/gtk-engines-2.20.2.tar.gz"
+      version="2.20.2"
     />
   </autotools>
 
