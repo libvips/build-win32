@@ -111,6 +111,12 @@ git This
 	git clone git://github.com/jcupitt/build-win32.git
 	cd build-win32/7.26
 
+Check versions
+--------------
+The variables.sh script defines some common variables (eg. vips version
+number) used by the other scripts. Check they are all OK, and that the version
+numbers in vips.modules are up to date too.
+
 GNOME win32 Packages
 --------------------
 As we are building a win32 executable, we need some DLLs to link against,
@@ -179,20 +185,6 @@ redownload the zips though.
 
 OTHER NOTES
 ===========
-Version Numbers
----------------
-The scripts currently default to a versioning system of 
-package-major.minor.micro-release like so 7.26.5-1 in order to make
-everything drop dead simple.
-
-However, it is really preferred for you to version your own package
-micro-releases.
-
-You can modify the versions by editing these scripts:
-
-	clean.sh
-	package-vipsdev.sh
-	package-nip2.sh
 
 Patching
 --------

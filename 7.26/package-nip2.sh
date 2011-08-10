@@ -1,10 +1,8 @@
 #!/bin/bash
 
-package=nip2
-version=7.26.1
+. variables.sh
 
-installdir=inst
-repackagedir=$package-$version
+repackagedir=$nip2_package-$nip2_version
 
 echo copying install area $installdir
 
@@ -70,10 +68,11 @@ cat > $repackagedir/etc/gtk-2.0/gtkrc <<EOF
 gtk-theme-name = "Clearlooks"
 EOF
 
-echo creating $package-$version.zip
-rm -f $package-$version.zip
-zip -r -qq $package-$version.zip $package-$version
+echo creating $nip2_package-$nip2_version.zip
+rm -f $nip2_package-$nip2_version.zip
+zip -r -qq $nip2_package-$nip2_version.zip $nip2_package-$nip2_version
 
 # have to make in a subdir to make sure makensis does not grab other stuff
-echo building installer nsis/$package-$version-setup.exe
-( cd nsis ; rm -rf $package-$version ; unzip -qq -o ../$package-$version.zip ; makensis -DVERSION=$version $package.nsi > makensis.log )
+echo building installer nsis/$nip2_package-$nip2_version-setup.exe
+( cd nsis ; rm -rf $nip2_package-$nip2_version ; unzip -qq -o ../$nip2_package-$nip2_version.zip ;
+makensis -DVERSION=$nip2_version $nip2_package.nsi > makensis.log )

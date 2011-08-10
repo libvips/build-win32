@@ -1,13 +1,6 @@
 #!/bin/bash
 
-# download zips to here
-packagedir=packages
-
-# unzip to here
-installdir=inst
-
-# jhbuild will download sources to here later
-checkoutdir=checkout
+. variables.sh
 
 mkdir -p $installdir
 mkdir -p $packagedir

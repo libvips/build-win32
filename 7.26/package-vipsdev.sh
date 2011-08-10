@@ -1,10 +1,8 @@
 #!/bin/bash
 
-package=vips-dev
-version=7.26.1
+. variables.sh
 
-installdir=inst
-repackagedir=$package-$version
+repackagedir=$vips_package-dev-$vips_version
 
 echo copying install area $installdir
 
@@ -64,6 +62,6 @@ if [ "$?" -ne "0" ]; then
 fi
 echo ok
 
-echo creating $package-$version.zip
-rm -f $package-$version.zip
-zip -r -qq $package-$version.zip $package-$version
+echo creating $vips_package-dev-$vips_version.zip
+rm -f $vips_package-dev-$vips_version.zip
+zip -r -qq $vips_package-dev-$vips_version.zip $vips_package-dev-$vips_version

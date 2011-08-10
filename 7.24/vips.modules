@@ -265,6 +265,7 @@
       module="7.24/vips-7.24.7.tar.gz"
       version="7.24.7"
       >
+      <patch file="file:///home/john/develop/transform-7.14/transform.patch" strip="1"/>
     </branch>
     <dependencies>
       <dep package="lcms"/>
@@ -288,6 +289,7 @@
       module="7.24/vips-7.24.7.tar.gz"
       version="7.24.7"
       >
+      <patch file="file:///home/john/develop/transform-7.14/transform.patch" strip="1"/>
     </branch>
     <dependencies>
       <dep package="lcms"/>

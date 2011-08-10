@@ -272,6 +272,7 @@
       version="7.26.1"
       checkoutdir="vips-7.26.1"
       >
+      <patch file="file:///home/john/develop/transform-7.14/transform.patch" strip="1"/>
     </branch>
     <dependencies>
       <dep package="lcms"/>
@@ -296,6 +297,7 @@
       version="7.26.1"
       checkoutdir="vips-7.26.1"
       >
+      <patch file="file:///home/john/develop/transform-7.14/transform.patch" strip="1"/>
     </branch>
     <dependencies>
       <dep package="lcms"/>

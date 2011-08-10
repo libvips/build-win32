@@ -1,15 +1,6 @@
 #!/bin/bash
 
-package=nip2
-version=7.26.0
-
-vips_package=vips
-vips_version=7.26.0
-
-installdir=inst
-packagedir=packages
-repackagedir=$package-$version
-checkoutdir=checkout
+. variables.sh
 
 echo wiping install area $installdir
 
@@ -29,10 +20,11 @@ echo cleaning misc files
 rm -f $basedir/*.zip
 rm -f $basedir/*.exe
 
-rm -rf $repackagedir
+rm -rf $vips_package-$vips_version
+rm -rf $nip2_package-$nip2_version
 
-rm -rf nsis/$package-$version
-rm -f nsis/$package-$version-setup.exe
+rm -rf nsis/$nip2_package-$nip2_version
+rm -f nsis/$nip2_package-$nip2_version-setup.exe
 rm -f nsis/makensis.log
 
 rm -rf $basedir/$vips_package-dev-$vips_version

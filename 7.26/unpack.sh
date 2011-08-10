@@ -1,8 +1,6 @@
 #!/bin/bash
 
-installdir=inst
-packagedir=packages
-checkoutdir=checkout
+. variables.sh
 
 ./clean.sh
 
