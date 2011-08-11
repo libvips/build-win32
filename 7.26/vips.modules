@@ -268,9 +268,8 @@
     >
     <branch
       repo="vips"
-      module="7.26/vips-7.26.1.tar.gz"
-      version="7.26.1"
-      checkoutdir="vips-7.26.1"
+      module="7.26/vips-7.26.2.tar.gz"
+      version="7.26.2"
       >
       <patch file="file:///home/john/develop/transform-7.14/transform.patch" strip="1"/>
     </branch>
@@ -293,9 +292,8 @@
     >
     <branch
       repo="vips"
-      module="7.26/vips-7.26.1.tar.gz"
-      version="7.26.1"
-      checkoutdir="vips-7.26.1"
+      module="7.26/vips-7.26.2.tar.gz"
+      version="7.26.2"
       >
       <patch file="file:///home/john/develop/transform-7.14/transform.patch" strip="1"/>
     </branch>
@@ -374,9 +372,8 @@
     >
     <branch
       repo="vips"
-      module="7.26/nip2-7.26.1.tar.gz"
-      version="7.26.1"
-      checkoutdir="nip2-7.26.1"
+      module="7.26/nip2-7.26.2.tar.gz"
+      version="7.26.2"
     />
     <dependencies>
       <dep package="libvips"/>

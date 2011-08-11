@@ -14,7 +14,7 @@ echo cleaning build $repackagedir
 # rename all the i586-pc-mingw32-animate.exe etc. without the prefix
 ( cd $repackagedir/bin ; for i in i586-pc-mingw32-*; do mv $i `echo $i | sed s/i586-pc-mingw32-//`; done )
 
-( cd $repackagedir/bin ; mkdir poop ; mv *nip2* poop ; mv *.dll poop ; rm -f * ; mv poop/* . ; rmdir poop )
+( cd $repackagedir/bin ; mkdir poop ; mv *nip2* poop ; mv *.dll poop ; mv convert.exe poop ; rm -f * ; mv poop/* . ; rmdir poop )
 
 ( cd $repackagedir/bin ; rm -f libvipsCC-15.dll run-nip2.sh )
 
