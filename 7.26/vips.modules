@@ -17,6 +17,12 @@
 
   <repository 
     type="tarball"
+    name="vips-beta"
+    href="http://www.vips.ecs.soton.ac.uk/development/"
+  />
+
+  <repository 
+    type="tarball"
     name="orc"
     href="http://code.entropywave.com/download/orc/"
   />
@@ -175,16 +181,20 @@
   </autotools>
 
   <!-- libMagick++.dll fails to link due to some exception problem, disable it
+
+       largefile support is not needed on win32 and the tests don't work when
+       cross-compiling
+
     -->
 
   <autotools id="imagemagick" 
     autogen-sh="configure"
-    autogenargs="--without-threads --without-x --with-modules=no --with-openexr=no --without-gvc --without-lqr --without-magick-plus-plus"
+    autogenargs="--without-threads --without-x --with-modules=no --with-openexr=no --without-gvc --without-lqr --without-magick-plus-plus --disable-largefile"
     >
     <branch
       repo="magick"
-      module="ImageMagick/ImageMagick-6.7.1-0.tar.gz"
-      version="6.7.1-0"
+      module="ImageMagick/ImageMagick-6.7.3-10.tar.gz"
+      version="6.7.3-10"
     />
     <dependencies>
       <dep package="lcms"/>
@@ -266,6 +276,8 @@
     autogen-sh="configure"
     autogenargs="--without-OpenEXR --without-matio --without-orc"
     >
+
+    <!-- typically looks like this:
     <branch
       repo="vips"
       module="7.26/vips-7.26.3.tar.gz"
@@ -273,6 +285,17 @@
       >
       <patch file="file:///home/john/develop/transform-7.14/transform.patch" strip="1"/>
     </branch>
+      -->
+
+    <branch
+      repo="vips-beta"
+      module="vips-7.26.7-beta.tar.gz"
+      version="7.26.7"
+      checkoutdir="vips-7.26.7"
+      >
+      <patch file="file:///home/john/develop/transform-7.14/transform.patch" strip="1"/>
+    </branch>
+
     <dependencies>
       <dep package="lcms"/>
       <dep package="libexif"/>
@@ -374,6 +397,7 @@
       repo="vips"
       module="7.26/nip2-7.26.3.tar.gz"
       version="7.26.3"
+      checkoutdir="nip2-7.26.3"
     />
     <dependencies>
       <dep package="libvips"/>
