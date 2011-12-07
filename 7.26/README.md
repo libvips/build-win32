@@ -31,8 +31,8 @@ PREREQUISITES
 =============
 [Ubuntu Desktop] (http://www.ubuntu.com/desktop/get-ubuntu/download)
 - This doesn't mean you can't get the process to work on anything else. This
-is simply what we are using and know to work. Tested on 10.10 and 11.04, 32-
-and 64-bit. Though you can only make a 32-bit Windows binary for now.
+is simply what we are using and know to work. Tested on 11.10. Older versions
+of build-win32 work on older versions of Ubuntu.
 
 OPTIONAL
 ========
@@ -50,7 +50,7 @@ Build/Tool Related Dependencies
 -------------------------------
     sudo apt-get install build-essential \
 	wine \
-	mingw32 \
+	gcc-mingw-w64 \
 	jhbuild \
 	autoconf \
 	automake1.4 \

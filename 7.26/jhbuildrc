@@ -19,19 +19,19 @@ checkoutroot = os.path.join(basedir, 'checkout')
 prefix = os.path.join(basedir, 'inst')
 os.environ['prefix'] = prefix
 
-#The host value is obtained with the result of executing
-#the config.guess script on any of the packages.
-#This value must be valid for most linux/x86 out there
+# The host value is obtained with the result of executing
+# the config.guess script on any of the packages.
+# This value must be valid for most linux/x86 out there
 os.environ['HOST'] = 'i686-pc-linux-gnu'
 os.environ['TARGET'] = 'i586-pc-mingw32'
 
 # .pc files from binary packages have something like 
 #     prefix=c:/devel/target/f3002dbeeb43fd4ea5385fb6fa4de06f
 # at the top ... we need to override this prefix with our own
-# don't use "--define-variable=prefix=/poop", pkg-config gets confused
+# don't use "--define-variable=prefix=/poop", some pkg-config get confused
 os.environ['PKG_CONFIG'] = '/usr/bin/pkg-config --define-variable prefix=' + prefix
 
-# try to stop our enclsong pkg path getting in
+# try to stop our enclosing pkg path getting in
 # basedir/lib/pkgconfig is added for us later
 os.environ['PKG_CONFIG_PATH'] = ''
 
@@ -42,8 +42,9 @@ os.environ['PKG_CONFIG_PATH'] = ''
 # mingw_tool_prefix = '/home/john/mingw/mingw32/bin/i586-pc-mingw32-'
 # mingw_tool_prefix = '/home/john/packages/mingw/mingw32/bin/i586-pc-mingw32-'
 
-# the official debian package names them strangly
-mingw_tool_prefix = 'i586-mingw32msvc-'
+# the official debian package names them strangely
+# this prefix is correct for gcc-mingw-w64
+mingw_tool_prefix = 'i686-w64-mingw32-'
 
 mingw_tools = {'ADDR2LINE': 'addr2line',
 	'AS': 'as', 'CC': 'gcc', 'CPP': 'cpp',
@@ -55,20 +56,20 @@ mingw_tools = {'ADDR2LINE': 'addr2line',
 	'STRINGS': 'strings', 'WINDRES': 'windres',
 	'AR': 'ar', 'RANLIB': 'ranlib', 'STRIP': 'strip'}
 
-#Exporting all as environment variables with its prefix
+# Exporting all as environment variables with its prefix
 mingw_tools_args = str()
 for tool in mingw_tools.keys():
 	fullpath_tool = mingw_tool_prefix + mingw_tools[tool]
 	os.environ[tool] = fullpath_tool
 
-#Added another common env var name for windres
+# Added another common env var name for windres
 os.environ['RC'] = os.environ['WINDRES']
 
-#Exporting tool flags enviroment variables
-os.environ['LDFLAGS']  = '-mno-cygwin -L'+prefix+'/lib'
-os.environ['CFLAGS']   = '-mno-cygwin -mms-bitfields -march=i686 -I'+prefix+'/include'
+# Exporting tool flags enviroment variables
+os.environ['LDFLAGS']  = '-L'+prefix+'/lib'
+os.environ['CFLAGS']   = '-mms-bitfields -march=i686 -I'+prefix+'/include'
 os.environ['CPPFLAGS'] = '-I'+prefix+'/include'
-os.environ['CXXFLAGS'] = '-mno-cygwin -mms-bitfields -march=i686'
+os.environ['CXXFLAGS'] = '-mms-bitfields -march=i686'
 os.environ['ARFLAGS']  = '-ar rcs'
 os.environ['INSTALL']  = os.path.expanduser('~/bin/install-check')
 
@@ -80,7 +81,7 @@ os.environ['CXXFLAGS']   += ' -O2 '
 # os.environ['CFLAGS']   += ' -g '
 # os.environ['CXXFLAGS']   += ' -g '
 
-#Populating autogenargs
+# Populating autogenargs
 autogenargs  = ' --build='+os.environ['HOST']
 autogenargs += ' --host='+os.environ['TARGET']
 autogenargs += ' --target='+os.environ['TARGET']
@@ -92,7 +93,7 @@ for tool in ('AR', 'RANLIB', 'STRIP', 'AS',
 	     'DLLTOOL', 'OBJDUMP', 'NM', 'WINDRES'):
 	autogenargs += ' '+tool+'="'+os.environ[tool]+'" '
 
-#Module specific configure arguments
+# Module specific configure arguments
 
 
 module_autogenargs['pango'] =   autogenargs + """ --disable-gtk-doc \
@@ -111,6 +112,10 @@ module_autogenargs['gtk+'] =    autogenargs + """ --disable-glibtest --disable-s
 
 # we generare 32-bit binaries when cross-compiling
 use_lib64 = False
+
+# fetch modules from this dir ... in fact, we just use the 'vips.modules'
+# file
+modulesets_dir = basedir
 
 # we just want the local ones
 use_local_modulesets = True

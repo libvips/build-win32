@@ -182,19 +182,22 @@
 
   <!-- libMagick++.dll fails to link due to some exception problem, disable it
 
-       largefile support is not needed on win32 and the tests don't work when
-       cross-compiling
+       6.7.3-10 leaves -L/usr/lib in its .la files and breaks libvips linking
+       stick with 6.7.1 for now
+
+       6.7.3-10 also seems to have problems with largefile detection under
+       mingw
 
     -->
 
   <autotools id="imagemagick" 
     autogen-sh="configure"
-    autogenargs="--without-threads --without-x --with-modules=no --with-openexr=no --without-gvc --without-lqr --without-magick-plus-plus --disable-largefile"
+    autogenargs="--without-threads --without-x --with-modules=no --with-openexr=no --without-gvc --without-lqr --without-magick-plus-plus"
     >
     <branch
       repo="magick"
-      module="ImageMagick/ImageMagick-6.7.3-10.tar.gz"
-      version="6.7.3-10"
+      module="ImageMagick/ImageMagick-6.7.1-10.tar.gz"
+      version="6.7.1-10"
     />
     <dependencies>
       <dep package="lcms"/>
