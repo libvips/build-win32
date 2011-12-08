@@ -292,7 +292,7 @@
 
     <branch
       repo="vips-beta"
-      module="vips-7.26.7-beta.tar.gz"
+      module="vips-7.26.7-beta2.tar.gz"
       version="7.26.7"
       checkoutdir="vips-7.26.7"
       >
