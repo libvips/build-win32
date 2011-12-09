@@ -43,8 +43,8 @@ os.environ['PKG_CONFIG_PATH'] = ''
 # mingw_tool_prefix = '/home/john/packages/mingw/mingw32/bin/i586-pc-mingw32-'
 
 # the official debian package names them strangely
-# this prefix is correct for gcc-mingw-w64
-mingw_tool_prefix = 'i686-w64-mingw32-'
+# this prefix is correct for mingw32
+mingw_tool_prefix = 'i586-mingw32msvc-'
 
 mingw_tools = {'ADDR2LINE': 'addr2line',
 	'AS': 'as', 'CC': 'gcc', 'CPP': 'cpp',
