@@ -50,7 +50,7 @@ Build/Tool Related Dependencies
 -------------------------------
     sudo apt-get install build-essential \
 	wine \
-	gcc-mingw-w64 \
+	mingw32 \
 	jhbuild \
 	autoconf \
 	automake1.4 \
