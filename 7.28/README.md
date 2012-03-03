@@ -27,6 +27,15 @@ among these is MSVCRT.DLL, the Microsoft C runtime library. Additionally,
 threaded applications must ship with a freely distributable thread support
 DLL, provided as part of MinGW itself).
 
+Debian has two main mingw packages. The more modern one, gcc-mingw-w64, is
+regular gcc, built as a cross-compiler, with the notmal gcc tools all able to
+build win32 binaries. Unfortunately, the version in Ubuntu 11.10 makes
+binaries which crash on startup on Win XP.
+
+Debian also offers mingw32. This is the real mingw package, is based on a much
+older gcc, has it's own set of tools, and makes binaries which actually work.
+We use this one.
+
 PREREQUISITES
 =============
 [Ubuntu Desktop] (http://www.ubuntu.com/desktop/get-ubuntu/download)
@@ -50,7 +59,7 @@ Build/Tool Related Dependencies
 -------------------------------
     sudo apt-get install build-essential \
 	wine \
-	gcc-mingw-w64 \
+	mingw \
 	jhbuild \
 	autoconf \
 	automake1.4 \
@@ -183,6 +192,9 @@ to your favorite server via scp like this:
 	scp vips-dev-7.28.x.zip <YOURID>@<YOURSERVER>:/your/favorite/directory
 
 	scp nip2-7.28.x-setup.exe <YOURID>@<YOURSERVER>:/your/favorite/directory
+
+Many servers will block direct downlods of .exe files. You might need to put
+the .exe in a zip file.
 
 CLEAN UP
 ========
