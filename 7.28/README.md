@@ -1,3 +1,6 @@
+- remove strcasecmp() hacks from cfitsio, see "eval_l.c"
+
+
 VIPS WIN32
 ==========
 
