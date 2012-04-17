@@ -299,6 +299,9 @@ In file included from /usr/include/stdio.h:28:0,
 
        do we need to call as _ftello() etc.?
 
+       the second patch removes the strcasecmp() / strncasecmp() that cfitsio
+       defines on win32 ... mingw supplies there
+
     -->
 
   <autotools id="cfitsio" 
@@ -311,7 +314,8 @@ In file included from /usr/include/stdio.h:28:0,
       version="3.28"
       checkoutdir="cfitsio"
       >
-      <patch file="http://www.vips.ecs.soton.ac.uk/supported/7.26/win32/cfitsio.patch"/>
+      <patch file="http://www.vips.ecs.soton.ac.uk/supported/7.26/win32/cfitsio.patch" />
+      <patch file="http://www.vips.ecs.soton.ac.uk/supported/7.28/win32/cfitsio-casecmp.patch" strip="1" />
     </branch>
   </autotools>
 
@@ -335,8 +339,8 @@ In file included from /usr/include/stdio.h:28:0,
 
     <branch
       repo="vips"
-      module="7.28/vips-7.28.1.tar.gz"
-      version="7.28.1"
+      module="7.28/vips-7.28.2.tar.gz"
+      version="7.28.2"
       >
       <patch file="file:///home/john/develop/transform-7.14/transform.patch" strip="1"/>
     </branch>
@@ -359,10 +363,9 @@ In file included from /usr/include/stdio.h:28:0,
     autogenargs="--without-OpenEXR --without-matio --without-orc "
     >
     <branch
-      repo="vips-beta"
-      module="vips-7.28.0-beta3.tar.gz"
-      version="7.28.0"
-      checkoutdir="vips-7.28.0"
+      repo="vips"
+      module="7.28/vips-7.28.2.tar.gz"
+      version="7.28.2"
       >
       <patch file="file:///home/john/develop/transform-7.14/transform.patch" strip="1"/>
     </branch>

@@ -123,3 +123,10 @@ use_local_modulesets = True
 # only rebuild on a change
 build_policy = "updated-deps"
 
+# Show a tray icon using zenity
+notrayicon = True
+
+# whether not to emit notifications through the notification daemon
+nonotify = True 
+
+
