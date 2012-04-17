@@ -25,6 +25,7 @@ rm -rf $nip2_package-$nip2_version
 
 rm -rf nsis/$nip2_package-$nip2_version
 rm -f nsis/$nip2_package-$nip2_version-setup.exe
+rm -f nsis/$nip2_package-$nip2_version-setup.zip
 rm -f nsis/makensis.log
 
 rm -rf $basedir/$vips_package-dev-$vips_version

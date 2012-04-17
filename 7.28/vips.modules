@@ -339,8 +339,8 @@ In file included from /usr/include/stdio.h:28:0,
 
     <branch
       repo="vips"
-      module="7.28/vips-7.28.2.tar.gz"
-      version="7.28.2"
+      module="7.28/vips-7.28.3.tar.gz"
+      version="7.28.3"
       >
       <patch file="file:///home/john/develop/transform-7.14/transform.patch" strip="1"/>
     </branch>
@@ -364,8 +364,8 @@ In file included from /usr/include/stdio.h:28:0,
     >
     <branch
       repo="vips"
-      module="7.28/vips-7.28.2.tar.gz"
-      version="7.28.2"
+      module="7.28/vips-7.28.3.tar.gz"
+      version="7.28.3"
       >
       <patch file="file:///home/john/develop/transform-7.14/transform.patch" strip="1"/>
     </branch>
@@ -456,8 +456,8 @@ In file included from /usr/include/stdio.h:28:0,
     >
     <branch
       repo="vips"
-      module="7.28/nip2-7.28.1.tar.gz"
-      version="7.28.1"
+      module="7.28/nip2-7.28.2.tar.gz"
+      version="7.28.2"
     />
     <dependencies>
       <dep package="libvips"/>
