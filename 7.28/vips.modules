@@ -334,10 +334,9 @@ In file included from /usr/include/stdio.h:28:0,
     >
 
     <branch
-      repo="vips-beta"
-      module="vips-7.28.0-beta3.tar.gz"
-      version="7.28.0"
-      checkoutdir="vips-7.28.0"
+      repo="vips"
+      module="7.28/vips-7.28.1.tar.gz"
+      version="7.28.1"
       >
       <patch file="file:///home/john/develop/transform-7.14/transform.patch" strip="1"/>
     </branch>
@@ -453,10 +452,9 @@ In file included from /usr/include/stdio.h:28:0,
     autogenargs="--disable-debug --without-libgvc"
     >
     <branch
-      repo="vips-beta"
-      module="nip2-7.28.0-beta3.tar.gz"
-      version="7.28.0"
-      checkoutdir="nip2-7.28.0"
+      repo="vips"
+      module="7.28/nip2-7.28.1.tar.gz"
+      version="7.28.1"
     />
     <dependencies>
       <dep package="libvips"/>
