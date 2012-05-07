@@ -1,6 +1,3 @@
-- remove strcasecmp() hacks from cfitsio, see "eval_l.c"
-
-
 VIPS WIN32
 ==========
 
@@ -237,3 +234,4 @@ And package your new version.
 I suggest you rename your zip to avoid confusion. Call it something like
 vips-dev-7.28.5-rob1.zip.
 
+- remove strcasecmp() hacks from cfitsio, see "eval_l.c"
