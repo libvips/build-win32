@@ -1,0 +1,460 @@
+<?xml version="1.0"?>
+<!DOCTYPE moduleset SYSTEM "moduleset.dtd">
+<?xml-stylesheet type="text/xsl" href="moduleset.xsl"?>
+<moduleset>
+
+  <repository 
+    type="tarball"
+    name="tiff"
+    href="ftp://ftp.remotesensing.org/pub/libtiff/"
+  />
+
+  <repository 
+    type="tarball"
+    name="vips"
+    href="http://www.vips.ecs.soton.ac.uk/supported/"
+  />
+
+  <repository 
+    type="tarball"
+    name="vips-beta"
+    href="http://www.vips.ecs.soton.ac.uk/development/"
+  />
+
+  <repository 
+    type="tarball"
+    name="orc"
+    href="http://code.entropywave.com/download/orc/"
+  />
+
+  <repository 
+    type="tarball"
+    name="cam"
+    href="ftp://ftp.csx.cam.ac.uk/pub/software/programming/"
+  />
+
+  <repository 
+    type="tarball"
+    name="graphviz"
+    href="http://www.graphviz.org/pub/graphviz/stable/SOURCES/"
+  />
+
+  <repository 
+    type="tarball"
+    name="cfitsio"
+    href="http://heasarc.gsfc.nasa.gov/FTP/software/fitsio/c/"
+  />
+
+  <repository 
+    type="tarball"
+    name="fftw"
+    href="http://www.fftw.org/"
+  />
+
+  <repository 
+    type="tarball" 
+    name="sourceforge" 
+    href="http://downloads.sourceforge.net/sourceforge/"
+  />
+
+  <repository 
+    type="tarball" 
+    name="nongnu" 
+    href="http://download.savannah.nongnu.org/releases/"
+  />
+
+  <repository 
+    type="tarball" 
+    name="magick" 
+    href="ftp://ftp.imagemagick.org/pub/"
+  />
+
+  <repository 
+    type="tarball" 
+    name="jpeg" 
+    href="http://www.ijg.org/files/"
+  />
+
+  <repository 
+    type="tarball" 
+    name="github" 
+    href="http://github.com/downloads/"
+  />
+
+  <repository 
+    type="tarball" 
+    name="openjpeg" 
+    href="http://openjpeg.googlecode.com/files/"
+  />
+
+  <repository 
+    type="tarball" 
+    name="gnu" 
+    href="ftp://ftp.gnu.org/pub/gnu/"
+  />
+
+  <repository 
+    type="tarball" 
+    name="checkout" 
+    href="file:///home/john/GIT/build-win32/7.26/checkout"
+  />
+
+  <repository 
+    type="tarball" 
+    name="gnome" 
+    href="http://ftp.gnome.org/pub/GNOME/sources/"
+  />
+
+  <autotools id="fftw3" 
+    autogen-sh="configure"
+    autogenargs="--disable-static --enable-shared --disable-threads"
+    >
+    <branch
+      repo="fftw"
+      module="fftw-3.3.tar.gz"
+      version="3.3"
+    />
+  </autotools>
+
+  <!-- we'd like lcms2 for vips (it's faster) but IM needs plain lcms -->
+
+  <autotools id="lcms" 
+    autogen-sh="configure"
+    >
+    <branch
+      repo="sourceforge"
+      module="lcms/lcms-1.19.tar.gz"
+      version="1.19"
+    />
+  </autotools>
+
+  <!-- needed by openslide
+
+       but it's annoying to compile, we get an error:
+
+  CC     j2k_to_image-color.o
+In file included from /usr/include/stdio.h:28:0,
+                 from ../common/color.c:32:
+/usr/include/features.h:323:26: fatal error: bits/predefs.h: No such file or directory
+
+       fix later
+
+       -->
+
+  <autotools id="openjpeg" 
+    autogen-sh="configure"
+    >
+    <branch
+      repo="openjpeg"
+      module="openjpeg-1.5.0.tar.gz"
+      version="1.5.0"
+    />
+  </autotools>
+
+  <autotools id="openslide" 
+    autogen-sh="configure"
+    >
+    <branch
+      repo="github"
+      module="openslide/openslide/openslide-3.2.6.tar.gz"
+      version="3.2.6"
+    />
+    <dependencies>
+      <dep package="openjpeg"/>
+    </dependencies>
+  </autotools>
+
+  <!-- the gnome pre-compiled jpeg uses a funny DLL name, build ourselves -->
+
+  <autotools id="jpeg" 
+    autogen-sh="configure"
+    >
+    <branch
+      repo="jpeg"
+      module="jpegsrc.v8d.tar.gz"
+      version="8d"
+      checkoutdir="jpeg-8d"
+      >
+    </branch>
+  </autotools>
+
+  <!-- matio does not work with mingw, sadly, it can't make a DLL and we need
+       one for vips to link to -->
+
+  <!-- openexr does not work with mingw, sadly, it becomes very confused re.
+       threading -->
+
+  <autotools id="libexif" 
+    autogen-sh="configure"
+    >
+    <branch
+      repo="sourceforge"
+      module="libexif/libexif-0.6.20.tar.gz"
+      version="0.6.20"
+    />
+  </autotools>
+
+  <!-- the tiff on the gnome site needs a confusing libjpeg DLL, 
+       make our own  -->
+
+  <autotools id="tiff" 
+    autogen-sh="configure"
+    >
+    <branch
+      repo="tiff"
+      module="tiff-3.9.6.tar.gz"
+      version="3.9.6"
+    />
+    <dependencies>
+      <dep package="jpeg"/>
+    </dependencies>
+  </autotools>
+
+  <!-- optionally use tiff4
+       -->
+
+  <autotools id="tiff4" 
+    autogen-sh="autogen.sh &amp;&amp; ./configure"
+    >
+    <branch
+      repo="tiff"
+      module="tiff-4.0.1.tar.gz"
+      version="4.0.1"
+      >
+    </branch>
+    <dependencies>
+      <dep package="jpeg"/>
+    </dependencies>
+  </autotools>
+
+  <!-- libMagick++.dll fails to link due to some exception problem, disable it
+
+       6.7.3-10 leaves -L/usr/lib in its .la files and breaks libvips linking
+       stick with 6.7.1 for now
+
+       6.7.3-10 also seems to have problems with largefile detection under
+       mingw
+
+       6.7.5-6 also seems to have problems with largefile detection under
+       mingw
+
+    -->
+
+  <autotools id="imagemagick" 
+    autogen-sh="configure"
+    autogenargs="--without-threads --without-x --with-modules=no --with-openexr=no --without-gvc --without-lqr --without-magick-plus-plus"
+    >
+    <branch
+      repo="magick"
+      module="ImageMagick/legacy/ImageMagick-6.7.1-10.tar.gz"
+      version="6.7.1-10"
+    />
+    <dependencies>
+      <dep package="lcms"/>
+      <dep package="fftw3"/>
+      <dep package="tiff"/>
+      <dep package="jpeg"/>
+    </dependencies>
+  </autotools>
+
+  <!-- a tiff4 version -->
+
+  <autotools id="imagemagick-tiff4" 
+    autogen-sh="configure"
+    autogenargs="--without-threads --without-x --with-modules=no --with-openexr=no --without-gvc --without-lqr --without-magick-plus-plus"
+    >
+    <branch
+      repo="magick"
+      module="ImageMagick/legacy/ImageMagick-6.7.1-10.tar.gz"
+      version="6.7.1-10"
+    />
+    <dependencies>
+      <dep package="lcms"/>
+      <dep package="fftw3"/>
+      <dep package="tiff4"/>
+      <dep package="jpeg"/>
+    </dependencies>
+  </autotools>
+
+  <!-- the orc stuff we use needs 64-bit SSE, so we can't use it under 
+       windows -->
+
+  <autotools id="orc-0.4" 
+    autogen-sh="configure"
+    >
+    <branch
+      repo="orc"
+      module="orc-0.4.11.tar.gz"
+      version="0.4.11"
+    />
+  </autotools>
+
+  <!-- the patch just deletes the ftello()/fseeko() code, mingw does not
+       support this 
+
+       as a result, >2gb fits files will not work on win32 
+
+       add -lmingwex to get ftello & friends, but we seem to be linking this
+       already when we compile vips ... why can't it find ftello()?
+
+       do we need to call as _ftello() etc.?
+
+       the second patch removes the strcasecmp() / strncasecmp() that cfitsio
+       defines on win32 ... mingw supplies there
+
+    -->
+
+  <autotools id="cfitsio" 
+    autogen-sh="configure"
+    autogenargs="--disable-reentrant --disable-hera --without-gsiftp"
+    >
+    <branch
+      repo="cfitsio"
+      module="cfitsio3280.tar.gz"
+      version="3.28"
+      checkoutdir="cfitsio"
+      >
+      <patch file="http://www.vips.ecs.soton.ac.uk/supported/7.26/win32/cfitsio.patch" />
+      <patch file="http://www.vips.ecs.soton.ac.uk/supported/7.28/win32/cfitsio-casecmp.patch" strip="1" />
+    </branch>
+  </autotools>
+
+  <!-- openexr has problems on win
+  
+       matio fails to build and link on win
+
+       the transform patch is some non-LGPL code we paste into binaries 
+
+       orc needs 64-bit SSE, so we can't use it under windows
+
+       introspection won't work cross-platform, since we can't easily run our
+       objects ... fix this by including the typelibs in the dist later
+
+    -->
+
+  <autotools id="libvips" 
+    autogen-sh="configure"
+    autogenargs="--without-OpenEXR --without-matio --without-orc --disable-introspection "
+    >
+
+    <branch
+      repo="vips-beta"
+      module="vips-7.30.0.tar.gz"
+      version="7.30.0"
+      >
+      <patch file="file:///home/john/develop/transform-7.14/transform.patch" strip="1"/>
+    </branch>
+
+    <dependencies>
+      <dep package="lcms"/>
+      <dep package="libexif"/>
+      <dep package="fftw3"/>
+      <dep package="imagemagick-tiff4"/>
+      <dep package="jpeg"/>
+      <dep package="tiff4"/>
+      <dep package="cfitsio"/>
+    </dependencies>
+  </autotools>
+
+  <autotools id="gsl" 
+    autogen-sh="configure"
+    >
+    <branch
+      repo="gnu"
+      module="gsl/gsl-1.15.tar.gz"
+      version="1.15"
+    />
+  </autotools>
+
+  <!-- our own goffice module
+
+       0.9.x is gtk3, we are stuck with gtk2 for now
+
+       we don't want the print stuff, turn off gconf
+
+       0.8.16+ uses .xz compression which confuses jhbuild, stick with .15
+
+       -->
+
+  <autotools id="goffice-noprint"
+    autogen-sh="configure"
+    autogenargs="--without-gconf"
+    >
+    <branch
+      repo="gnome"
+      module="goffice/0.8/goffice-0.8.15.tar.gz"
+      version="0.8.15">
+    </branch>
+  </autotools>
+
+  <!-- fails linking 
+       
+       add -liberty to get regcomp() and friends 
+
+	edit lib/gvc/Makefile.am, append -liberty toi line 69
+
+	edit lib/gvpr/gprstate.c, remove WIN32 stuff
+
+	gvrender_core_dot.c fails with a variety of linking errors
+
+    -->
+
+  <autotools id="graphviz"
+    autogenargs="--enable-swig=no --enable-sharp=no --enable-guile=no --enable-java=no--enable-io=no --enable-lua=no --enable-ocaml=no --enable-perl=no --enable-php=no --enable-python=no --enable-r=no --enable-ruby=no --enable-tcl=no --with-rsvg=no --with-ghostscript=no"
+    >
+    <branch
+      repo="graphviz"
+      module="graphviz-2.28.0.tar.gz"
+      version="2.28.0">
+    </branch>
+  </autotools>
+
+  <!-- our theme ... disable all but clearlooks 
+
+       2.20.x is the last one that works with gtk2
+
+       -->
+
+  <autotools id="gtkengines"
+    autogen-sh="configure"
+    autogenargs="--disable-crux --disable-hc --disable-industrial --disable-mist --disable-redmond --disable-glide --disable-thinice"
+    >
+    <branch
+      repo="gnome"
+      module="gtk-engines/2.20/gtk-engines-2.20.2.tar.gz"
+      version="2.20.2"
+    />
+  </autotools>
+
+  <autotools id="nip2" 
+    autogen-sh="configure"
+    autogenargs="--disable-debug --without-libgvc"
+    >
+    <branch
+      repo="vips-beta"
+      module="nip2-7.30.0.tar.gz"
+      version="7.30.0"
+    />
+    <dependencies>
+      <dep package="libvips"/>
+      <dep package="gsl"/>
+      <dep package="goffice-noprint"/>
+      <dep package="gtkengines"/>
+    </dependencies>
+  </autotools>
+
+  <autotools id="ptmfit" 
+    autogen-sh="configure"
+    >
+    <branch
+      repo="checkout"
+      module="ptmfit-2.3.tar.gz"
+      version="2.3"
+    />
+    <dependencies>
+      <dep package="libvips"/>
+    </dependencies>
+  </autotools>
+
+</moduleset>
+
