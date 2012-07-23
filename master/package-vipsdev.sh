@@ -16,7 +16,8 @@ echo cleaning build $repackagedir
 
 ( cd $repackagedir/bin ; mkdir ../poop ; mv *vips* ../poop ; mv *.dll ../poop ; rm -f * ; mv ../poop/* . ; rmdir ../poop )
 
-( cd $repackagedir/bin ; rm libatk* libgdk* libglade* libgtk* )
+( cd $repackagedir/bin ; rm libatk* libcairo* libgdk* libglade* libgtk* )
+( cd $repackagedir/bin ; rm libpangocairo* )
 ( cd $repackagedir/bin ; rm vips-7.* )
 
 ( cd $repackagedir/bin ; strip --strip-unneeded *.exe )

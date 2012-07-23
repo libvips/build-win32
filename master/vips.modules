@@ -16,6 +16,12 @@
   />
 
   <repository 
+    type="git"
+    name="vips-master"
+    href="git://github.com/jcupitt/"
+  />
+
+  <repository 
     type="tarball"
     name="vips-beta"
     href="http://www.vips.ecs.soton.ac.uk/development/"
@@ -111,22 +117,20 @@
     >
     <branch
       repo="fftw"
-      module="fftw-3.3.2.tar.gz"
-      version="3.3.2"
+      module="fftw-3.3.tar.gz"
+      version="3.3"
     />
   </autotools>
 
   <!-- we'd like lcms2 for vips (it's faster) but IM needs plain lcms -->
-
-  <!-- experiment - try 2.3 -->
 
   <autotools id="lcms" 
     autogen-sh="configure"
     >
     <branch
       repo="sourceforge"
-      module="lcms/lcms2-2.3.tar.gz"
-      version="2.3"
+      module="lcms/lcms-1.19.tar.gz"
+      version="1.19"
     />
   </autotools>
 
@@ -191,8 +195,8 @@ In file included from /usr/include/stdio.h:28:0,
     >
     <branch
       repo="sourceforge"
-      module="libexif/libexif-0.6.21.tar.gz"
-      version="0.6.21"
+      module="libexif/libexif-0.6.20.tar.gz"
+      version="0.6.20"
     />
   </autotools>
 
@@ -200,12 +204,28 @@ In file included from /usr/include/stdio.h:28:0,
        make our own  -->
 
   <autotools id="tiff" 
+    autogen-sh="configure"
+    >
+    <branch
+      repo="tiff"
+      module="tiff-3.9.6.tar.gz"
+      version="3.9.6"
+    />
+    <dependencies>
+      <dep package="jpeg"/>
+    </dependencies>
+  </autotools>
+
+  <!-- optionally use tiff4
+       -->
+
+  <autotools id="tiff4" 
     autogen-sh="autogen.sh &amp;&amp; ./configure"
     >
     <branch
       repo="tiff"
-      module="tiff-4.0.2.tar.gz"
-      version="4.0.2"
+      module="tiff-4.0.1.tar.gz"
+      version="4.0.1"
       >
     </branch>
     <dependencies>
@@ -215,24 +235,49 @@ In file included from /usr/include/stdio.h:28:0,
 
   <!-- libMagick++.dll fails to link due to some exception problem, disable it
 
-	disable largefile support, we rely on vips for that and ImageMagick's 
-	detection does not work when cross-compiling
+       6.7.3-10 leaves -L/usr/lib in its .la files and breaks libvips linking
+       stick with 6.7.1 for now
+
+       6.7.3-10 also seems to have problems with largefile detection under
+       mingw
+
+       6.7.5-6 also seems to have problems with largefile detection under
+       mingw
 
     -->
 
   <autotools id="imagemagick" 
     autogen-sh="configure"
-    autogenargs="--without-threads --without-x --with-modules=no --with-openexr=no --without-gvc --without-lqr --without-magick-plus-plus --disable-largefile --without-rsvg"
+    autogenargs="--without-threads --without-x --with-modules=no --with-openexr=no --without-gvc --without-lqr --without-magick-plus-plus"
     >
     <branch
       repo="magick"
-      module="ImageMagick/ImageMagick-6.7.8-6.tar.gz"
-      version="6.7.8-6"
+      module="ImageMagick/legacy/ImageMagick-6.7.1-10.tar.gz"
+      version="6.7.1-10"
     />
     <dependencies>
       <dep package="lcms"/>
       <dep package="fftw3"/>
       <dep package="tiff"/>
+      <dep package="jpeg"/>
+    </dependencies>
+  </autotools>
+
+  <!-- a tiff4 version -->
+
+  <autotools id="imagemagick-tiff4" 
+    autogen-sh="configure"
+    autogenargs="--without-threads --without-x --with-modules=no --with-openexr=no --without-gvc --without-lqr --without-magick-plus-plus"
+    >
+    <branch
+      repo="magick"
+      module="ImageMagick/legacy/ImageMagick-6.7.1-10.tar.gz"
+      version="6.7.1-10"
+    />
+    <dependencies>
+      <dep package="lcms"/>
+      <dep package="fftw3"/>
+      <dep package="tiff4"/>
       <dep package="jpeg"/>
     </dependencies>
   </autotools>
@@ -250,9 +295,7 @@ In file included from /usr/include/stdio.h:28:0,
     />
   </autotools>
 
-  <!-- 
-       
-       the first patch just deletes the ftello()/fseeko() code, mingw does not
+  <!-- the patch just deletes the ftello()/fseeko() code, mingw does not
        support this 
 
        as a result, >2gb fits files will not work on win32 
@@ -273,12 +316,12 @@ In file included from /usr/include/stdio.h:28:0,
     >
     <branch
       repo="cfitsio"
-      module="cfitsio3310.tar.gz"
-      version="3.31"
+      module="cfitsio3280.tar.gz"
+      version="3.28"
       checkoutdir="cfitsio"
       >
-      <patch file="http://www.vips.ecs.soton.ac.uk/supported/7.30/win32/cfitsio-fseeko.patch" strip="1"/>
-      <patch file="http://www.vips.ecs.soton.ac.uk/supported/7.28/win32/cfitsio-casecmp.patch" strip="1"/>
+      <patch file="http://www.vips.ecs.soton.ac.uk/supported/7.26/win32/cfitsio.patch" />
+      <patch file="http://www.vips.ecs.soton.ac.uk/supported/7.28/win32/cfitsio-casecmp.patch" strip="1" />
     </branch>
   </autotools>
 
@@ -296,14 +339,14 @@ In file included from /usr/include/stdio.h:28:0,
     -->
 
   <autotools id="libvips" 
-    autogen-sh="configure"
+	  autogen-sh="bootstrap.sh ; ./configure"
     autogenargs="--without-OpenEXR --without-matio --without-orc --disable-introspection "
     >
 
     <branch
-      repo="vips"
-      module="7.30/vips-7.30.0.tar.gz"
-      version="7.30.0"
+      repo="vips-master"
+      module="libvips.git"
+      version="7.29.0"
       >
       <patch file="file:///home/john/develop/transform-7.14/transform.patch" strip="1"/>
     </branch>
@@ -312,9 +355,9 @@ In file included from /usr/include/stdio.h:28:0,
       <dep package="lcms"/>
       <dep package="libexif"/>
       <dep package="fftw3"/>
-      <dep package="imagemagick"/>
+      <dep package="imagemagick-tiff4"/>
       <dep package="jpeg"/>
-      <dep package="tiff"/>
+      <dep package="tiff4"/>
       <dep package="cfitsio"/>
     </dependencies>
   </autotools>
@@ -390,32 +433,19 @@ In file included from /usr/include/stdio.h:28:0,
   </autotools>
 
   <autotools id="nip2" 
-    autogen-sh="configure"
+    autogen-sh="bootstrap.sh ; ./configure"
     autogenargs="--disable-debug --without-libgvc"
     >
     <branch
-      repo="vips"
-      module="7.30/nip2-7.30.0.tar.gz"
-      version="7.30.0"
+      repo="vips-master"
+      module="nip2.git"
+      version="7.29.0"
     />
     <dependencies>
       <dep package="libvips"/>
       <dep package="gsl"/>
       <dep package="goffice-noprint"/>
       <dep package="gtkengines"/>
-    </dependencies>
-  </autotools>
-
-  <autotools id="ptmfit" 
-    autogen-sh="configure"
-    >
-    <branch
-      repo="checkout"
-      module="ptmfit-2.3.tar.gz"
-      version="2.3"
-    />
-    <dependencies>
-      <dep package="libvips"/>
     </dependencies>
   </autotools>
 

@@ -339,8 +339,9 @@ In file included from /usr/include/stdio.h:28:0,
 
     <branch
       repo="vips"
-      module="7.28/vips-7.28.7.tar.gz"
-      version="7.28.7"
+      module="7.28/vips-7.28.9.tar.gz"
+      version="7.28.9"
+
       >
       <patch file="file:///home/john/develop/transform-7.14/transform.patch" strip="1"/>
     </branch>
