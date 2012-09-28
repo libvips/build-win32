@@ -141,16 +141,27 @@ In file included from /usr/include/stdio.h:28:0,
 
        fix later
 
+       openjpeg's tiif detector finds /usr/include/tiff.h, making it add 
+       -I/usr/include to the search path, and breaking all the <windows.h>
+       stuff has linux headers start being found instead of the mingw ones
+
+       disable openjpeg tiff, we don't use it anyway
+
        -->
 
   <autotools id="openjpeg" 
     autogen-sh="configure"
+    autogenargs="--disable-tiff"
     >
     <branch
       repo="openjpeg"
-      module="openjpeg-1.5.0.tar.gz"
-      version="1.5.0"
+      module="openjpeg-1.5.1.tar.gz"
+      version="1.5.1"
     />
+    <dependencies>
+      <dep package="lcms"/>
+      <dep package="tiff"/>
+    </dependencies>
   </autotools>
 
   <autotools id="openslide" 
@@ -158,8 +169,8 @@ In file included from /usr/include/stdio.h:28:0,
     >
     <branch
       repo="github"
-      module="openslide/openslide/openslide-3.2.6.tar.gz"
-      version="3.2.6"
+      module="openslide/openslide/openslide-3.3.0.tar.gz"
+      version="3.3.0"
     />
     <dependencies>
       <dep package="openjpeg"/>
@@ -204,8 +215,8 @@ In file included from /usr/include/stdio.h:28:0,
     >
     <branch
       repo="tiff"
-      module="tiff-4.0.2.tar.gz"
-      version="4.0.2"
+      module="tiff-4.0.3.tar.gz"
+      version="4.0.3"
       >
     </branch>
     <dependencies>
@@ -302,19 +313,20 @@ In file included from /usr/include/stdio.h:28:0,
 
     <branch
       repo="vips"
-      module="7.30/vips-7.30.0.tar.gz"
-      version="7.30.0"
+      module="7.30/vips-7.30.1.tar.gz"
+      version="7.30.1"
       >
       <patch file="file:///home/john/develop/transform-7.14/transform.patch" strip="1"/>
     </branch>
 
     <dependencies>
+      <dep package="openslide"/>
+      <dep package="tiff"/>
+      <dep package="jpeg"/>
       <dep package="lcms"/>
       <dep package="libexif"/>
       <dep package="fftw3"/>
       <dep package="imagemagick"/>
-      <dep package="jpeg"/>
-      <dep package="tiff"/>
       <dep package="cfitsio"/>
     </dependencies>
   </autotools>
@@ -395,8 +407,8 @@ In file included from /usr/include/stdio.h:28:0,
     >
     <branch
       repo="vips"
-      module="7.30/nip2-7.30.0.tar.gz"
-      version="7.30.0"
+      module="7.30/nip2-7.30.1.tar.gz"
+      version="7.30.1"
     />
     <dependencies>
       <dep package="libvips"/>
