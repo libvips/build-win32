@@ -28,7 +28,7 @@ threaded applications must ship with a freely distributable thread support
 DLL, provided as part of MinGW itself).
 
 Debian has two main mingw packages. The more modern one, gcc-mingw-w64, is
-regular gcc, built as a cross-compiler, with the notmal gcc tools all able to
+regular gcc, built as a cross-compiler, with the normal gcc tools all able to
 build win32 binaries. Unfortunately, the version in Ubuntu 11.10 makes
 binaries which crash on startup on Win XP.
 

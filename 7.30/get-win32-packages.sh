@@ -52,7 +52,7 @@ dependencies/libxml2_2.7.7-1_win32.zip
 dependencies/libxml2-dev_2.7.7-1_win32.zip
 dependencies/win-iconv-dll-dev_tml-20100912_win32.zip
 dependencies/win-iconv-dll_tml-20100912_win32.zip
+dependencies/tango-icon-theme-0.8.1.zip
 dependencies/zlib_1.2.5-2_win32.zip
 dependencies/zlib-dev_1.2.5-2_win32.zip 
-dependencies/tango-icon-theme-0.8.1.zip
 EOF

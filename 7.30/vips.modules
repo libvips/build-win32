@@ -132,15 +132,6 @@
 
   <!-- needed by openslide
 
-       but it's annoying to compile, we get an error:
-
-  CC     j2k_to_image-color.o
-In file included from /usr/include/stdio.h:28:0,
-                 from ../common/color.c:32:
-/usr/include/features.h:323:26: fatal error: bits/predefs.h: No such file or directory
-
-       fix later
-
        openjpeg's tiif detector finds /usr/include/tiff.h, making it add 
        -I/usr/include to the search path, and breaking all the <windows.h>
        stuff has linux headers start being found instead of the mingw ones
@@ -164,8 +155,14 @@ In file included from /usr/include/stdio.h:28:0,
     </dependencies>
   </autotools>
 
+  <!-- we don't want openslde to try to build test suite with valgrind when
+       we're cross-compiling
+
+       -->
+
   <autotools id="openslide" 
     autogen-sh="configure"
+    autogenargs="--without-valgrind"
     >
     <branch
       repo="github"
@@ -208,10 +205,20 @@ In file included from /usr/include/stdio.h:28:0,
   </autotools>
 
   <!-- the tiff on the gnome site needs a confusing libjpeg DLL, 
-       make our own  -->
+       make our own  
+
+       tiff 4.0.3 fails to build a C++ DLL with:
+
+       i686-w64-mingw32-g++: error: unrecognized option 
+       		'-enable-auto-image-base'
+
+       disable the C++ API for now, we don't use it anyway
+
+       -->
 
   <autotools id="tiff" 
-    autogen-sh="autogen.sh &amp;&amp; ./configure"
+    autogen-sh="./configure"
+    autogenargs="--disable-cxx"
     >
     <branch
       repo="tiff"
@@ -237,8 +244,8 @@ In file included from /usr/include/stdio.h:28:0,
     >
     <branch
       repo="magick"
-      module="ImageMagick/ImageMagick-6.7.8-6.tar.gz"
-      version="6.7.8-6"
+      module="ImageMagick/ImageMagick-6.7.9-9.tar.gz"
+      version="6.7.9-9"
     />
     <dependencies>
       <dep package="lcms"/>
