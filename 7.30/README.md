@@ -29,12 +29,7 @@ DLL, provided as part of MinGW itself).
 
 Debian has two main mingw packages. The more modern one, gcc-mingw-w64, is
 regular gcc, built as a cross-compiler, with the normal gcc tools all able to
-build win32 binaries. Unfortunately, the version in Ubuntu 11.10 makes
-binaries which crash on startup on Win XP.
-
-Debian also offers mingw32. This is the real mingw package, is based on a much
-older gcc, has it's own set of tools, and makes binaries which actually work.
-We use this one.
+build win32 binaries. We us this. 
 
 PREREQUISITES
 =============
@@ -72,7 +67,7 @@ Build/Tool Related Dependencies
 
 Library Dependencies
 --------------------
-	sudo apt-get install libatk1.0-0 \
+    sudo apt-get install libatk1.0-0 \
 	libatk1.0-dev \
 	libglib2.0-0 \
 	libglib2.0-dev \
@@ -118,7 +113,7 @@ git This
 	mkdir ~/dev
 	cd ~/dev
 	git clone git://github.com/jcupitt/build-win32.git
-	cd build-win32/7.28
+	cd build-win32/7.30
 
 Check versions
 --------------
@@ -186,12 +181,12 @@ BUILD NIP2
 UPLOAD YOUR PACKAGE
 ===================
 Assuming everything has worked perfectly up to this point, you will find
-vips-dev-7.28.x.zip all packaged up and ready to go. You might upload it
+vips-dev-7.30.x.zip all packaged up and ready to go. You might upload it
 to your favorite server via scp like this:
 
-	scp vips-dev-7.28.x.zip <YOURID>@<YOURSERVER>:/your/favorite/directory
+	scp vips-dev-7.30.x.zip <YOURID>@<YOURSERVER>:/your/favorite/directory
 
-	scp nip2-7.28.x-setup.exe <YOURID>@<YOURSERVER>:/your/favorite/directory
+	scp nip2-7.30.x-setup.exe <YOURID>@<YOURSERVER>:/your/favorite/directory
 
 Many servers will block direct downlods of .exe files. You might need to put
 the .exe in a zip file.
@@ -222,7 +217,7 @@ First, build as described above:
 
 	jhbuild --file=jhbuildrc --moduleset=vips.modules build libvips
 
-Now go to checkout/vips-7.28.5 and make any source changes you want. Build
+Now go to checkout/vips-7.30.5 and make any source changes you want. Build
 again to compile your changes.
 
 	jhbuild --file=jhbuildrc --moduleset=vips.modules build libvips
@@ -232,6 +227,6 @@ And package your new version.
 	./package-vipsdev.sh
 
 I suggest you rename your zip to avoid confusion. Call it something like
-vips-dev-7.28.5-rob1.zip.
+vips-dev-7.30.5-rob1.zip.
 
 - remove strcasecmp() hacks from cfitsio, see "eval_l.c"
