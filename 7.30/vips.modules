@@ -155,14 +155,19 @@
     </dependencies>
   </autotools>
 
-  <!-- we don't want openslde to try to build test suite with valgrind when
-       we're cross-compiling
+  <!-- the official openslide-3.3.0 does not use pkg-config to find openjpeg
+       and so fails during configuration (it doesn't know about cross-
+       compiling).
+
+       we use a fork of openslide here: https://github.com/jcupitt/openslide
+       which adds pkg-config detection for openjpeg
+
+       openslide 3.3.1 should include this patch
 
        -->
 
   <autotools id="openslide" 
     autogen-sh="configure"
-    autogenargs="--without-valgrind"
     >
     <branch
       repo="github"
