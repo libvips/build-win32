@@ -356,20 +356,20 @@
 
        0.9.x is gtk3, we are stuck with gtk2 for now
 
-       we don't want the print stuff, turn off gconf
-
-       0.8.16+ uses .xz compression which confuses jhbuild, stick with .15
+       goffice-0.8.17 crashes with -O2, make sure that's off in jhbuildrc 
+       when you make this module
 
        -->
 
   <autotools id="goffice-noprint"
     autogen-sh="configure"
-    autogenargs="--without-gconf"
+    autogenargs="--with-config-backend=win32"
+    makeargs="CFLAGS="
     >
     <branch
       repo="gnome"
-      module="goffice/0.8/goffice-0.8.15.tar.gz"
-      version="0.8.15">
+      module="goffice/0.8/goffice-0.8.17.tar.xz"
+      version="0.8.17">
     </branch>
   </autotools>
 
