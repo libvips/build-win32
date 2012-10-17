@@ -13,6 +13,8 @@ modules available to build. The “module set” files include dependency
 information that allows JHBuild to discover what modules need to be built
 and in what order.
 
+The jhbuild in Ubuntu is fine.
+
 [MinGW](http://www.mingw.org/)
 ------------------------------
 
