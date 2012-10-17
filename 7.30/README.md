@@ -178,7 +178,14 @@ BUILD NIP2
 ==========
 	jhbuild --file=jhbuildrc --moduleset=vips.modules build nip2
 
+	edit jhbuild and turn off the optimiser, then rebuild just goffice
+
+	jhbuild --file=jhbuildrc --moduleset=vips.modules \
+		buildone -f goffice-noprint
+
 	./package-nip2.sh
+
+	
 
 UPLOAD YOUR PACKAGE
 ===================
