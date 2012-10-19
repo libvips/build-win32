@@ -23,7 +23,7 @@ os.environ['prefix'] = prefix
 # the config.guess script on any of the packages.
 # This value must be valid for most linux/x86 out there
 os.environ['HOST'] = 'i686-pc-linux-gnu'
-os.environ['TARGET'] = 'i586-pc-mingw32'
+os.environ['TARGET'] = 'i686-pc-mingw32'
 
 # .pc files from binary packages have something like 
 #     prefix=c:/devel/target/f3002dbeeb43fd4ea5385fb6fa4de06f
@@ -35,16 +35,16 @@ os.environ['PKG_CONFIG'] = '/usr/bin/pkg-config --define-variable prefix=' + pre
 # basedir/lib/pkgconfig is added for us later
 os.environ['PKG_CONFIG_PATH'] = ''
 
+# pkg-config will always search $libdir, usually /usr/lib/pkgconfig -- we want
+# to stop it seeing any host packages, so turn this off
+os.environ['PKG_CONFIG_LIBDIR'] = ''
+
 # addpath('PKG_CONFIG_PATH', os.path.join(os.sep, 'usr', 'lib', 'pkgconfig'))
 # addpath('PKG_CONFIG_PATH', os.path.join(os.sep, 'usr', 'share', 'pkgconfig'))
 
 # Prefix for all the tools
-# mingw_tool_prefix = '/home/john/mingw/mingw32/bin/i586-pc-mingw32-'
-# mingw_tool_prefix = '/home/john/packages/mingw/mingw32/bin/i586-pc-mingw32-'
-
-# the official debian package names them strangely
-# this prefix is correct for mingw32
-mingw_tool_prefix = 'i586-mingw32msvc-'
+# mingw-w64 on ubuntu 12.04 uses this:
+mingw_tool_prefix = 'i686-w64-mingw32-'
 
 mingw_tools = {'ADDR2LINE': 'addr2line',
 	'AS': 'as', 'CC': 'gcc', 'CPP': 'cpp',
@@ -74,12 +74,15 @@ os.environ['ARFLAGS']  = '-ar rcs'
 os.environ['INSTALL']  = os.path.expanduser('~/bin/install-check')
 
 # turn on the optimiser
-os.environ['CFLAGS']   += ' -O2 '
-os.environ['CXXFLAGS']   += ' -O2 '
+#
+# office-0.8.17 crashes with -O2 with Ubuntu 12.04 gcc-mingw-64 -- turn it off
+# for now
+#os.environ['CFLAGS']   += ' -O2 '
+#os.environ['CXXFLAGS']   += ' -O2 '
 
 # turn on debugging
-# os.environ['CFLAGS']   += ' -g '
-# os.environ['CXXFLAGS']   += ' -g '
+#os.environ['CFLAGS']   += ' -g '
+#os.environ['CXXFLAGS']   += ' -g '
 
 # Populating autogenargs
 autogenargs  = ' --build='+os.environ['HOST']
