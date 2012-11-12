@@ -248,7 +248,7 @@
     >
     <branch
       repo="magick"
-      module="ImageMagick/ImageMagick-6.7.9-10.tar.gz"
+      module="ImageMagick/legacy/ImageMagick-6.7.9-10.tar.gz"
       version="6.7.9-10"
     />
     <dependencies>
@@ -324,8 +324,8 @@
 
     <branch
       repo="vips"
-      module="7.30/vips-7.30.3.tar.gz"
-      version="7.30.3"
+      module="7.30/vips-7.30.4.tar.gz"
+      version="7.30.4"
       >
       <patch file="file:///home/john/develop/transform-7.14/transform.patch" strip="1"/>
     </branch>

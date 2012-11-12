@@ -1,7 +1,7 @@
 VIPS WIN32
 ==========
 
-We use jhbuilder to git, mingw to compile, and good old zip to package the
+We use jhbuild to git, mingw to compile, and good old zip to package the
 vips source code for WIN32.
 
 [JHBuild] (http://live.gnome.org/Jhbuild)
