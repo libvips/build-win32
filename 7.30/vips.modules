@@ -155,14 +155,13 @@
     </dependencies>
   </autotools>
 
-  <!-- the official openslide-3.3.0 does not use pkg-config to find openjpeg
+  <!-- openslide-3.3.0 does not use pkg-config to find openjpeg
        and so fails during configuration (it doesn't know about cross-
-       compiling).
+       compiling). It's also missing a couple of tweaks to speed up aperio 
+       reading. 
 
-       we use a fork of openslide here: https://github.com/jcupitt/openslide
-       which adds pkg-config detection for openjpeg
-
-       openslide 3.3.1 should include this patch
+       we use a hacked about version of git master openslide, swap for real 
+       openslide when 3.3.1 comes out.
 
        -->
 
@@ -170,9 +169,9 @@
     autogen-sh="configure"
     >
     <branch
-      repo="github"
-      module="openslide/openslide/openslide-3.3.0.tar.gz"
-      version="3.3.0"
+      repo="vips-beta"
+      module="openslide-3.3.1.tar.gz"
+      version="3.3.1"
     />
     <dependencies>
       <dep package="openjpeg"/>
@@ -249,8 +248,8 @@
     >
     <branch
       repo="magick"
-      module="ImageMagick/ImageMagick-6.7.9-9.tar.gz"
-      version="6.7.9-9"
+      module="ImageMagick/legacy/ImageMagick-6.7.9-10.tar.gz"
+      version="6.7.9-10"
     />
     <dependencies>
       <dep package="lcms"/>
@@ -357,20 +356,20 @@
 
        0.9.x is gtk3, we are stuck with gtk2 for now
 
-       we don't want the print stuff, turn off gconf
-
-       0.8.16+ uses .xz compression which confuses jhbuild, stick with .15
+       goffice-0.8.17 crashes with -O2, make sure that's off in jhbuildrc 
+       when you make this module
 
        -->
 
   <autotools id="goffice-noprint"
     autogen-sh="configure"
-    autogenargs="--without-gconf"
+    autogenargs="--with-config-backend=win32"
+    makeargs="CFLAGS="
     >
     <branch
       repo="gnome"
-      module="goffice/0.8/goffice-0.8.15.tar.gz"
-      version="0.8.15">
+      module="goffice/0.8/goffice-0.8.17.tar.xz"
+      version="0.8.17">
     </branch>
   </autotools>
 

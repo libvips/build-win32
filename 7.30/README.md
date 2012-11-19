@@ -1,7 +1,7 @@
 VIPS WIN32
 ==========
 
-We use jhbuilder to git, mingw to compile, and good old zip to package the
+We use jhbuild to git, mingw to compile, and good old zip to package the
 vips source code for WIN32.
 
 [JHBuild] (http://live.gnome.org/Jhbuild)
@@ -12,6 +12,8 @@ called “modules”. JHBuild uses “module set” files to describe the
 modules available to build. The “module set” files include dependency
 information that allows JHBuild to discover what modules need to be built
 and in what order.
+
+The jhbuild in Ubuntu is fine.
 
 [MinGW](http://www.mingw.org/)
 ------------------------------
@@ -176,7 +178,14 @@ BUILD NIP2
 ==========
 	jhbuild --file=jhbuildrc --moduleset=vips.modules build nip2
 
+	edit jhbuild and turn off the optimiser, then rebuild just goffice
+
+	jhbuild --file=jhbuildrc --moduleset=vips.modules \
+		buildone -f goffice-noprint
+
 	./package-nip2.sh
+
+	
 
 UPLOAD YOUR PACKAGE
 ===================

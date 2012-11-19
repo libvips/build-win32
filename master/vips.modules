@@ -16,15 +16,15 @@
   />
 
   <repository 
-    type="git"
-    name="vips-master"
-    href="git://github.com/jcupitt/"
-  />
-
-  <repository 
     type="tarball"
     name="vips-beta"
     href="http://www.vips.ecs.soton.ac.uk/development/"
+  />
+
+  <repository 
+    type="git"
+    name="vips-master"
+    href="git://github.com/jcupitt/"
   />
 
   <repository 
@@ -117,53 +117,67 @@
     >
     <branch
       repo="fftw"
-      module="fftw-3.3.tar.gz"
-      version="3.3"
+      module="fftw-3.3.2.tar.gz"
+      version="3.3.2"
     />
   </autotools>
 
   <!-- we'd like lcms2 for vips (it's faster) but IM needs plain lcms -->
+
+  <!-- experiment - try 2.3 -->
 
   <autotools id="lcms" 
     autogen-sh="configure"
     >
     <branch
       repo="sourceforge"
-      module="lcms/lcms-1.19.tar.gz"
-      version="1.19"
+      module="lcms/lcms2-2.3.tar.gz"
+      version="2.3"
     />
   </autotools>
 
   <!-- needed by openslide
 
-       but it's annoying to compile, we get an error:
+       openjpeg's tiif detector finds /usr/include/tiff.h, making it add 
+       -I/usr/include to the search path, and breaking all the <windows.h>
+       stuff has linux headers start being found instead of the mingw ones
 
-  CC     j2k_to_image-color.o
-In file included from /usr/include/stdio.h:28:0,
-                 from ../common/color.c:32:
-/usr/include/features.h:323:26: fatal error: bits/predefs.h: No such file or directory
-
-       fix later
+       disable openjpeg tiff, we don't use it anyway
 
        -->
 
   <autotools id="openjpeg" 
     autogen-sh="configure"
+    autogenargs="--disable-tiff"
     >
     <branch
       repo="openjpeg"
-      module="openjpeg-1.5.0.tar.gz"
-      version="1.5.0"
+      module="openjpeg-1.5.1.tar.gz"
+      version="1.5.1"
     />
+    <dependencies>
+      <dep package="lcms"/>
+      <dep package="tiff"/>
+    </dependencies>
   </autotools>
+
+  <!-- openslide-3.3.0 does not use pkg-config to find openjpeg
+       and so fails during configuration (it doesn't know about cross-
+       compiling). It's also missing a couple of tweaks to speed up aperio 
+       reading. 
+
+       we use a hacked about version of git master openslide, swap for real 
+       openslide when 3.3.1 comes out.
+
+       -->
 
   <autotools id="openslide" 
     autogen-sh="configure"
     >
     <branch
-      repo="github"
-      module="openslide/openslide/openslide-3.2.6.tar.gz"
-      version="3.2.6"
+      repo="vips-beta"
+      module="openslide-3.3.1.tar.gz"
+      version="3.3.1"
     />
     <dependencies>
       <dep package="openjpeg"/>
@@ -195,37 +209,31 @@ In file included from /usr/include/stdio.h:28:0,
     >
     <branch
       repo="sourceforge"
-      module="libexif/libexif-0.6.20.tar.gz"
-      version="0.6.20"
+      module="libexif/libexif-0.6.21.tar.gz"
+      version="0.6.21"
     />
   </autotools>
 
   <!-- the tiff on the gnome site needs a confusing libjpeg DLL, 
-       make our own  -->
+       make our own  
 
-  <autotools id="tiff" 
-    autogen-sh="configure"
-    >
-    <branch
-      repo="tiff"
-      module="tiff-3.9.6.tar.gz"
-      version="3.9.6"
-    />
-    <dependencies>
-      <dep package="jpeg"/>
-    </dependencies>
-  </autotools>
+       tiff 4.0.3 fails to build a C++ DLL with:
 
-  <!-- optionally use tiff4
+       i686-w64-mingw32-g++: error: unrecognized option 
+       		'-enable-auto-image-base'
+
+       disable the C++ API for now, we don't use it anyway
+
        -->
 
-  <autotools id="tiff4" 
-    autogen-sh="autogen.sh &amp;&amp; ./configure"
+  <autotools id="tiff" 
+    autogen-sh="./configure"
+    autogenargs="--disable-cxx"
     >
     <branch
       repo="tiff"
-      module="tiff-4.0.1.tar.gz"
-      version="4.0.1"
+      module="tiff-4.0.3.tar.gz"
+      version="4.0.3"
       >
     </branch>
     <dependencies>
@@ -235,49 +243,24 @@ In file included from /usr/include/stdio.h:28:0,
 
   <!-- libMagick++.dll fails to link due to some exception problem, disable it
 
-       6.7.3-10 leaves -L/usr/lib in its .la files and breaks libvips linking
-       stick with 6.7.1 for now
-
-       6.7.3-10 also seems to have problems with largefile detection under
-       mingw
-
-       6.7.5-6 also seems to have problems with largefile detection under
-       mingw
+	disable largefile support, we rely on vips for that and ImageMagick's 
+	detection does not work when cross-compiling
 
     -->
 
   <autotools id="imagemagick" 
     autogen-sh="configure"
-    autogenargs="--without-threads --without-x --with-modules=no --with-openexr=no --without-gvc --without-lqr --without-magick-plus-plus"
+    autogenargs="--without-threads --without-x --with-modules=no --with-openexr=no --without-gvc --without-lqr --without-magick-plus-plus --disable-largefile --without-rsvg"
     >
     <branch
       repo="magick"
-      module="ImageMagick/legacy/ImageMagick-6.7.1-10.tar.gz"
-      version="6.7.1-10"
+      module="ImageMagick/ImageMagick-6.7.9-10.tar.gz"
+      version="6.7.9-10"
     />
     <dependencies>
       <dep package="lcms"/>
       <dep package="fftw3"/>
       <dep package="tiff"/>
-      <dep package="jpeg"/>
-    </dependencies>
-  </autotools>
-
-  <!-- a tiff4 version -->
-
-  <autotools id="imagemagick-tiff4" 
-    autogen-sh="configure"
-    autogenargs="--without-threads --without-x --with-modules=no --with-openexr=no --without-gvc --without-lqr --without-magick-plus-plus"
-    >
-    <branch
-      repo="magick"
-      module="ImageMagick/legacy/ImageMagick-6.7.1-10.tar.gz"
-      version="6.7.1-10"
-    />
-    <dependencies>
-      <dep package="lcms"/>
-      <dep package="fftw3"/>
-      <dep package="tiff4"/>
       <dep package="jpeg"/>
     </dependencies>
   </autotools>
@@ -295,7 +278,9 @@ In file included from /usr/include/stdio.h:28:0,
     />
   </autotools>
 
-  <!-- the patch just deletes the ftello()/fseeko() code, mingw does not
+  <!-- 
+       
+       the first patch just deletes the ftello()/fseeko() code, mingw does not
        support this 
 
        as a result, >2gb fits files will not work on win32 
@@ -316,12 +301,12 @@ In file included from /usr/include/stdio.h:28:0,
     >
     <branch
       repo="cfitsio"
-      module="cfitsio3280.tar.gz"
-      version="3.28"
+      module="cfitsio3310.tar.gz"
+      version="3.31"
       checkoutdir="cfitsio"
       >
-      <patch file="http://www.vips.ecs.soton.ac.uk/supported/7.26/win32/cfitsio.patch" />
-      <patch file="http://www.vips.ecs.soton.ac.uk/supported/7.28/win32/cfitsio-casecmp.patch" strip="1" />
+      <patch file="http://www.vips.ecs.soton.ac.uk/supported/7.30/win32/cfitsio-fseeko.patch" strip="1"/>
+      <patch file="http://www.vips.ecs.soton.ac.uk/supported/7.28/win32/cfitsio-casecmp.patch" strip="1"/>
     </branch>
   </autotools>
 
@@ -339,25 +324,26 @@ In file included from /usr/include/stdio.h:28:0,
     -->
 
   <autotools id="libvips" 
-	  autogen-sh="bootstrap.sh ; ./configure"
+    autogen-sh="bootstrap.sh ; ./configure"
     autogenargs="--without-OpenEXR --without-matio --without-orc --disable-introspection "
     >
 
     <branch
       repo="vips-master"
       module="libvips.git"
-      version="7.29.0"
+      version="7.31.0"
       >
       <patch file="file:///home/john/develop/transform-7.14/transform.patch" strip="1"/>
     </branch>
 
     <dependencies>
+      <dep package="openslide"/>
+      <dep package="tiff"/>
+      <dep package="jpeg"/>
       <dep package="lcms"/>
       <dep package="libexif"/>
       <dep package="fftw3"/>
-      <dep package="imagemagick-tiff4"/>
-      <dep package="jpeg"/>
-      <dep package="tiff4"/>
+      <dep package="imagemagick"/>
       <dep package="cfitsio"/>
     </dependencies>
   </autotools>
@@ -376,20 +362,20 @@ In file included from /usr/include/stdio.h:28:0,
 
        0.9.x is gtk3, we are stuck with gtk2 for now
 
-       we don't want the print stuff, turn off gconf
-
-       0.8.16+ uses .xz compression which confuses jhbuild, stick with .15
+       goffice-0.8.17 crashes with -O2, make sure that's off in jhbuildrc 
+       when you make this module
 
        -->
 
   <autotools id="goffice-noprint"
     autogen-sh="configure"
-    autogenargs="--without-gconf"
+    autogenargs="--with-config-backend=win32"
+    makeargs="CFLAGS="
     >
     <branch
       repo="gnome"
-      module="goffice/0.8/goffice-0.8.15.tar.gz"
-      version="0.8.15">
+      module="goffice/0.8/goffice-0.8.17.tar.xz"
+      version="0.8.17">
     </branch>
   </autotools>
 
@@ -433,19 +419,32 @@ In file included from /usr/include/stdio.h:28:0,
   </autotools>
 
   <autotools id="nip2" 
-    autogen-sh="bootstrap.sh ; ./configure"
+    autogen-sh="configure"
     autogenargs="--disable-debug --without-libgvc"
     >
     <branch
-      repo="vips-master"
-      module="nip2.git"
-      version="7.29.0"
+      repo="vips"
+      module="7.30/nip2-7.30.1.tar.gz"
+      version="7.30.1"
     />
     <dependencies>
       <dep package="libvips"/>
       <dep package="gsl"/>
       <dep package="goffice-noprint"/>
       <dep package="gtkengines"/>
+    </dependencies>
+  </autotools>
+
+  <autotools id="ptmfit" 
+    autogen-sh="configure"
+    >
+    <branch
+      repo="checkout"
+      module="ptmfit-2.3.tar.gz"
+      version="2.3"
+    />
+    <dependencies>
+      <dep package="libvips"/>
     </dependencies>
   </autotools>
 

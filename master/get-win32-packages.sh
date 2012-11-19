@@ -22,12 +22,12 @@ while read PACKAGE; do
 done << EOF
 atk/1.32/atk_1.32.0-2_win32.zip
 atk/1.32/atk-dev_1.32.0-2_win32.zip
+gdk-pixbuf/2.24/gdk-pixbuf-dev_2.24.0-1_win32.zip
+gdk-pixbuf/2.24/gdk-pixbuf_2.24.0-1_win32.zip
 glib/2.28/glib_2.28.8-1_win32.zip
 glib/2.28/glib-dev_2.28.8-1_win32.zip
 gtk+/2.24/gtk+_2.24.10-1_win32.zip
 gtk+/2.24/gtk+-dev_2.24.10-1_win32.zip
-gdk-pixbuf/2.24/gdk-pixbuf-dev_2.24.0-1_win32.zip
-gdk-pixbuf/2.24/gdk-pixbuf_2.24.0-1_win32.zip
 libglade/2.6/libglade_2.6.4-1_win32.zip
 libglade/2.6/libglade-dev_2.6.4-1_win32.zip
 libgsf/1.14/libgsf_1.14.17-1_win32.zip
@@ -52,7 +52,7 @@ dependencies/libxml2_2.7.7-1_win32.zip
 dependencies/libxml2-dev_2.7.7-1_win32.zip
 dependencies/win-iconv-dll-dev_tml-20100912_win32.zip
 dependencies/win-iconv-dll_tml-20100912_win32.zip
+dependencies/tango-icon-theme-0.8.1.zip
 dependencies/zlib_1.2.5-2_win32.zip
 dependencies/zlib-dev_1.2.5-2_win32.zip 
-dependencies/tango-icon-theme-0.8.1.zip
 EOF
