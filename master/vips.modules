@@ -144,6 +144,9 @@
 
        disable openjpeg tiff, we don't use it anyway
 
+	tried ojp 1.5.1, but edge tiles in openslide read were all black
+
+
        -->
 
   <autotools id="openjpeg" 
@@ -166,17 +169,14 @@
        compiling). It's also missing a couple of tweaks to speed up aperio 
        reading. 
 
-       we use a hacked about version of git master openslide, swap for real 
-       openslide when 3.3.1 comes out.
-
        -->
 
   <autotools id="openslide" 
     autogen-sh="configure"
     >
     <branch
-      repo="vips-beta"
-      module="openslide-3.3.1.tar.gz"
+      repo="github"
+      module="openslide/openslide/openslide-3.3.1.tar.gz"
       version="3.3.1"
     />
     <dependencies>
@@ -254,7 +254,7 @@
     >
     <branch
       repo="magick"
-      module="ImageMagick/ImageMagick-6.7.9-10.tar.gz"
+      module="ImageMagick/legacy/ImageMagick-6.7.9-10.tar.gz"
       version="6.7.9-10"
     />
     <dependencies>
@@ -321,18 +321,27 @@
        introspection won't work cross-platform, since we can't easily run our
        objects ... fix this by including the typelibs in the dist later
 
-    -->
-
-  <autotools id="libvips" 
-    autogen-sh="bootstrap.sh ; ./configure"
-    autogenargs="--without-OpenEXR --without-matio --without-orc --disable-introspection "
-    >
+       the dev branch gets full debugging unless we explicitly turn it off
 
     <branch
       repo="vips-master"
       module="libvips.git"
       version="7.31.0"
       >
+
+    -->
+
+  <autotools id="libvips" 
+    autogen-sh="./configure"
+    autogenargs="--without-OpenEXR --without-matio --without-orc --disable-introspection --enable-debug=no"
+    >
+
+    <branch
+      repo="vips-beta"
+      module="vips-7.31.0.tar.gz"
+      version="7.31.0"
+      >
+
       <patch file="file:///home/john/develop/transform-7.14/transform.patch" strip="1"/>
     </branch>
 
