@@ -22,12 +22,6 @@
   />
 
   <repository 
-    type="git"
-    name="vips-master"
-    href="git://github.com/jcupitt/"
-  />
-
-  <repository 
     type="tarball"
     name="orc"
     href="http://code.entropywave.com/download/orc/"
@@ -254,7 +248,7 @@
     >
     <branch
       repo="magick"
-      module="ImageMagick/ImageMagick-6.7.9-10.tar.gz"
+      module="ImageMagick/legacy/ImageMagick-6.7.9-10.tar.gz"
       version="6.7.9-10"
     />
     <dependencies>
@@ -324,13 +318,13 @@
     -->
 
   <autotools id="libvips" 
-    autogen-sh="bootstrap.sh ; ./configure"
+    autogen-sh="configure"
     autogenargs="--without-OpenEXR --without-matio --without-orc --disable-introspection "
     >
 
     <branch
-      repo="vips-master"
-      module="libvips.git"
+      repo="vips-beta"
+      module="vips-7.31.0.tar.gz"
       version="7.31.0"
       >
       <patch file="file:///home/john/develop/transform-7.14/transform.patch" strip="1"/>
