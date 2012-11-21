@@ -132,7 +132,7 @@
 
   <!-- needed by openslide
 
-       openjpeg's tiif detector finds /usr/include/tiff.h, making it add 
+       openjpeg's tiff detector finds /usr/include/tiff.h, making it add 
        -I/usr/include to the search path, and breaking all the <windows.h>
        stuff has linux headers start being found instead of the mingw ones
 
@@ -160,17 +160,14 @@
        compiling). It's also missing a couple of tweaks to speed up aperio 
        reading. 
 
-       we use a hacked about version of git master openslide, swap for real 
-       openslide when 3.3.1 comes out.
-
        -->
 
   <autotools id="openslide" 
     autogen-sh="configure"
     >
     <branch
-      repo="vips-beta"
-      module="openslide-3.3.1.tar.gz"
+      repo="github"
+      module="openslide/openslide/openslide-3.3.1.tar.gz"
       version="3.3.1"
     />
     <dependencies>
@@ -324,8 +321,8 @@
 
     <branch
       repo="vips"
-      module="7.30/vips-7.30.4.tar.gz"
-      version="7.30.4"
+      module="7.30/vips-7.30.6.tar.gz"
+      version="7.30.6"
       >
       <patch file="file:///home/john/develop/transform-7.14/transform.patch" strip="1"/>
     </branch>

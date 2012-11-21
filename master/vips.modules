@@ -132,7 +132,7 @@
 
   <!-- needed by openslide
 
-       openjpeg's tiif detector finds /usr/include/tiff.h, making it add 
+       openjpeg's tiff detector finds /usr/include/tiff.h, making it add 
        -I/usr/include to the search path, and breaking all the <windows.h>
        stuff has linux headers start being found instead of the mingw ones
 
