@@ -189,6 +189,25 @@
     </branch>
   </autotools>
 
+  <!-- the turbo one is 2x to 4x faster 
+
+       the patch changes the "typedef int boolean" that libjpeg-turbo 
+       provides, it causes problems later on for imagemagick
+
+       -->
+
+  <autotools id="libjpeg-turbo" 
+    autogen-sh="configure"
+    >
+    <branch
+      repo="sourceforge"
+      module="libjpeg-turbo/1.2.1/libjpeg-turbo-1.2.1.tar.gz"
+      version="1.2.1"
+      >
+      <patch file="http://www.vips.ecs.soton.ac.uk/supported/7.30/win32/libjpeg-turbo-bool.patch" strip="1"/>
+    </branch>
+  </autotools>
+
   <!-- matio does not work with mingw, sadly, it can't make a DLL and we need
        one for vips to link to -->
 
@@ -228,7 +247,7 @@
       >
     </branch>
     <dependencies>
-      <dep package="jpeg"/>
+      <dep package="libjpeg-turbo"/>
     </dependencies>
   </autotools>
 
@@ -252,7 +271,7 @@
       <dep package="lcms"/>
       <dep package="fftw3"/>
       <dep package="tiff"/>
-      <dep package="jpeg"/>
+      <dep package="libjpeg-turbo"/>
     </dependencies>
   </autotools>
 
@@ -321,8 +340,8 @@
 
     <branch
       repo="vips"
-      module="7.30/vips-7.30.6.tar.gz"
-      version="7.30.6"
+      module="7.30/vips-7.30.7.tar.gz"
+      version="7.30.7"
       >
       <patch file="file:///home/john/develop/transform-7.28/transform.patch" strip="1"/>
     </branch>
@@ -330,7 +349,7 @@
     <dependencies>
       <dep package="openslide"/>
       <dep package="tiff"/>
-      <dep package="jpeg"/>
+      <dep package="libjpeg-turbo"/>
       <dep package="lcms"/>
       <dep package="libexif"/>
       <dep package="fftw3"/>
@@ -353,8 +372,10 @@
 
        0.9.x is gtk3, we are stuck with gtk2 for now
 
-       goffice-0.8.17 crashes with -O2, make sure that's off in jhbuildrc 
-       when you make this module
+       in ubuntu 12.04, goffice-0.8.17 crashes with -O2, make sure that's off 
+       in jhbuildrc when you make this module, see the README
+
+       this compiler bug fixed in 12.10
 
        -->
 
