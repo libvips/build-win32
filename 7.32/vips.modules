@@ -47,6 +47,12 @@
 
   <repository 
     type="tarball"
+    name="fcgi"
+    href="http://www.fastcgi.com/dist/"
+  />
+
+  <repository 
+    type="tarball"
     name="fftw"
     href="http://www.fftw.org/"
   />
@@ -96,7 +102,7 @@
   <repository 
     type="tarball" 
     name="checkout" 
-    href="file:///home/john/GIT/build-win32/7.26/checkout"
+    href="file:///home/john/GIT/build-win32/7.32/checkout"
   />
 
   <repository 
@@ -339,9 +345,9 @@
     >
 
     <branch
-      repo="vips-beta"
-      module="vips-7.32.0.tar.gz"
-      version="7.32.0"
+      repo="vips"
+      module="7.32/vips-7.32.2.tar.gz"
+      version="7.32.2"
       >
 
       <patch file="file:///home/john/develop/transform-7.28/transform.patch" strip="1"/>
@@ -440,9 +446,9 @@
     autogenargs="--disable-debug --without-libgvc --without-gtksheet"
     >
     <branch
-      repo="vips-beta"
-      module="nip2-7.32.0.tar.gz"
-      version="7.32.0"
+      repo="vips"
+      module="7.32/nip2-7.32.1.tar.gz"
+      version="7.32.1"
     />
     <dependencies>
       <dep package="libvips"/>
@@ -462,6 +468,31 @@
     />
     <dependencies>
       <dep package="libvips"/>
+    </dependencies>
+  </autotools>
+
+  <autotools id="fcgi" 
+    autogen-sh="configure"
+    >
+    <branch
+      repo="fcgi"
+      module="fcgi.tar.gz"
+      version="2.4.1-SNAP-0311112127"
+      checkoutdir="fcgi-2.4.1-SNAP-0311112127"
+    />
+  </autotools>
+
+  <autotools id="tilesrv" 
+    autogen-sh="configure"
+    >
+    <branch
+      repo="checkout"
+      module="tilesrv-1.0.tar.gz"
+      version="1.0"
+    />
+    <dependencies>
+      <dep package="libvips"/>
+      <dep package="fcgi"/>
     </dependencies>
   </autotools>
 
