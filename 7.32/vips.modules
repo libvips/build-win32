@@ -346,8 +346,8 @@
 
     <branch
       repo="vips"
-      module="7.32/vips-7.32.2.tar.gz"
-      version="7.32.2"
+      module="7.32/vips-7.32.3.tar.gz"
+      version="7.32.3"
       >
 
       <patch file="file:///home/john/develop/transform-7.28/transform.patch" strip="1"/>
@@ -471,14 +471,14 @@
     </dependencies>
   </autotools>
 
-  <autotools id="fcgi" 
+  <autotools id="uriparser" 
     autogen-sh="configure"
+    autogenargs="--disable-test"
     >
     <branch
-      repo="fcgi"
-      module="fcgi.tar.gz"
-      version="2.4.1-SNAP-0311112127"
-      checkoutdir="fcgi-2.4.1-SNAP-0311112127"
+      repo="sourceforge"
+      module="uriparser/uriparser-0.7.7.tar.bz2"
+      version="0.7.7"
     />
   </autotools>
 
@@ -492,7 +492,7 @@
     />
     <dependencies>
       <dep package="libvips"/>
-      <dep package="fcgi"/>
+      <dep package="uriparser"/>
     </dependencies>
   </autotools>
 
