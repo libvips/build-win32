@@ -2,6 +2,8 @@
 
 . variables.sh
 
+mingw_prefix=i686-pc-mingw32-
+
 repackagedir=$nip2_package-$nip2_version
 
 echo copying install area $installdir
@@ -11,8 +13,8 @@ cp -r $installdir $repackagedir
 
 echo cleaning build $repackagedir
 
-# rename all the i586-pc-mingw32-animate.exe etc. without the prefix
-( cd $repackagedir/bin ; for i in i586-pc-mingw32-*; do mv $i `echo $i | sed s/i586-pc-mingw32-//`; done )
+# rename all the -animate.exe etc. without the prefix
+( cd $repackagedir/bin ; for i in $mingw_prefix*; do mv $i `echo $i | sed s/$mingw_prefix//`; done )
 
 ( cd $repackagedir/bin ; mkdir poop ; mv *nip2* poop ; mv *.dll poop ; mv convert.exe poop ; rm -f * ; mv poop/* . ; rmdir poop )
 
@@ -56,12 +58,9 @@ echo cleaning build $repackagedir
 
 ( cd $repackagedir ; rm -rf src )
 
-# we need to copy the STL runtime dll in there
-# only for some versions of mingw though, curious
-mingwlibdir=/usr/lib/gcc/i586-mingw32msvc/4.2.1-sjlj
-if [ -f $mingwlibdir/libgcc_sjlj_1.dll ]; then
-	cp $mingwlibdir/libgcc_sjlj_1.dll $repackagedir/bin
-fi
+# we need to copy the C++ runtime dlls in there
+mingwlibdir=/usr/lib/gcc/i686-w64-mingw32/4.6
+cp $mingwlibdir/*.dll $repackagedir/bin
 
 # turn on the theme
 cat > $repackagedir/etc/gtk-2.0/gtkrc <<EOF

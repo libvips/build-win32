@@ -115,7 +115,7 @@ git This
 	mkdir ~/dev
 	cd ~/dev
 	git clone git://github.com/jcupitt/build-win32.git
-	cd build-win32/7.30
+	cd build-win32/7.32
 
 Check versions
 --------------
@@ -178,24 +178,26 @@ BUILD NIP2
 ==========
 	jhbuild --file=jhbuildrc --moduleset=vips.modules build nip2
 
-	edit jhbuild and turn off the optimiser, then rebuild just goffice
+	with ubuntu 12.04, edit jhbuild and turn off the optimiser, then 
+	rebuild just goffice:
 
-	jhbuild --file=jhbuildrc --moduleset=vips.modules \
-		buildone -f goffice-noprint
+		jhbuild --file=jhbuildrc --moduleset=vips.modules \
+			buildone -f goffice-noprint
+
+	with 12.10, this compiler bug is fixed, no need to turn off the
+	optimiser
 
 	./package-nip2.sh
-
-	
 
 UPLOAD YOUR PACKAGE
 ===================
 Assuming everything has worked perfectly up to this point, you will find
-vips-dev-7.30.x.zip all packaged up and ready to go. You might upload it
+vips-dev-7.32.x.zip all packaged up and ready to go. You might upload it
 to your favorite server via scp like this:
 
-	scp vips-dev-7.30.x.zip <YOURID>@<YOURSERVER>:/your/favorite/directory
+	scp vips-dev-7.32.x.zip <YOURID>@<YOURSERVER>:/your/favorite/directory
 
-	scp nip2-7.30.x-setup.exe <YOURID>@<YOURSERVER>:/your/favorite/directory
+	scp nip2-7.32.x-setup.exe <YOURID>@<YOURSERVER>:/your/favorite/directory
 
 Many servers will block direct downlods of .exe files. You might need to put
 the .exe in a zip file.
@@ -226,7 +228,7 @@ First, build as described above:
 
 	jhbuild --file=jhbuildrc --moduleset=vips.modules build libvips
 
-Now go to checkout/vips-7.30.5 and make any source changes you want. Build
+Now go to checkout/vips-7.32.0 and make any source changes you want. Build
 again to compile your changes.
 
 	jhbuild --file=jhbuildrc --moduleset=vips.modules build libvips
@@ -236,6 +238,6 @@ And package your new version.
 	./package-vipsdev.sh
 
 I suggest you rename your zip to avoid confusion. Call it something like
-vips-dev-7.30.5-rob1.zip.
+vips-dev-7.32.0-rob1.zip.
 
 - remove strcasecmp() hacks from cfitsio, see "eval_l.c"

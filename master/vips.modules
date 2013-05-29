@@ -47,6 +47,12 @@
 
   <repository 
     type="tarball"
+    name="fcgi"
+    href="http://www.fastcgi.com/dist/"
+  />
+
+  <repository 
+    type="tarball"
     name="fftw"
     href="http://www.fftw.org/"
   />
@@ -96,7 +102,7 @@
   <repository 
     type="tarball" 
     name="checkout" 
-    href="file:///home/john/GIT/build-win32/7.26/checkout"
+    href="file:///home/john/GIT/build-win32/7.32/checkout"
   />
 
   <repository 
@@ -137,9 +143,6 @@
        stuff has linux headers start being found instead of the mingw ones
 
        disable openjpeg tiff, we don't use it anyway
-
-	tried ojp 1.5.1, but edge tiles in openslide read were all black
-
 
        -->
 
@@ -334,25 +337,17 @@
        introspection won't work cross-platform, since we can't easily run our
        objects ... fix this by including the typelibs in the dist later
 
-       the dev branch gets full debugging unless we explicitly turn it off
-
-    <branch
-      repo="vips-master"
-      module="libvips.git"
-      version="7.31.0"
-      >
-
     -->
 
   <autotools id="libvips" 
-    autogen-sh="./configure"
-    autogenargs="--without-OpenEXR --without-matio --without-orc --disable-introspection --enable-debug=no"
+    autogen-sh="configure"
+    autogenargs="--without-OpenEXR --without-matio --without-orc --disable-introspection "
     >
 
     <branch
-      repo="vips-beta"
-      module="vips-7.31.0.tar.gz"
-      version="7.31.0"
+      repo="vips"
+      module="7.32/vips-7.32.3.tar.gz"
+      version="7.32.3"
       >
 
       <patch file="file:///home/john/develop/transform-7.28/transform.patch" strip="1"/>
@@ -384,8 +379,10 @@
 
        0.9.x is gtk3, we are stuck with gtk2 for now
 
-       goffice-0.8.17 crashes with -O2, make sure that's off in jhbuildrc 
-       when you make this module
+       in ubuntu 12.04, goffice-0.8.17 crashes with -O2, make sure that's off 
+       in jhbuildrc when you make this module, see the README
+
+       this compiler bug fixed in 12.10
 
        -->
 
@@ -440,33 +437,24 @@
     />
   </autotools>
 
+  <!-- gtksheet is useless on win32, sadly
+
+       -->
+
   <autotools id="nip2" 
     autogen-sh="configure"
     autogenargs="--disable-debug --without-libgvc"
     >
     <branch
-      repo="vips"
-      module="7.30/nip2-7.30.1.tar.gz"
-      version="7.30.1"
+      repo="vips-beta"
+      module="nip2-7.33.0.tar.gz"
+      version="7.33.0"
     />
     <dependencies>
       <dep package="libvips"/>
       <dep package="gsl"/>
       <dep package="goffice-noprint"/>
       <dep package="gtkengines"/>
-    </dependencies>
-  </autotools>
-
-  <autotools id="ptmfit" 
-    autogen-sh="configure"
-    >
-    <branch
-      repo="checkout"
-      module="ptmfit-2.3.tar.gz"
-      version="2.3"
-    />
-    <dependencies>
-      <dep package="libvips"/>
     </dependencies>
   </autotools>
 
