@@ -346,8 +346,8 @@
 
     <branch
       repo="vips-beta"
-      module="vips-7.33.0.tar.gz"
-      version="7.33.0"
+      module="vips-7.34.0.tar.gz"
+      version="7.34.0"
       >
 
       <patch file="file:///home/john/develop/transform-7.32/transform.patch" strip="1"/>
@@ -447,8 +447,8 @@
     >
     <branch
       repo="vips-beta"
-      module="nip2-7.33.0.tar.gz"
-      version="7.33.0"
+      module="nip2-7.34.0.tar.gz"
+      version="7.34.0"
     />
     <dependencies>
       <dep package="libvips"/>
