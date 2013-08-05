@@ -173,8 +173,8 @@
     >
     <branch
       repo="github"
-      module="openslide/openslide/openslide-3.3.1.tar.gz"
-      version="3.3.1"
+      module="openslide/openslide/openslide-3.3.3.tar.gz"
+      version="3.3.3"
     />
     <dependencies>
       <dep package="openjpeg"/>
@@ -307,7 +307,7 @@
        do we need to call as _ftello() etc.?
 
        the second patch removes the strcasecmp() / strncasecmp() that cfitsio
-       defines on win32 ... mingw supplies there
+       defines on win32 ... mingw supplies these
 
     -->
 
@@ -334,7 +334,7 @@
 
        orc needs 64-bit SSE, so we can't use it under windows
 
-       introspection won't work cross-platform, since we can't easily run our
+       introspection won't work cross-platform since we can't easily run our
        objects ... fix this by including the typelibs in the dist later
 
     -->
@@ -346,8 +346,8 @@
 
     <branch
       repo="vips"
-      module="7.34/vips-7.34.1.tar.gz"
-      version="7.34.1"
+      module="7.34/vips-7.34.2.tar.gz"
+      version="7.34.2"
       >
 
       <patch file="file:///home/john/develop/transform-7.32/transform.patch" strip="1"/>
@@ -437,13 +437,9 @@
     />
   </autotools>
 
-  <!-- gtksheet is useless on win32, sadly
-
-       -->
-
   <autotools id="nip2" 
     autogen-sh="configure"
-    autogenargs="--enable-debug=no --without-libgvc --without-gtksheet"
+    autogenargs="--enable-debug=no --without-libgvc"
     >
     <branch
       repo="vips"
