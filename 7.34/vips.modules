@@ -345,9 +345,9 @@
     >
 
     <branch
-      repo="vips-beta"
-      module="vips-7.33.0.tar.gz"
-      version="7.33.0"
+      repo="vips"
+      module="7.34/vips-7.34.1.tar.gz"
+      version="7.34.1"
       >
 
       <patch file="file:///home/john/develop/transform-7.32/transform.patch" strip="1"/>
@@ -446,9 +446,9 @@
     autogenargs="--enable-debug=no --without-libgvc --without-gtksheet"
     >
     <branch
-      repo="vips-beta"
-      module="nip2-7.33.0.tar.gz"
-      version="7.33.0"
+      repo="vips"
+      module="7.34/nip2-7.34.1.tar.gz"
+      version="7.34.1"
     />
     <dependencies>
       <dep package="libvips"/>

@@ -346,11 +346,11 @@
 
     <branch
       repo="vips"
-      module="7.32/vips-7.32.3.tar.gz"
-      version="7.32.3"
+      module="7.32/vips-7.32.4.tar.gz"
+      version="7.32.4"
       >
 
-      <patch file="file:///home/john/develop/transform-7.28/transform.patch" strip="1"/>
+      <patch file="file:///home/john/develop/transform-7.32/transform.patch" strip="1"/>
     </branch>
 
     <dependencies>
