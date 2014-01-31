@@ -277,7 +277,7 @@
     >
     <branch
       repo="magick"
-      module="ImageMagick/ImageMagick-6.8.7-10.tar.gz"
+      module="ImageMagick/legacy/ImageMagick-6.8.7-10.tar.gz"
       version="6.8.7"
     />
     <dependencies>
