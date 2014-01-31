@@ -110,6 +110,12 @@
     name="gnome" 
     href="http://ftp.gnome.org/pub/GNOME/sources/"
   />
+  
+  <repository
+    type="tarball"
+    name="sqlite3"
+    href="http://www.sqlite.org/"
+  />
 
   <autotools id="fftw3" 
     autogen-sh="configure"
@@ -159,8 +165,23 @@
       <dep package="tiff"/>
     </dependencies>
   </autotools>
+  
+  <!-- starting in openslide-3.4.0, sqlite3 is a requirement, and just
+       as is the case for openjpeg, openslide does not use pkg-config
+       to find sqlite3 (and so fails).
+       -->
 
-  <!-- openslide-3.3.0 does not use pkg-config to find openjpeg
+  <autotools id="sqlite3"
+    autogen-sh="configure"
+    >
+    <branch
+      repo="sqlite3"
+      module="2013/sqlite-autoconf-3080200.tar.gz"
+      version="3.8.2"
+    />
+  </autotools>
+
+  <!-- openslide-3.4.0 does not use pkg-config to find openjpeg
        and so fails during configuration (it doesn't know about cross-
        compiling). It's also missing a couple of tweaks to speed up aperio 
        reading. 
@@ -172,11 +193,12 @@
     >
     <branch
       repo="github"
-      module="openslide/openslide/releases/download/v3.3.3/openslide-3.3.3.tar.gz"
-      version="3.3.3"
+      module="openslide/openslide/releases/download/v3.4.0/openslide-3.4.0.tar.gz"
+      version="3.4.0"
     />
     <dependencies>
       <dep package="openjpeg"/>
+      <dep package="sqlite3"/>
     </dependencies>
   </autotools>
 
