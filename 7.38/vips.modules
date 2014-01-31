@@ -166,9 +166,8 @@
     </dependencies>
   </autotools>
   
-  <!-- starting in openslide-3.4.0, sqlite3 is a requirement, and just
-       as is the case for openjpeg, openslide does not use pkg-config
-       to find sqlite3 (and so fails).
+  <!-- starting in openslide-3.4.0, sqlite3 is a requirement.
+
        -->
 
   <autotools id="sqlite3"
@@ -180,13 +179,6 @@
       version="3.8.2"
     />
   </autotools>
-
-  <!-- openslide-3.4.0 does not use pkg-config to find openjpeg
-       and so fails during configuration (it doesn't know about cross-
-       compiling). It's also missing a couple of tweaks to speed up aperio 
-       reading. 
-
-       -->
 
   <autotools id="openslide" 
     autogen-sh="configure"
@@ -224,7 +216,7 @@
   <!-- matio does not work with mingw, sadly, it can't make a DLL and we need
        one for vips to link to -->
 
-  <!-- openexr does not work with mingw, sadly, it becomes very confused re.
+  <!-- openexr does not work with mingw, it becomes very confused re.
        threading -->
 
   <autotools id="libexif" 
@@ -344,7 +336,8 @@
        introspection won't work cross-platform since we can't easily run our
        objects ... fix this by including the typelibs in the dist later
 
-       use -O3 to turn on the auto vectorizer
+       use -O3 to turn on the auto vectorizer, this gives a useful speedup in 
+       7.38 and later
 
     -->
 
@@ -413,11 +406,11 @@
        
        add -liberty to get regcomp() and friends 
 
-	edit lib/gvc/Makefile.am, append -liberty toi line 69
+       edit lib/gvc/Makefile.am, append -liberty toi line 69
 
-	edit lib/gvpr/gprstate.c, remove WIN32 stuff
+       edit lib/gvpr/gprstate.c, remove WIN32 stuff
 
-	gvrender_core_dot.c fails with a variety of linking errors
+       gvrender_core_dot.c fails with a variety of linking errors
 
     -->
 
