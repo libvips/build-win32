@@ -37,8 +37,8 @@ PREREQUISITES
 =============
 [Ubuntu Desktop] (http://www.ubuntu.com/desktop/get-ubuntu/download)
 - This doesn't mean you can't get the process to work on anything else. This
-is simply what we are using and know to work. Tested on 11.10. Older versions
-of build-win32 work on older versions of Ubuntu.
+is simply what we are using and know to work. Tested on 11.10, 12.04LTS, and 13.10. 
+Older versions of build-win32 work on older versions of Ubuntu.
 
 OPTIONAL
 ========
@@ -65,7 +65,10 @@ Build/Tool Related Dependencies
 	autotools-dev \
 	docbook-utils \
 	docbook2x \
-	gtk-doc-tools
+	gtk-doc-tools \
+	nasm \
+	bison \
+	flex
 
 Library Dependencies
 --------------------
