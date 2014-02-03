@@ -65,7 +65,10 @@ Build/Tool Related Dependencies
 	autotools-dev \
 	docbook-utils \
 	docbook2x \
-	gtk-doc-tools
+	gtk-doc-tools \
+	nasm \
+	bison \
+	flex
 
 Library Dependencies
 --------------------
