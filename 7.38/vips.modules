@@ -102,7 +102,7 @@
   <repository 
     type="tarball" 
     name="checkout" 
-    href="file:///home/john/GIT/build-win32/7.32/checkout"
+    href="file:///home/john/GIT/build-win32/7.38/checkout"
   />
 
   <repository 
@@ -348,9 +348,9 @@
     >
 
     <branch
-      repo="vips"
-      module="7.38/vips-7.38.5.tar.gz"
-      version="7.38.5"
+      repo="checkout"
+      module="vips-7.38.6.tar.gz"
+      version="7.38.6"
       >
 
       <patch file="file:///home/john/develop/transform-7.32/transform.patch" strip="1"/>

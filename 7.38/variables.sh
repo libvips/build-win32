@@ -4,7 +4,7 @@ nip2_package=nip2
 nip2_version=7.38.1
 
 vips_package=vips
-vips_version=7.38.5
+vips_version=7.38.6
 
 # stuff is in here
 basedir=`pwd`
