@@ -84,7 +84,7 @@
   <repository 
     type="tarball" 
     name="github" 
-    href="http://github.com/downloads/"
+    href="http://github.com/"
   />
 
   <repository 
@@ -102,13 +102,19 @@
   <repository 
     type="tarball" 
     name="checkout" 
-    href="file:///home/john/GIT/build-win32/7.32/checkout"
+    href="file:///home/john/GIT/build-win32/master/checkout"
   />
 
   <repository 
     type="tarball" 
     name="gnome" 
     href="http://ftp.gnome.org/pub/GNOME/sources/"
+  />
+  
+  <repository
+    type="tarball"
+    name="sqlite3"
+    href="http://www.sqlite.org/"
   />
 
   <autotools id="fftw3" 
@@ -117,22 +123,18 @@
     >
     <branch
       repo="fftw"
-      module="fftw-3.3.2.tar.gz"
-      version="3.3.2"
+      module="fftw-3.3.3.tar.gz"
+      version="3.3.3"
     />
   </autotools>
-
-  <!-- we'd like lcms2 for vips (it's faster) but IM needs plain lcms -->
-
-  <!-- experiment - try 2.3 -->
 
   <autotools id="lcms" 
     autogen-sh="configure"
     >
     <branch
       repo="sourceforge"
-      module="lcms/lcms2-2.3.tar.gz"
-      version="2.3"
+      module="lcms/lcms2-2.5.tar.gz"
+      version="2.5"
     />
   </autotools>
 
@@ -143,6 +145,9 @@
        stuff has linux headers start being found instead of the mingw ones
 
        disable openjpeg tiff, we don't use it anyway
+
+       openjpeg2 is not using autotools making cross-compilation difficult 
+       and annoying, stick with 1.5.1 for now
 
        -->
 
@@ -160,39 +165,33 @@
       <dep package="tiff"/>
     </dependencies>
   </autotools>
-
-  <!-- openslide-3.3.0 does not use pkg-config to find openjpeg
-       and so fails during configuration (it doesn't know about cross-
-       compiling). It's also missing a couple of tweaks to speed up aperio 
-       reading. 
+  
+  <!-- starting in openslide-3.4.0, sqlite3 is a requirement.
 
        -->
+
+  <autotools id="sqlite3"
+    autogen-sh="configure"
+    >
+    <branch
+      repo="sqlite3"
+      module="2013/sqlite-autoconf-3080200.tar.gz"
+      version="3.8.2"
+    />
+  </autotools>
 
   <autotools id="openslide" 
     autogen-sh="configure"
     >
     <branch
       repo="github"
-      module="openslide/openslide/openslide-3.3.1.tar.gz"
-      version="3.3.1"
+      module="openslide/openslide/releases/download/v3.4.0/openslide-3.4.0.tar.gz"
+      version="3.4.0"
     />
     <dependencies>
       <dep package="openjpeg"/>
+      <dep package="sqlite3"/>
     </dependencies>
-  </autotools>
-
-  <!-- the gnome pre-compiled jpeg uses a funny DLL name, build ourselves -->
-
-  <autotools id="jpeg" 
-    autogen-sh="configure"
-    >
-    <branch
-      repo="jpeg"
-      module="jpegsrc.v8d.tar.gz"
-      version="8d"
-      checkoutdir="jpeg-8d"
-      >
-    </branch>
   </autotools>
 
   <!-- the turbo one is 2x to 4x faster 
@@ -207,8 +206,8 @@
     >
     <branch
       repo="sourceforge"
-      module="libjpeg-turbo/1.2.1/libjpeg-turbo-1.2.1.tar.gz"
-      version="1.2.1"
+      module="libjpeg-turbo/1.3.0/libjpeg-turbo-1.3.0.tar.gz"
+      version="1.3.0"
       >
       <patch file="http://www.vips.ecs.soton.ac.uk/supported/7.30/win32/libjpeg-turbo-bool.patch" strip="1"/>
     </branch>
@@ -217,7 +216,7 @@
   <!-- matio does not work with mingw, sadly, it can't make a DLL and we need
        one for vips to link to -->
 
-  <!-- openexr does not work with mingw, sadly, it becomes very confused re.
+  <!-- openexr does not work with mingw, it becomes very confused re.
        threading -->
 
   <autotools id="libexif" 
@@ -270,8 +269,8 @@
     >
     <branch
       repo="magick"
-      module="ImageMagick/legacy/ImageMagick-6.7.9-10.tar.gz"
-      version="6.7.9-10"
+      module="ImageMagick/legacy/ImageMagick-6.8.7-10.tar.gz"
+      version="6.8.7"
     />
     <dependencies>
       <dep package="lcms"/>
@@ -307,7 +306,7 @@
        do we need to call as _ftello() etc.?
 
        the second patch removes the strcasecmp() / strncasecmp() that cfitsio
-       defines on win32 ... mingw supplies there
+       defines on win32 ... mingw supplies these
 
     -->
 
@@ -334,23 +333,27 @@
 
        orc needs 64-bit SSE, so we can't use it under windows
 
-       introspection won't work cross-platform, since we can't easily run our
+       introspection won't work cross-platform since we can't easily run our
        objects ... fix this by including the typelibs in the dist later
+
+       use -O3 to turn on the auto vectorizer, this gives a useful speedup in 
+       7.38 and later
 
     -->
 
   <autotools id="libvips" 
     autogen-sh="configure"
-    autogenargs="--without-OpenEXR --without-matio --without-orc --disable-introspection "
+    autogenargs="--enable-debug=no --without-OpenEXR --without-matio --without-orc --disable-introspection "
+    makeargs="CFLAGS=-O3 CXXFLAGS=-O3"
     >
 
     <branch
-      repo="vips"
-      module="7.32/vips-7.32.3.tar.gz"
-      version="7.32.3"
+      repo="checkout"
+      module="vips-7.39.0.tar.gz"
+      version="7.39.0"
       >
 
-      <patch file="file:///home/john/develop/transform-7.28/transform.patch" strip="1"/>
+      <patch file="file:///home/john/develop/transform-7.32/transform.patch" strip="1"/>
     </branch>
 
     <dependencies>
@@ -370,14 +373,15 @@
     >
     <branch
       repo="gnu"
-      module="gsl/gsl-1.15.tar.gz"
-      version="1.15"
+      module="gsl/gsl-1.16.tar.gz"
+      version="1.16"
     />
   </autotools>
 
   <!-- our own goffice module
 
-       0.9.x is gtk3, we are stuck with gtk2 for now
+       0.9.x is gtk3, we are stuck with gtk2 for now, so we need the 0.8.x 
+       series
 
        in ubuntu 12.04, goffice-0.8.17 crashes with -O2, make sure that's off 
        in jhbuildrc when you make this module, see the README
@@ -402,11 +406,11 @@
        
        add -liberty to get regcomp() and friends 
 
-	edit lib/gvc/Makefile.am, append -liberty toi line 69
+       edit lib/gvc/Makefile.am, append -liberty toi line 69
 
-	edit lib/gvpr/gprstate.c, remove WIN32 stuff
+       edit lib/gvpr/gprstate.c, remove WIN32 stuff
 
-	gvrender_core_dot.c fails with a variety of linking errors
+       gvrender_core_dot.c fails with a variety of linking errors
 
     -->
 
@@ -437,24 +441,58 @@
     />
   </autotools>
 
-  <!-- gtksheet is useless on win32, sadly
-
-       -->
-
   <autotools id="nip2" 
     autogen-sh="configure"
-    autogenargs="--disable-debug --without-libgvc"
+    autogenargs="--enable-debug=no --without-libgvc"
     >
     <branch
-      repo="vips-beta"
-      module="nip2-7.33.0.tar.gz"
-      version="7.33.0"
+      repo="checkout"
+      module="nip2-7.39.0.tar.gz"
+      version="7.39.0"
     />
     <dependencies>
       <dep package="libvips"/>
       <dep package="gsl"/>
       <dep package="goffice-noprint"/>
       <dep package="gtkengines"/>
+    </dependencies>
+  </autotools>
+
+  <autotools id="ptmfit" 
+    autogen-sh="configure"
+    >
+    <branch
+      repo="checkout"
+      module="ptmfit-2.3.tar.gz"
+      version="2.3"
+    />
+    <dependencies>
+      <dep package="libvips"/>
+    </dependencies>
+  </autotools>
+
+  <autotools id="uriparser" 
+    autogen-sh="configure"
+    autogenargs="--disable-test"
+    >
+    <branch
+      repo="sourceforge"
+      module="uriparser/uriparser-0.7.7.tar.bz2"
+      version="0.7.7"
+    />
+  </autotools>
+
+  <autotools id="tilesrv" 
+    autogen-sh="configure"
+    >
+    <branch
+      repo="checkout"
+      module="tilesrv-1.0.tar.gz"
+      version="1.0"
+    />
+    <dependencies>
+      <dep package="libvips"/>
+      <dep package="uriparser"/>
     </dependencies>
   </autotools>
 

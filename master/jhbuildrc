@@ -74,11 +74,8 @@ os.environ['ARFLAGS']  = '-ar rcs'
 os.environ['INSTALL']  = os.path.expanduser('~/bin/install-check')
 
 # turn on the optimiser
-#
-# office-0.8.17 crashes with -O2 with Ubuntu 12.04 gcc-mingw-64 -- turn it off
-# for now
-#os.environ['CFLAGS']   += ' -O2 '
-#os.environ['CXXFLAGS']   += ' -O2 '
+os.environ['CFLAGS']   += ' -O2 '
+os.environ['CXXFLAGS']   += ' -O2 '
 
 # turn on debugging
 #os.environ['CFLAGS']   += ' -g '
