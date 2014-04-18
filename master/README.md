@@ -158,6 +158,9 @@ to
 
 	#! /usr/bin/perl
 
+openslide-3.4.0 needs patching: at line 391 in
+src/openslide-vendor-hammamatsu.c, change the fseek() for an fseeko().
+
 JHBUILD VERIFICATION
 ====================
 We just want to make sure that jhbuild has everything it needs. If all steps
