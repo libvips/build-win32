@@ -180,6 +180,10 @@
     />
   </autotools>
 
+  <!-- the patch fixes .ndpi files >2gb
+
+       -->
+
   <autotools id="openslide" 
     autogen-sh="configure"
     >
@@ -187,7 +191,9 @@
       repo="github"
       module="openslide/openslide/releases/download/v3.4.0/openslide-3.4.0.tar.gz"
       version="3.4.0"
-    />
+      >
+      <patch file="http://www.vips.ecs.soton.ac.uk/supported/7.38/win32/openslide-3.4.0.patch" strip="1"/>
+    </branch>
     <dependencies>
       <dep package="openjpeg"/>
       <dep package="sqlite3"/>
@@ -261,11 +267,13 @@
 	disable largefile support, we rely on vips for that and ImageMagick's 
 	detection does not work when cross-compiling
 
+	disable openmp, ubuntu 14.04 mingw has a broken libgomp
+
     -->
 
   <autotools id="imagemagick" 
     autogen-sh="configure"
-    autogenargs="--without-threads --without-x --with-modules=no --with-openexr=no --without-gvc --without-lqr --without-magick-plus-plus --disable-largefile --without-rsvg"
+    autogenargs="--without-threads --without-x --with-modules=no --with-openexr=no --without-gvc --without-lqr --without-magick-plus-plus --disable-largefile --without-rsvg --disable-openmp"
     >
     <branch
       repo="magick"
