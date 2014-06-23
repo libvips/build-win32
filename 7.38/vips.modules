@@ -261,11 +261,13 @@
 	disable largefile support, we rely on vips for that and ImageMagick's 
 	detection does not work when cross-compiling
 
+	disable openmp, ubuntu 14.04 mingw has a broken libgomp
+
     -->
 
   <autotools id="imagemagick" 
     autogen-sh="configure"
-    autogenargs="--without-threads --without-x --with-modules=no --with-openexr=no --without-gvc --without-lqr --without-magick-plus-plus --disable-largefile --without-rsvg"
+    autogenargs="--without-threads --without-x --with-modules=no --with-openexr=no --without-gvc --without-lqr --without-magick-plus-plus --disable-largefile --without-rsvg --disable-openmp"
     >
     <branch
       repo="magick"
@@ -348,8 +350,8 @@
     >
 
     <branch
-      repo="checkout"
-      module="vips-7.38.6.tar.gz"
+      repo="vips"
+      module="7.38/vips-7.38.6.tar.gz"
       version="7.38.6"
       >
 
@@ -447,8 +449,8 @@
     >
     <branch
       repo="vips"
-      module="7.38/nip2-7.38.1.tar.gz"
-      version="7.38.1"
+      module="7.38/nip2-7.38.3.tar.gz"
+      version="7.38.3"
     />
     <dependencies>
       <dep package="libvips"/>

@@ -51,7 +51,9 @@ echo cleaning build $repackagedir
 ( cd $repackagedir/lib ; find . -name "*.la" -exec rm {} \; )
 
 # we need to copy the C++ runtime dlls in there
-mingwlibdir=/usr/lib/gcc/i686-w64-mingw32/4.6
+gccmingwlibdir=/usr/lib/gcc/i686-w64-mingw32/4.8
+mingwlibdir=/usr/i686-w64-mingw32/lib
+cp $gccmingwlibdir/*.dll $repackagedir/bin
 cp $mingwlibdir/*.dll $repackagedir/bin
 
 # ... and test we startup OK
