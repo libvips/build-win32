@@ -333,6 +333,17 @@
     </branch>
   </autotools>
 
+  <autotools id="libgsf"
+    autogen-sh="configure"
+    makeargs="CFLAGS=-O2"
+    >
+    <branch
+      repo="gnome"
+      module="libgsf/1.14/libgsf-1.14.30.tar.xz"
+      version="1.14.30">
+    </branch>
+  </autotools>
+
   <!-- openexr has problems on win
   
        matio fails to build and link on win
@@ -357,14 +368,15 @@
 
     <branch
       repo="checkout"
-      module="vips-7.40.0.tar.gz"
-      version="7.40.0"
+      module="vips-7.40.1.tar.gz"
+      version="7.40.1"
       >
 
       <patch file="file:///home/john/develop/transform-7.32/transform.patch" strip="1"/>
     </branch>
 
     <dependencies>
+      <dep package="libgsf"/>
       <dep package="openslide"/>
       <dep package="tiff"/>
       <dep package="libjpeg-turbo"/>
@@ -455,8 +467,8 @@
     >
     <branch
       repo="checkout"
-      module="nip2-7.40.0.tar.gz"
-      version="7.40.0"
+      module="nip2-7.40.1.tar.gz"
+      version="7.40.1"
     />
     <dependencies>
       <dep package="libvips"/>

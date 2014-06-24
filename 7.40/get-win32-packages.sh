@@ -30,10 +30,6 @@ gtk+/2.24/gtk+_2.24.10-1_win32.zip
 gtk+/2.24/gtk+-dev_2.24.10-1_win32.zip
 libglade/2.6/libglade_2.6.4-1_win32.zip
 libglade/2.6/libglade-dev_2.6.4-1_win32.zip
-libgsf/1.14/libgsf_1.14.17-1_win32.zip
-libgsf/1.14/libgsf-dev_1.14.17-1_win32.zip
-libgsf/1.14/libgsf-gnome_1.14.17-1_win32.zip
-libgsf/1.14/libgsf-gnome-dev_1.14.17-1_win32.zip
 pango/1.29/pango_1.29.4-1_win32.zip
 pango/1.29/pango-dev_1.29.4-1_win32.zip
 dependencies/cairo_1.10.2-2_win32.zip
