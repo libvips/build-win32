@@ -367,9 +367,9 @@
     >
 
     <branch
-      repo="checkout"
-      module="vips-7.40.1.tar.gz"
-      version="7.40.1"
+      repo="vips"
+      module="7.40/vips-7.40.2.tar.gz"
+      version="7.40.2"
       >
 
       <patch file="file:///home/john/develop/transform-7.32/transform.patch" strip="1"/>
@@ -466,8 +466,8 @@
     autogenargs="--enable-debug=no --without-libgvc"
     >
     <branch
-      repo="checkout"
-      module="nip2-7.40.1.tar.gz"
+      repo="vips"
+      module="7.40/nip2-7.40.1.tar.gz"
       version="7.40.1"
     />
     <dependencies>
