@@ -277,8 +277,8 @@
     >
     <branch
       repo="magick"
-      module="ImageMagick/ImageMagick-6.8.9-0.tar.gz"
-      version="6.8.9"
+      module="ImageMagick/legacy/ImageMagick-6.8.8-10.tar.gz"
+      version="6.8.8"
     />
     <dependencies>
       <dep package="lcms"/>
@@ -368,8 +368,8 @@
 
     <branch
       repo="vips"
-      module="7.40/vips-7.40.2.tar.gz"
-      version="7.40.2"
+      module="7.40/vips-7.40.3.tar.gz"
+      version="7.40.3"
       >
 
       <patch file="file:///home/john/develop/transform-7.32/transform.patch" strip="1"/>
@@ -467,8 +467,8 @@
     >
     <branch
       repo="vips"
-      module="7.40/nip2-7.40.1.tar.gz"
-      version="7.40.1"
+      module="7.40/nip2-7.40.3.tar.gz"
+      version="7.40.3"
     />
     <dependencies>
       <dep package="libvips"/>
