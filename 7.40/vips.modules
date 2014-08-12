@@ -225,6 +225,9 @@
   <!-- openexr does not work with mingw, it becomes very confused re.
        threading -->
 
+  <!-- the patch sanity checks the shutter speed and stops pow(2, -inf), which
+       causes an uncaught math exception on mingw -->
+
   <autotools id="libexif" 
     autogen-sh="configure"
     >
@@ -232,7 +235,9 @@
       repo="sourceforge"
       module="libexif/libexif-0.6.21.tar.gz"
       version="0.6.21"
-    />
+      >
+      <patch file="http://www.vips.ecs.soton.ac.uk/supported/7.40/win32/libexif-0.6-shutter.patch" strip="1"/>
+    </branch>
   </autotools>
 
   <!-- the tiff on the gnome site needs a confusing libjpeg DLL, 
