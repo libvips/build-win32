@@ -373,8 +373,8 @@
 
     <branch
       repo="vips"
-      module="7.40/vips-7.40.5.tar.gz"
-      version="7.40.5"
+      module="7.40/vips-7.40.6.tar.gz"
+      version="7.40.6"
       >
 
       <patch file="file:///home/john/develop/transform-7.32/transform.patch" strip="1"/>
