@@ -171,6 +171,8 @@ let me know.
 
 BUILD
 =====
+Check that libvips is being built WITHOUT cfitsio, and run:
+
 	jhbuild --file=jhbuildrc --moduleset=vips.modules build libvips
 
 PACKAGE
@@ -179,16 +181,9 @@ PACKAGE
 
 BUILD NIP2
 ==========
+Now turn on cfitsio and run:
+
 	jhbuild --file=jhbuildrc --moduleset=vips.modules build nip2
-
-	with ubuntu 12.04, edit jhbuild and turn off the optimiser, then 
-	rebuild just goffice:
-
-		jhbuild --file=jhbuildrc --moduleset=vips.modules \
-			buildone -f goffice-noprint
-
-	with 12.10, this compiler bug is fixed, no need to turn off the
-	optimiser
 
 	./package-nip2.sh
 

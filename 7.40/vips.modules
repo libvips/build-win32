@@ -321,6 +321,9 @@
        the second patch removes the strcasecmp() / strncasecmp() that cfitsio
        defines on win32 ... mingw supplies these
 
+       cfitsio can't make a .dll, only include it in nip2 builds where we 
+       don't care about making a libvips.dll
+
     -->
 
   <autotools id="cfitsio" 
@@ -353,6 +356,8 @@
   
        matio fails to build and link on win
 
+       cfitsio cannot make a .dll, only include it if you must have it
+
        the transform patch is some non-LGPL code we paste into binaries 
 
        orc needs 64-bit SSE, so we can't use it under windows
@@ -367,14 +372,14 @@
 
   <autotools id="libvips" 
     autogen-sh="configure"
-    autogenargs="--enable-debug=no --without-OpenEXR --without-matio --without-orc --disable-introspection "
+    autogenargs="--enable-debug=no --without-OpenEXR --without-matio --without-cfitsio --without-orc --disable-introspection "
     makeargs="CFLAGS=-O3 CXXFLAGS=-O3"
     >
 
     <branch
       repo="vips"
-      module="7.40/vips-7.40.6.tar.gz"
-      version="7.40.6"
+      module="7.40/vips-7.40.10.tar.gz"
+      version="7.40.10"
       >
 
       <patch file="file:///home/john/develop/transform-7.32/transform.patch" strip="1"/>
@@ -389,7 +394,6 @@
       <dep package="libexif"/>
       <dep package="fftw3"/>
       <dep package="imagemagick"/>
-      <dep package="cfitsio"/>
     </dependencies>
   </autotools>
 
@@ -472,8 +476,8 @@
     >
     <branch
       repo="vips"
-      module="7.40/nip2-7.40.3.tar.gz"
-      version="7.40.3"
+      module="7.40/nip2-7.40.4.tar.gz"
+      version="7.40.4"
     />
     <dependencies>
       <dep package="libvips"/>

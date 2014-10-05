@@ -1,10 +1,10 @@
 # included by all scripts .. edit versions here, and in vips.modules
 
 nip2_package=nip2
-nip2_version=7.40.3
+nip2_version=7.40.4
 
 vips_package=vips
-vips_version=7.40.6
+vips_version=7.40.10
 
 # stuff is in here
 basedir=`pwd`
