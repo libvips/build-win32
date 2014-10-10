@@ -225,6 +225,9 @@
   <!-- openexr does not work with mingw, it becomes very confused re.
        threading -->
 
+  <!-- the patch sanity checks the shutter speed and stops pow(2, -inf), which
+       causes an uncaught math exception on mingw -->
+
   <autotools id="libexif" 
     autogen-sh="configure"
     >
@@ -232,7 +235,9 @@
       repo="sourceforge"
       module="libexif/libexif-0.6.21.tar.gz"
       version="0.6.21"
-    />
+      >
+      <patch file="http://www.vips.ecs.soton.ac.uk/supported/7.40/win32/libexif-0.6-shutter.patch" strip="1"/>
+    </branch>
   </autotools>
 
   <!-- the tiff on the gnome site needs a confusing libjpeg DLL, 
@@ -277,8 +282,8 @@
     >
     <branch
       repo="magick"
-      module="ImageMagick/ImageMagick-6.8.9-0.tar.gz"
-      version="6.8.9"
+      module="ImageMagick/legacy/ImageMagick-6.8.8-10.tar.gz"
+      version="6.8.8"
     />
     <dependencies>
       <dep package="lcms"/>
@@ -316,6 +321,9 @@
        the second patch removes the strcasecmp() / strncasecmp() that cfitsio
        defines on win32 ... mingw supplies these
 
+       cfitsio can't make a .dll, only include it in nip2 builds where we 
+       don't care about making a libvips.dll
+
     -->
 
   <autotools id="cfitsio" 
@@ -333,9 +341,22 @@
     </branch>
   </autotools>
 
+  <autotools id="libgsf"
+    autogen-sh="configure"
+    makeargs="CFLAGS=-O2"
+    >
+    <branch
+      repo="gnome"
+      module="libgsf/1.14/libgsf-1.14.30.tar.xz"
+      version="1.14.30">
+    </branch>
+  </autotools>
+
   <!-- openexr has problems on win
   
        matio fails to build and link on win
+
+       cfitsio cannot make a .dll, only include it if you must have it
 
        the transform patch is some non-LGPL code we paste into binaries 
 
@@ -351,20 +372,21 @@
 
   <autotools id="libvips" 
     autogen-sh="configure"
-    autogenargs="--enable-debug=no --without-OpenEXR --without-matio --without-orc --disable-introspection "
+    autogenargs="--enable-debug=no --without-OpenEXR --without-matio --without-cfitsio --without-orc --disable-introspection "
     makeargs="CFLAGS=-O3 CXXFLAGS=-O3"
     >
 
     <branch
-      repo="checkout"
-      module="vips-7.39.0.tar.gz"
-      version="7.39.0"
+      repo="vips-beta"
+      module="vips-7.41.0.tar.gz"
+      version="7.41.0"
       >
 
       <patch file="file:///home/john/develop/transform-7.32/transform.patch" strip="1"/>
     </branch>
 
     <dependencies>
+      <dep package="libgsf"/>
       <dep package="openslide"/>
       <dep package="tiff"/>
       <dep package="libjpeg-turbo"/>
@@ -372,7 +394,6 @@
       <dep package="libexif"/>
       <dep package="fftw3"/>
       <dep package="imagemagick"/>
-      <dep package="cfitsio"/>
     </dependencies>
   </autotools>
 
@@ -454,9 +475,9 @@
     autogenargs="--enable-debug=no --without-libgvc"
     >
     <branch
-      repo="checkout"
-      module="nip2-7.39.0.tar.gz"
-      version="7.39.0"
+      repo="vips"
+      module="7.40/nip2-7.40.4.tar.gz"
+      version="7.40.4"
     />
     <dependencies>
       <dep package="libvips"/>
