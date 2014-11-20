@@ -1,3 +1,20 @@
+oh argh missed these changes in 7.40:
+
+From github.com:jcupitt/build-win32
+5b826df..0449c37  master     -> origin/master
+Merge made by the 'recursive' strategy.
+master/README.md             | 13 ++++---------
+master/get-win32-packages.sh | 16 ++++++----------
+master/package-nip2.sh       | 10 +++++++++-
+master/package-vipsdev.sh    |  2 +-
+master/variables.sh          |  4 ++--
+master/vips.modules          | 43
+++++++++++++++++++++++++++++++++-----------
+6 files changed, 54 insertions(+), 34 deletions(-)
+
+update 7.42 from 7.40 again
+	  
+	  
 sqlite link needs checking
 
 check for new versions of the zips we use
