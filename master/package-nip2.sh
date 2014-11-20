@@ -16,7 +16,15 @@ echo cleaning build $repackagedir
 # rename all the -animate.exe etc. without the prefix
 ( cd $repackagedir/bin ; for i in $mingw_prefix*; do mv $i `echo $i | sed s/$mingw_prefix//`; done )
 
-( cd $repackagedir/bin ; mkdir poop ; mv *nip2* poop ; mv *.dll poop ; mv convert.exe poop ; rm -f * ; mv poop/* . ; rmdir poop )
+( cd $repackagedir/bin ; \
+	mkdir poop ; \
+	mv *nip2* poop ; \
+	mv *.dll poop ; \
+	mv convert.exe poop ; \
+	mv gspawn*.exe poop ; \
+	rm -f * ; \
+	mv poop/* . ; \
+	rmdir poop )
 
 ( cd $repackagedir/bin ; rm -f libvipsCC-15.dll run-nip2.sh )
 

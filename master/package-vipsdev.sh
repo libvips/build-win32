@@ -19,7 +19,7 @@ echo cleaning build $repackagedir
 ( cd $repackagedir/bin ; for i in $mingw_prefix*; do mv $i `echo $i | sed s/$mingw_prefix//`; done )
 
 # clean /bin 
-( cd $repackagedir/bin ; mkdir ../poop ; mv *vips* ../poop ; mv header.exe ../poop ; mv *.dll ../poop ; rm -f * ; mv ../poop/* . ; rmdir ../poop )
+( cd $repackagedir/bin ; mkdir ../poop ; mv *vips* ../poop ; mv *.dll ../poop ; rm -f * ; mv ../poop/* . ; rmdir ../poop )
 
 ( cd $repackagedir/bin ; rm libatk* libglade* libgtk* )
 ( cd $repackagedir/bin ; rm vips-7.* )
