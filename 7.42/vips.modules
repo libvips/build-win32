@@ -175,7 +175,7 @@
     >
     <branch
       repo="sqlite3"
-      module="2013/sqlite-autoconf-3080702.tar.gz"
+      module="2014/sqlite-autoconf-3080702.tar.gz"
       version="3.8.7.2"
     />
   </autotools>
@@ -307,7 +307,7 @@
   </autotools>
 
   <!-- 
-
+       
        the first patch just deletes the ftello()/fseeko() code, mingw does not
        support this 
 

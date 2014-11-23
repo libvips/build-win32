@@ -1,13 +1,13 @@
 # included by all scripts .. edit versions here, and in vips.modules
 
 nip2_package=nip2
-nip2_version=7.40.4
+nip2_version=7.42.0
 
 vips_package=vips
 vips_version=7.42.0
 
-# stuff is in here
-basedir=`pwd`
+# build-win32/x.xx dir we are building
+basedir=$(pwd)
 
 # download zips to here
 packagedir=packages
@@ -18,3 +18,5 @@ installdir=inst
 # jhbuild will download sources to here 
 checkoutdir=checkout
 
+# need a linux vips install here to get cross-platform build results from
+linux_install=~/vips

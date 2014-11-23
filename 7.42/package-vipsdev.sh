@@ -6,6 +6,11 @@ mingw_prefix=i686-pc-mingw32-
 
 # set -x
 
+if [ ! -f $linux_install/lib/girepository-1.0/Vips-8.0.typelib ]; then
+	echo "need a complete linux install to make a windows install"
+	exit 1
+fi
+
 repackagedir=$vips_package-dev-$vips_version
 
 echo copying install area $installdir
@@ -14,6 +19,12 @@ rm -rf $repackagedir
 cp -r $installdir $repackagedir
 
 echo cleaning build $repackagedir
+
+( cd $repackagedir ; rm -rf _jhbuild )
+
+for i in COPYING ChangeLog README.md AUTHORS; do 
+	( cp $basedir/$checkoutdir/vips-$vips_version/$i $repackagedir )
+done
 
 # rename all the $mingw_prefix-animate etc. without the prefix
 ( cd $repackagedir/bin ; for i in $mingw_prefix*; do mv $i `echo $i | sed s/$mingw_prefix//`; done )
@@ -55,6 +66,12 @@ gccmingwlibdir=/usr/lib/gcc/i686-w64-mingw32/4.8
 mingwlibdir=/usr/i686-w64-mingw32/lib
 cp $gccmingwlibdir/*.dll $repackagedir/bin
 cp $mingwlibdir/*.dll $repackagedir/bin
+
+# stuff for pyvips8
+mkdir -p $repackagedir/lib/girepository-1.0
+cp $linux_install/lib/girepository-1.0/Vips-8.0.typelib $repackagedir/lib/girepository-1.0
+mkdir -p $repackagedir/lib/python2.7/site-packages/gi/overrides
+cp $linux_install/lib/python2.7/site-packages/gi/overrides/Vips.* $repackagedir/lib/python2.7/site-packages/gi/overrides
 
 # ... and test we startup OK
 echo -n "testing build ... "
