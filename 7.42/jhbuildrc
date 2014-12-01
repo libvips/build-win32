@@ -29,7 +29,7 @@ os.environ['TARGET'] = 'i686-pc-mingw32'
 #     prefix=c:/devel/target/f3002dbeeb43fd4ea5385fb6fa4de06f
 # at the top ... we need to override this prefix with our own
 # don't use "--define-variable=prefix=/poop", some pkg-config get confused
-os.environ['PKG_CONFIG'] = '/usr/bin/pkg-config --define-variable prefix=' + prefix
+os.environ['PKG_CONFIG'] = '/usr/bin/pkg-config --static --define-variable prefix=' + prefix
 
 # try to stop our enclosing pkg path getting in
 # basedir/lib/pkgconfig is added for us later
