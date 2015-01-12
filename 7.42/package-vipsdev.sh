@@ -33,7 +33,7 @@ done
 ( cd $repackagedir/bin ; mkdir ../poop ; mv *vips* ../poop ; mv *.dll ../poop ; rm -f * ; mv ../poop/* . ; rmdir ../poop )
 
 ( cd $repackagedir/bin ; rm libatk* libglade* libgtk* )
-( cd $repackagedir/bin ; rm vips-7.* )
+( cd $repackagedir/bin ; rm -f vips-7.* )
 
 ( cd $repackagedir/bin ; strip --strip-unneeded *.exe )
 
@@ -66,6 +66,10 @@ gccmingwlibdir=/usr/lib/gcc/i686-w64-mingw32/4.8
 mingwlibdir=/usr/i686-w64-mingw32/lib
 cp $gccmingwlibdir/*.dll $repackagedir/bin
 cp $mingwlibdir/*.dll $repackagedir/bin
+
+# don't need these two
+( cd $repackagedir/bin ; rm -f libgomp*.dll )
+( cd $repackagedir/bin ; rm -f libgfortran*.dll )
 
 # stuff for pyvips8
 mkdir -p $repackagedir/lib/girepository-1.0
