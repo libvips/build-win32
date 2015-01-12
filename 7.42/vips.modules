@@ -205,10 +205,13 @@
        the patch changes the "typedef int boolean" that libjpeg-turbo 
        provides, it causes problems later on for imagemagick
 
+       without-turbojpeg turns off a library we don't use (we just use the 
+       libjpeg API)
+
        -->
 
   <autotools id="libjpeg-turbo" 
-    autogen-sh="configure"
+    autogen-sh="configure --without-turbojpeg"
     >
     <branch
       repo="sourceforge"
