@@ -23,8 +23,8 @@ development environment for native Microsoft Windows applications.
 
 MinGW provides a complete Open Source programming tool set which is suitable
 for the development of native MS-Windows applications, and which do not depend
-on any 3rd-party C-Runtime DLLs. (It does depend on a number of DLLs provided
-by Microsoft themselves, as components of the operating system; most notable
+on any 3rd-party C-Runtime DLLs (it does depend on a number of DLLs provided
+by Microsoft themselves as components of the operating system; most notable
 among these is MSVCRT.DLL, the Microsoft C runtime library. Additionally,
 threaded applications must ship with a freely distributable thread support
 DLL, provided as part of MinGW itself).
@@ -37,8 +37,7 @@ PREREQUISITES
 =============
 [Ubuntu Desktop] (http://www.ubuntu.com/desktop/get-ubuntu/download)
 - This doesn't mean you can't get the process to work on anything else. This
-is simply what we are using and know to work. Tested on 11.10, 12.04LTS, and 13.10. 
-Older versions of build-win32 work on older versions of Ubuntu.
+is simply what we are using and know to work. Tested on 14.04 and 14.10.
 
 OPTIONAL
 ========
@@ -58,10 +57,6 @@ Build/Tool Related Dependencies
 	wine \
 	mingw \
 	jhbuild \
-	autoconf \
-	automake1.4 \
-	automake1.7 \
-	automake1.9 \
 	autotools-dev \
 	docbook-utils \
 	docbook2x \
@@ -74,35 +69,20 @@ Library Dependencies
 --------------------
     sudo apt-get install libatk1.0-0 \
 	libatk1.0-dev \
-	libglib2.0-0 \
 	libglib2.0-dev \
-	libgtk2.0-0 \
 	libgtk2.0-dev \
-	libglade2-0 \
 	libglade2-dev \
-	libgsf-1-114 \
-	libgsf-gnome-1-dev \
-	libpango1.0-0 \
+	libgsf-1-dev \
 	libpango1.0-dev \
-	libcairo2 \
 	libcairo2-dev \
-	libexpat1 \
 	libexpat1-dev \
-	libfontconfig1 \
 	libfontconfig1-dev \
-	libfreetype6 \
 	libfreetype6-dev \
 	gettext \
-	libpng12-0 \
 	libpng12-dev \
-	libxml2 \
 	libxml2-dev \
 	tango-icon-theme \
-	libcxxtools6 \
-	libcxxtools-dev \
-	zlib1g \
-	zlib1g-dev \
-	zlibc 
+	zlib1g-dev 
 
 These are Ubuntu binaries and of course we will be building a Windows
 binary. However, some of the packages we build are not very good at
@@ -118,7 +98,7 @@ git This
 	mkdir ~/dev
 	cd ~/dev
 	git clone git://github.com/jcupitt/build-win32.git
-	cd build-win32/7.38
+	cd build-win32/7.42
 
 Check versions
 --------------
@@ -190,12 +170,12 @@ Now turn on cfitsio and run:
 UPLOAD YOUR PACKAGE
 ===================
 Assuming everything has worked perfectly up to this point, you will find
-vips-dev-7.32.x.zip all packaged up and ready to go. You might upload it
+vips-dev-7.42.x.zip all packaged up and ready to go. You might upload it
 to your favorite server via scp like this:
 
-	scp vips-dev-7.32.x.zip <YOURID>@<YOURSERVER>:/your/favorite/directory
+	scp vips-dev-7.42.x.zip <YOURID>@<YOURSERVER>:/your/favorite/directory
 
-	scp nip2-7.32.x-setup.exe <YOURID>@<YOURSERVER>:/your/favorite/directory
+	scp nip2-7.42.x-setup.exe <YOURID>@<YOURSERVER>:/your/favorite/directory
 
 Many servers will block direct downlods of .exe files. You might need to put
 the .exe in a zip file.
@@ -236,6 +216,6 @@ And package your new version.
 	./package-vipsdev.sh
 
 I suggest you rename your zip to avoid confusion. Call it something like
-vips-dev-7.32.0-rob1.zip.
+vips-dev-7.42.0-rob1.zip.
 
 - remove strcasecmp() hacks from cfitsio, see "eval_l.c"

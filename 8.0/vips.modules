@@ -72,7 +72,7 @@
   <repository 
     type="tarball" 
     name="magick" 
-    href="ftp://ftp.imagemagick.org/pub/"
+    href="ftp://ftp.imagemagick.org/pub/ImageMagick/releases/"
   />
 
   <repository 
@@ -285,7 +285,7 @@
     >
     <branch
       repo="magick"
-      module="ImageMagick/ImageMagick-6.9.0-0.tar.gz"
+      module="ImageMagick-6.9.0-0.tar.gz"
       version="6.9.0"
     />
     <dependencies>
