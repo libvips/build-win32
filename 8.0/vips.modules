@@ -285,7 +285,7 @@
     >
     <branch
       repo="magick"
-      module="ImageMagick-6.9.0-0.tar.gz"
+      module="ImageMagick-6.9.0-10.tar.gz"
       version="6.9.0"
     />
     <dependencies>
@@ -335,8 +335,8 @@
     >
     <branch
       repo="cfitsio"
-      module="cfitsio3310.tar.gz"
-      version="3.31"
+      module="cfitsio3370.tar.gz"
+      version="3.37"
       checkoutdir="cfitsio"
       >
       <patch file="http://www.vips.ecs.soton.ac.uk/supported/7.30/win32/cfitsio-fseeko.patch" strip="1"/>
@@ -381,8 +381,8 @@
 
     <branch
       repo="vips"
-      module="8.0-beta/vips-8.0.0.tar.gz"
-      version="8.0.0"
+      module="8.0/vips-8.0.1.tar.gz"
+      version="8.0.1"
       >
 
       <patch file="file:///home/john/develop/transform-7.32/transform.patch" strip="1"/>
@@ -479,8 +479,8 @@
     >
     <branch
       repo="vips"
-      module="7.42/nip2-7.42.1.tar.gz"
-      version="7.42.1"
+      module="8.0/nip2-8.0.tar.gz"
+      version="8.0"
     />
     <dependencies>
       <dep package="libvips"/>
