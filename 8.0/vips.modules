@@ -133,8 +133,8 @@
     >
     <branch
       repo="sourceforge"
-      module="lcms/lcms2-2.6.tar.gz"
-      version="2.6"
+      module="lcms/lcms2-2.7.tar.gz"
+      version="2.7"
     />
   </autotools>
 
@@ -180,19 +180,14 @@
     />
   </autotools>
 
-  <!-- the patch fixes .ndpi files >2gb
-
-       -->
-
   <autotools id="openslide" 
     autogen-sh="configure"
     >
     <branch
       repo="github"
-      module="openslide/openslide/releases/download/v3.4.0/openslide-3.4.0.tar.gz"
-      version="3.4.0"
+      module="openslide/openslide/releases/download/v3.4.1/openslide-3.4.1.tar.gz"
+      version="3.4.1"
       >
-      <patch file="http://www.vips.ecs.soton.ac.uk/supported/7.38/win32/openslide-3.4.0.patch" strip="1"/>
     </branch>
     <dependencies>
       <dep package="openjpeg"/>
@@ -215,8 +210,8 @@
     >
     <branch
       repo="sourceforge"
-      module="libjpeg-turbo/1.3.1/libjpeg-turbo-1.3.1.tar.gz"
-      version="1.3.1"
+      module="libjpeg-turbo/1.4.0/libjpeg-turbo-1.4.0.tar.gz"
+      version="1.4.0"
       >
       <patch file="http://www.vips.ecs.soton.ac.uk/supported/7.30/win32/libjpeg-turbo-bool.patch" strip="1"/>
     </branch>
@@ -277,6 +272,8 @@
 
 	disable openmp, ubuntu 14.04 mingw has a broken libgomp
 
+	6.9.0-10 and later don't build under mingw
+
     -->
 
   <autotools id="imagemagick" 
@@ -285,8 +282,8 @@
     >
     <branch
       repo="magick"
-      module="ImageMagick-6.9.0-10.tar.gz"
-      version="6.9.0"
+      module="ImageMagick-6.8.9-10.tar.gz"
+      version="6.8.9"
     />
     <dependencies>
       <dep package="lcms"/>
@@ -310,28 +307,15 @@
   </autotools>
 
   <!-- 
-       
-       the first patch just deletes the ftello()/fseeko() code, mingw does not
-       support this 
 
-       as a result, >2gb fits files will not work on win32 
-
-       add -lmingwex to get ftello & friends, but we seem to be linking this
-       already when we compile vips ... why can't it find ftello()?
-
-       do we need to call as _ftello() etc.?
-
-       the second patch removes the strcasecmp() / strncasecmp() that cfitsio
-       defines on win32 ... mingw supplies these
-
-       cfitsio can't make a .dll, only include it in nip2 builds where we 
-       don't care about making a libvips.dll
+       cfitsio can't make a .dll with mingw ... only include it in nip2 builds 
+       where we don't care about making a libvips.dll
 
     -->
 
   <autotools id="cfitsio" 
     autogen-sh="configure"
-    autogenargs="--disable-reentrant --disable-hera --without-gsiftp"
+    autogenargs="--disable-hera --without-gsiftp"
     >
     <branch
       repo="cfitsio"
@@ -339,8 +323,6 @@
       version="3.37"
       checkoutdir="cfitsio"
       >
-      <patch file="http://www.vips.ecs.soton.ac.uk/supported/7.30/win32/cfitsio-fseeko.patch" strip="1"/>
-      <patch file="http://www.vips.ecs.soton.ac.uk/supported/7.28/win32/cfitsio-casecmp.patch" strip="1"/>
     </branch>
   </autotools>
 
@@ -350,8 +332,8 @@
     >
     <branch
       repo="gnome"
-      module="libgsf/1.14/libgsf-1.14.30.tar.xz"
-      version="1.14.30">
+      module="libgsf/1.14/libgsf-1.14.33.tar.xz"
+      version="1.14.33">
     </branch>
   </autotools>
 
@@ -381,8 +363,8 @@
 
     <branch
       repo="vips"
-      module="8.0/vips-8.0.1.tar.gz"
-      version="8.0.1"
+      module="8.0/vips-8.0.2.tar.gz"
+      version="8.0.2"
       >
 
       <patch file="file:///home/john/develop/transform-7.32/transform.patch" strip="1"/>
