@@ -341,7 +341,8 @@
   
        matio fails to build and link on win
 
-       cfitsio cannot make a .dll, only include it if you must have it
+       cfitsio cannot make a .dll with mingw, only include it if you must 
+       have it
 
        the transform patch is some non-LGPL code we paste into binaries 
 
@@ -358,7 +359,7 @@
   <autotools id="libvips" 
     autogen-sh="configure"
     autogenargs="--enable-debug=no --without-OpenEXR --without-matio --without-orc --disable-introspection "
-    makeargs="CFLAGS=-g CXXFLAGS=-g"
+    makeargs="CFLAGS=-O3 CXXFLAGS=-O3"
     >
 
     <branch
