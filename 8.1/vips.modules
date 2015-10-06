@@ -175,8 +175,8 @@
     >
     <branch
       repo="sqlite3"
-      module="2014/sqlite-autoconf-3080702.tar.gz"
-      version="3.8.7.2"
+      module="2015/sqlite-autoconf-3081101.tar.gz"
+      version="3.8.11.1"
     />
   </autotools>
 
@@ -210,8 +210,8 @@
     >
     <branch
       repo="sourceforge"
-      module="libjpeg-turbo/1.4.0/libjpeg-turbo-1.4.0.tar.gz"
-      version="1.4.0"
+      module="libjpeg-turbo/1.4.0/libjpeg-turbo-1.4.2.tar.gz"
+      version="1.4.2"
       >
       <patch file="http://www.vips.ecs.soton.ac.uk/supported/7.30/win32/libjpeg-turbo-bool.patch" strip="1"/>
     </branch>
@@ -256,8 +256,8 @@
     >
     <branch
       repo="tiff"
-      module="tiff-4.0.3.tar.gz"
-      version="4.0.3"
+      module="tiff-4.0.6.tar.gz"
+      version="4.0.6"
       >
     </branch>
     <dependencies>
@@ -274,6 +274,8 @@
 
 	6.9.0-10 and later don't build under mingw
 
+	6.9.2-3 confirmed to also fail, some sort of locale issue
+
     -->
 
   <autotools id="imagemagick" 
@@ -282,7 +284,7 @@
     >
     <branch
       repo="magick"
-      module="ImageMagick-6.8.9-10.tar.gz"
+      module="ImageMagick-6.8.9-10.tar.xz"
       version="6.8.9"
     />
     <dependencies>
@@ -301,8 +303,8 @@
     >
     <branch
       repo="orc"
-      module="orc-0.4.11.tar.gz"
-      version="0.4.11"
+      module="orc-0.4.18.tar.gz"
+      version="0.4.18"
     />
   </autotools>
 
@@ -332,8 +334,8 @@
     >
     <branch
       repo="gnome"
-      module="libgsf/1.14/libgsf-1.14.33.tar.xz"
-      version="1.14.33">
+      module="libgsf/1.14/libgsf-1.14.34.tar.xz"
+      version="1.14.34">
     </branch>
   </autotools>
 
