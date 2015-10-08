@@ -95,6 +95,12 @@
 
   <repository 
     type="tarball" 
+    name="webp" 
+    href="http://downloads.webmproject.org/releases/webp/"
+  />
+
+  <repository 
+    type="tarball" 
     name="gnu" 
     href="ftp://ftp.gnu.org/pub/gnu/"
   />
@@ -328,6 +334,17 @@
     </branch>
   </autotools>
 
+  <autotools id="webp" 
+    autogen-sh="configure"
+    >
+    <branch
+      repo="webp"
+      module="libwebp-0.4.3.tar.gz"
+      version="0.4.3"
+      >
+    </branch>
+  </autotools>
+
   <autotools id="libgsf"
     autogen-sh="configure"
     makeargs="CFLAGS=-O2"
@@ -374,13 +391,14 @@
     </branch>
 
     <dependencies>
+      <dep package="fftw3"/>
       <dep package="libgsf"/>
+      <dep package="libjpeg-turbo"/>
       <dep package="openslide"/>
       <dep package="tiff"/>
-      <dep package="libjpeg-turbo"/>
       <dep package="lcms"/>
       <dep package="libexif"/>
-      <dep package="fftw3"/>
+      <dep package="webp"/>
       <dep package="imagemagick"/>
     </dependencies>
   </autotools>
