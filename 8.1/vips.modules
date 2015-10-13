@@ -373,6 +373,11 @@
        use -O3 to turn on the auto vectorizer, this gives a useful speedup in 
        7.38 and later
 
+	try without webp, it seems to have some win32 issues? see 
+	https://github.com/jcupitt/build-win32/issues/11
+
+      <dep package="webp"/>
+
     -->
 
   <autotools id="libvips" 
@@ -383,8 +388,8 @@
 
     <branch
       repo="vips"
-      module="8.1/vips-8.1.0.tar.gz"
-      version="8.1.0"
+      module="8.1/vips-8.1.1.tar.gz"
+      version="8.1.1"
       >
 
       <patch file="file:///home/john/develop/transform-7.32/transform.patch" strip="1"/>
@@ -398,7 +403,6 @@
       <dep package="tiff"/>
       <dep package="lcms"/>
       <dep package="libexif"/>
-      <dep package="webp"/>
       <dep package="imagemagick"/>
     </dependencies>
   </autotools>
