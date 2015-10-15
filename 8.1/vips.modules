@@ -373,6 +373,18 @@
        use -O3 to turn on the auto vectorizer, this gives a useful speedup in 
        7.38 and later
 
+       webp has problems with mingw on windows, see:
+
+	https://github.com/jcupitt/build-win32/issues/11
+
+	https://github.com/webmproject/libwebp/commit/46305ca649bf6035f9ef61c1a0c3a1f094a752ad
+
+	http://www.virtualdub.org/blog/pivot/entry.php?id=363
+
+      reenable webp when we are > 0.4.3, and turn off all intrinsics
+
+      <dep package="webp"/>
+
     -->
 
   <autotools id="libvips" 
@@ -395,7 +407,6 @@
       <dep package="libgsf"/>
       <dep package="libjpeg-turbo"/>
       <dep package="openslide"/>
-      <dep package="webp"/>
       <dep package="tiff"/>
       <dep package="lcms"/>
       <dep package="libexif"/>
