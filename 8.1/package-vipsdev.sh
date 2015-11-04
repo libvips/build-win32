@@ -2,8 +2,6 @@
 
 . variables.sh
 
-mingw_prefix=i686-pc-mingw32-
-
 # set -x
 
 if [ ! -f $linux_install/lib/girepository-1.0/Vips-8.0.typelib ]; then
@@ -11,12 +9,14 @@ if [ ! -f $linux_install/lib/girepository-1.0/Vips-8.0.typelib ]; then
 	exit 1
 fi
 
-repackagedir=$vips_package-dev-$vips_version
-
 echo copying install area $installdir
 
 rm -rf $repackagedir
 cp -r $installdir $repackagedir
+
+echo generating missing import files 
+
+./gendeflibs.sh
 
 echo cleaning build $repackagedir
 
@@ -26,8 +26,9 @@ for i in COPYING ChangeLog README.md AUTHORS; do
 	( cp $basedir/$checkoutdir/vips-$vips_version/$i $repackagedir )
 done
 
-# rename all the $mingw_prefix-animate etc. without the prefix
-( cd $repackagedir/bin ; for i in $mingw_prefix*; do mv $i `echo $i | sed s/$mingw_prefix//`; done )
+# rename all the i686-pc-mingw32-animate.exe etc. without the prefix
+prefix=i686-pc-mingw32-
+( cd $repackagedir/bin ; for i in $prefix*.exe; do mv $i `echo $i | sed s/$prefix//`; done )
 
 # clean /bin 
 ( cd $repackagedir/bin ; mkdir ../poop ; mv *vips* ../poop ; mv *.dll ../poop ; rm -f * ; mv ../poop/* . ; rmdir ../poop )

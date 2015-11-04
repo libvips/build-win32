@@ -153,7 +153,7 @@ BUILD
 =====
 Check that libvips is being built WITHOUT cfitsio, and run:
 
-	jhbuild --file=jhbuildrc --moduleset=vips.modules build libvips
+	jhbuild --file=jhbuildrc --moduleset=vips.modules build --nodeps libvips
 
 PACKAGE
 =======

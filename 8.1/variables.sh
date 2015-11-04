@@ -20,3 +20,7 @@ checkoutdir=checkout
 
 # need a linux vips install here to get cross-platform build results from
 linux_install=~/vips
+
+mingw_prefix=i686-w64-mingw32-
+
+repackagedir=$vips_package-dev-$vips_version
