@@ -1,6 +1,10 @@
 VIPS WIN32
 ==========
 
+This package makes a 32-bit Windows binary of libvips and nip2. If you want a
+64-bit Windows binary, see build-win64. The 64-bit version is also much 
+simpler to use. 
+
 We use jhbuilder to git, mingw to compile, and good old zip to package the
 vips source code for WIN32.
 
