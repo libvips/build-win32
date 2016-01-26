@@ -395,8 +395,8 @@
 
     <branch
       repo="vips"
-      module="8.2/vips-8.2.0.tar.gz"
-      version="8.2.0"
+      module="8.2/vips-8.2.2.tar.gz"
+      version="8.2.2"
       >
 
       <patch file="file:///home/john/develop/transform-7.32/transform.patch" strip="1"/>
