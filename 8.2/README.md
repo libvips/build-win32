@@ -163,9 +163,9 @@ BUILD NIP2
 ==========
 Now build cfitsio, force vips to rebuild, and then build nip2:
 
-	jhbuild --file=jhbuildrc --moduleset=vips.modules build cfitsio
-	jhbuild --file=jhbuildrc --moduleset=vips.modules buildone --force libvips
-	jhbuild --file=jhbuildrc --moduleset=vips.modules build nip2
+	jhbuild --file=jhbuildrc --moduleset=vips.modules build --nodeps cfitsio
+	jhbuild --file=jhbuildrc --moduleset=vips.modules buildone --nodeps --force libvips
+	jhbuild --file=jhbuildrc --moduleset=vips.modules build --nodeps nip2
 
 	./package-nip2.sh
 
