@@ -137,7 +137,6 @@ This will most likely complain that it couldn't find automake-1.8 which
 is fine, we didn't install that. If it complains about anything else,
 let me know.
 
-
 	export BASEDIR=$(pwd)
 	jhbuild --file=jhbuildrc --moduleset=vips.modules build --nodeps nip2
 
