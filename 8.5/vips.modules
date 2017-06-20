@@ -69,6 +69,12 @@
     href="ftp://ftp.remotesensing.org/pub/libtiff/"
   />
 
+  <repository
+    type="tarball"
+    name="xmlsoft"
+    href="ftp://xmlsoft.org/"
+  />
+
   <repository 
     type="tarball"
     name="vips"
@@ -195,6 +201,100 @@
     href="http://www.sqlite.org/"
   />
 
+  <autotools id="libiconv" 
+    autogen-sh="configure"
+    >
+    <branch
+      repo="gnu"
+      module="libiconv/libiconv-1.14.tar.gz"
+      version="1.14"
+    />
+  </autotools>
+
+  <autotools id="expat" 
+    autogen-sh="configure"
+    >
+    <branch
+      repo="sourceforge"
+      module="expat/expat-2.2.0.tar.bz2"
+      version="2.2.0"
+    />
+    <dependencies>
+      <dep package="libiconv"/>
+    </dependencies>
+  </autotools>
+
+  <autotools id="freetype"
+    autogen-sh="configure"
+    autogenargs="--enable-static"
+    >
+    <branch 
+      repo="nongnu"
+      module="freetype/freetype-2.8.tar.gz"
+      version="2.8.0"
+    />
+    <dependencies>
+      <dep package="libiconv"/>
+      <dep package="expat"/>
+    </dependencies>
+  </autotools>
+
+  <!-- icu will pull in standard linux headers, which we don't want
+
+    -->
+
+  <autotools id="harfbuzz"
+    autogen-sh="configure"
+    autogenargs="--with-icu=no"
+    >
+    <branch 
+      repo="freedesktop.org"
+      module="harfbuzz/release/harfbuzz-1.4.6.tar.bz2"
+      version="1.4.6"
+    />
+    <dependencies>
+      <dep package="libiconv"/>
+      <dep package="expat"/>
+      <dep package="freetype"/>
+      <dep package="cairo"/>
+      <dep package="fontconfig"/>
+    </dependencies>
+  </autotools>
+
+  <!-- 2.12.3 fails with a gperf problem
+
+    -->
+
+  <autotools id="fontconfig"
+    autogen-sh="configure"
+    >
+    <branch 
+      repo="freedesktop.org"
+      module="fontconfig/release/fontconfig-2.12.1.tar.gz"
+      version="2.12.1"
+    />
+    <dependencies>
+      <dep package="libiconv"/>
+      <dep package="libpng"/>
+      <dep package="expat"/>
+      <dep package="freetype"/>
+    </dependencies>
+  </autotools>
+
+  <autotools id="libxml2" 
+    autogen-sh="configure"
+    autogenargs="--without-python">
+    >
+    <branch
+      repo="xmlsoft"
+      module="libxml2/libxml2-2.9.4.tar.gz"
+      version="2.9.4"
+    />
+    <dependencies>
+      <dep package="libiconv"/>
+    </dependencies>
+  </autotools>
+
   <autotools id="libpng" 
     autogen-sh="configure"
     >
@@ -226,11 +326,12 @@
     <pkg-config>libcroco-0.6.pc</pkg-config>
     <branch
       repo="gnome"
-      module="libcroco/0.6/libcroco-0.6.11.tar.xz"
-      version="0.6.11">
+      module="libcroco/0.6/libcroco-0.6.12.tar.xz"
+      version="0.6.12">
     </branch>
     <dependencies>
       <dep package="glib"/>
+      <dep package="libxml2"/>
     </dependencies>
   </autotools>
 
@@ -240,8 +341,8 @@
     >
     <branch
       repo="gnome"
-      module="librsvg/2.40/librsvg-2.40.16.tar.xz"
-      version="2.40.16">
+      module="librsvg/2.40/librsvg-2.40.17.tar.xz"
+      version="2.40.17">
     </branch>
     <dependencies>
       <dep package="glib"/>
@@ -298,12 +399,10 @@
 
        BASEDIR is set for us by build.sh
 
-
-
        -->
 
   <cmake id="openjpeg"
-    cmakeargs="-DCMAKE_TOOLCHAIN_FILE=$BASEDIR/Toolchain-x86_64-w32-mingw32.cmake"
+    cmakeargs="-DBUILD_PKGCONFIG_FILES=ON -DCMAKE_TOOLCHAIN_FILE=$BASEDIR/Toolchain-x86_64-w32-mingw32.cmake"
     >
     <branch 
       repo="openjpeg"
@@ -519,6 +618,7 @@
     <dependencies>
       <dep package="libffi"/>
       <dep package="libiconv"/>
+      <dep package="libxml2"/>
     </dependencies>
   </autotools>
 
@@ -537,7 +637,10 @@
 
     -->
 
-  <autotools id="cairo" autogenargs="--disable-gl --disable-xlib --disable-xcb --enable-win32 --without-x --disable-script">
+  <autotools id="cairo" 
+    autogenargs="--disable-gl --disable-xlib --disable-xcb --enable-win32 --without-x --disable-script"
+    autogen-sh="configure"
+    >
     <branch 
       repo="cairo" 
       module="cairo-1.14.8.tar.xz"
@@ -545,6 +648,8 @@
       >
     </branch>
     <dependencies>
+      <dep package="fontconfig"/>
+      <dep package="freetype"/>
       <dep package="glib"/>
       <dep package="pixman"/>
       <dep package="libpng"/>
@@ -554,8 +659,8 @@
   <autotools id="pango" autogenargs="--with-cairo --disable-introspection">
     <branch
       repo="gnome"
-      module="pango/1.40/pango-1.40.4.tar.xz"
-      version="1.40.4"
+      module="pango/1.40/pango-1.40.5.tar.xz"
+      version="1.40.5"
       >
     </branch>
     <dependencies>
@@ -643,8 +748,8 @@
 
     <branch
       repo="vips"
-      module="v8.5.2/vips-8.5.2.tar.gz"
-      version="8.5.2"
+      module="v8.5.6/vips-8.5.6.tar.gz"
+      version="8.5.6"
       >
       <patch file="file:///home/john/develop/transform-7.32/transform.patch" strip="1"/>
     </branch>
