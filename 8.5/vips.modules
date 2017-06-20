@@ -322,7 +322,10 @@
     />
   </autotools>
 
-  <autotools id="libcroco" supports-non-srcdir-builds="no">
+  <autotools id="libcroco" 
+    supports-non-srcdir-builds="no"
+    autogen-sh="configure"
+    >
     <pkg-config>libcroco-0.6.pc</pkg-config>
     <branch
       repo="gnome"
@@ -656,7 +659,10 @@
     </dependencies>
   </autotools>
 
-  <autotools id="pango" autogenargs="--with-cairo --disable-introspection">
+  <autotools id="pango" 
+      autogenargs="--with-cairo --disable-introspection"
+      autogen-sh="configure"
+    >
     <branch
       repo="gnome"
       module="pango/1.40/pango-1.40.5.tar.xz"
@@ -665,7 +671,9 @@
     </branch>
     <dependencies>
       <dep package="glib"/>
+      <dep package="harfbuzz"/>
       <dep package="cairo"/>
+      <dep package="freetype"/>
     </dependencies>
   </autotools>
 
