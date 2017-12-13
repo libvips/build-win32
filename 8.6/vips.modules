@@ -756,8 +756,9 @@
 
     <branch
       repo="vips"
-      module="v8.6.0/vips-8.6.0.tar.gz"
+      module="v8.6.0-beta1/vips-8.6.0-beta1.tar.gz"
       version="8.6.0"
+      checkoutdir="vips-8.6.0"
       >
       <patch file="file:///home/john/develop/transform-7.32/transform.patch" strip="1"/>
     </branch>
@@ -863,8 +864,9 @@
     >
     <branch
       repo="nip2"
-      module="v8.6.0/nip2-8.6.0.tar.gz"
+      module="v8.6.0-beta2/nip2-8.6.0-beta2.tar.gz"
       version="8.6.0"
+      checkoutdir="nip2-8.6.0"
     />
     <dependencies>
       <dep package="libvips"/>
