@@ -143,16 +143,6 @@ let me know.
 
 	./package-nip2.sh
 
-UPLOAD YOUR PACKAGE
-===================
-Assuming everything has worked perfectly up to this point, you will find
-vips-dev-7.42.x.zip all packaged up and ready to go. You might upload it
-to your favorite server via scp like this:
-
-	scp vips-dev-7.42.x.zip <YOURID>@<YOURSERVER>:/your/favorite/directory
-
-	scp nip2-7.42.x-setup.exe <YOURID>@<YOURSERVER>:/your/favorite/directory
-
 Many servers will block direct downlods of .exe files. You might need to put
 the .exe in a zip file.
 
