@@ -585,12 +585,12 @@
   </autotools>
 
   <autotools id="webp" 
-    autogen-sh="configure --enable-libwebpmux --enable-libwebpdemux"
+    autogen-sh="configure"
     >
     <branch
       repo="webp"
-      module="libwebp-0.6.1.tar.gz"
-      version="0.6.1"
+      module="libwebp-1.0.0.tar.gz"
+      version="1.0.0"
       >
     </branch>
   </autotools>
@@ -712,7 +712,11 @@
 
   <!-- use matio without hdf5, see above
 
-       1.5.8 fails to build in a cross-compiler
+       1.5.6 fails to build with gcc 7.3 with "missing matio.sym"
+
+       1.5.8+ fails to build in a cross-compiler (the test for va_copy fails)
+
+       so sadly we have to say goodbye to matio
 
     -->
 
@@ -753,9 +757,9 @@
 
     <branch
       repo="vips"
-      module="v8.6.4/vips-8.6.4.tar.gz"
-      version="8.6.4"
-      checkoutdir="vips-8.6.4"
+      module="v8.7.0-alpha2/vips-8.7.0.tar.gz"
+      version="8.7.0"
+      checkoutdir="vips-8.7.0"
       >
       <patch file="file:///home/john/develop/transform-7.32/transform.patch" strip="1"/>
     </branch>
@@ -860,9 +864,9 @@
     >
     <branch
       repo="nip2"
-      module="v8.6.0/nip2-8.6.0.tar.gz"
-      version="8.6.0"
-      checkoutdir="nip2-8.6.0"
+      module="8.7.0-beta1/nip2-8.7.0.tar.gz"
+      version="8.7.0"
+      checkoutdir="nip2-8.7.0"
     />
     <dependencies>
       <dep package="libvips"/>

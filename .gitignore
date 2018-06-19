@@ -1,4 +1,7 @@
 packages
 checkout
 inst
+vips-dev-*
+nip2-*
 .*.swp
+*.zip
