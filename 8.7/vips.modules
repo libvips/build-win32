@@ -297,10 +297,14 @@
 
   <!-- 2.12.3 fails with a gperf problem
 
+       the -march flag stops fontconfig using build system arch flags
+       for the target
+
     -->
 
   <autotools id="fontconfig"
     autogen-sh="configure"
+    makeargs="CFLAGS=-march=i686"
     >
     <branch 
       repo="freedesktop.org"
