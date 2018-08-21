@@ -201,6 +201,33 @@
     href="http://www.sqlite.org/"
   />
 
+  <repository
+    type="tarball"
+    name="zlib"
+    href="https://zlib.net/"
+  />
+
+  <!-- the zlib configure is a bit basic and does not support
+       cross-compiling, so use cmake 
+
+       zlib will make libzlib.dll, but we want libz.dll so we must 
+       patch CMakeLists.txt
+
+    -->
+
+  <cmake id="zlib"
+    cmakeargs="-D CMAKE_TOOLCHAIN_FILE=$BASEDIR/Toolchain-x86_64-w32-mingw32.cmake"
+    use-ninja="False"
+    >
+    <branch
+      repo="zlib"
+      module="zlib-1.2.11.tar.gz"
+      version="1.2.11"
+      >
+      <patch file="patches/zlib-name.patch" strip="1"/>
+    </branch>
+  </cmake>
+
   <autotools id="libiconv" 
     autogen-sh="configure"
     >
@@ -211,15 +238,23 @@
     />
   </autotools>
 
+  <!-- gettext 0.19.8 fails to build on 18.04 with mysterious symbol 
+       errors ... use an old binary version instead
+
+       it works fine with a 64-bit Windows target, very odd
+
+       -->
+
   <autotools id="expat" 
     autogen-sh="configure"
     >
     <branch
       repo="sourceforge"
-      module="expat/expat-2.2.0.tar.bz2"
-      version="2.2.0"
+      module="expat/expat-2.2.6.tar.bz2"
+      version="2.2.6"
     />
     <dependencies>
+      <dep package="zlib"/>
       <dep package="libiconv"/>
     </dependencies>
   </autotools>
@@ -230,11 +265,10 @@
     >
     <branch 
       repo="nongnu"
-      module="freetype/freetype-2.8.tar.gz"
-      version="2.8.0"
+      module="freetype/freetype-2.9.1.tar.gz"
+      version="2.9.1"
     />
     <dependencies>
-      <dep package="libiconv"/>
       <dep package="expat"/>
     </dependencies>
   </autotools>
@@ -249,8 +283,8 @@
     >
     <branch 
       repo="freedesktop.org"
-      module="harfbuzz/release/harfbuzz-1.4.6.tar.bz2"
-      version="1.4.6"
+      module="harfbuzz/release/harfbuzz-1.8.7.tar.bz2"
+      version="1.8.7"
     />
     <dependencies>
       <dep package="libiconv"/>
@@ -270,8 +304,8 @@
     >
     <branch 
       repo="freedesktop.org"
-      module="fontconfig/release/fontconfig-2.12.1.tar.gz"
-      version="2.12.1"
+      module="fontconfig/release/fontconfig-2.12.6.tar.gz"
+      version="2.12.6"
     />
     <dependencies>
       <dep package="libiconv"/>
@@ -287,8 +321,8 @@
     >
     <branch
       repo="xmlsoft"
-      module="libxml2/libxml2-2.9.4.tar.gz"
-      version="2.9.4"
+      module="libxml2/libxml2-2.9.8.tar.gz"
+      version="2.9.8"
     />
     <dependencies>
       <dep package="libiconv"/>
@@ -300,14 +334,15 @@
     >
     <branch
       repo="sourceforge"
-      module="libpng/libpng-1.6.25.tar.gz"
-      version="1.6.25"
+      module="libpng/libpng-1.6.30.tar.gz"
+      version="1.6.30"
     />
+    <dependencies>
+      <dep package="zlib"/>
+    </dependencies>
   </autotools>
 
   <!-- giflib does not automatically open binary when cross-compiling
-
-       giflib5 still has problems, use 4 for now
 
     -->
 
@@ -344,8 +379,8 @@
     >
     <branch
       repo="gnome"
-      module="librsvg/2.40/librsvg-2.40.17.tar.xz"
-      version="2.40.17">
+      module="librsvg/2.40/librsvg-2.40.19.tar.xz"
+      version="2.40.19">
     </branch>
     <dependencies>
       <dep package="glib"/>
@@ -354,6 +389,31 @@
       <dep package="pango"/>
     </dependencies>
   </autotools>
+
+  <!-- here's one for poppler 0.62, but it fails cross-compiling with a
+       mysterious c++ link error, probably the same thing that affects 
+       current openjpeg, see below
+
+  <cmake id="poppler"
+    cmakeargs="-D CMAKE_TOOLCHAIN_FILE=$BASEDIR/Toolchain-x86_64-w32-mingw32.cmake -D FONT_CONFIGURATION=win32 -D ENABLE_XPDF_HEADERS=OFF -D ENABLE_SPLASH=OFF -D ENABLE_GLIB=ON -D ENABLE_UTILS=OFF -D ENABLE_CPP=OFF"
+    use-ninja="False"
+    >
+    <pkg-config>poppler-glib.pc</pkg-config>
+    <branch repo="poppler.freedesktop.org"
+            module="poppler-0.62.0.tar.xz"
+            version="0.62.0"
+      />
+    <dependencies>
+      <dep package="cairo"/>
+      <dep package="openjpeg"/>
+      <dep package="glib"/>
+    </dependencies>
+    <after>
+      <dep package="gdk-pixbuf"/>
+    </after>
+  </cmake>
+
+    -->
 
   <autotools id="poppler" 
     autogenargs="--with-font-configuration=win32 --disable-xpdf-headers --disable-splash-output --enable-poppler-glib --disable-gtk-test --disable-utils --disable-poppler-cpp" 
@@ -380,8 +440,8 @@
     >
     <branch
       repo="fftw"
-      module="fftw-3.3.4.tar.gz"
-      version="3.3.4"
+      module="fftw-3.3.7.tar.gz"
+      version="3.3.7"
     />
   </autotools>
 
@@ -390,8 +450,8 @@
     >
     <branch
       repo="sourceforge"
-      module="lcms/lcms2-2.8.tar.gz"
-      version="2.8"
+      module="lcms/lcms2-2.9.tar.gz"
+      version="2.9"
     />
   </autotools>
 
@@ -428,9 +488,11 @@
     >
     <branch
       repo="sqlite3"
-      module="2016/sqlite-autoconf-3130000.tar.gz"
-      version="3.13.0"
+      module="2018/sqlite-autoconf-3220000.tar.gz"
+      version="3.22.0"
     />
+    <dependencies>
+    </dependencies>
   </autotools>
 
   <autotools id="openslide" 
@@ -465,11 +527,14 @@
     >
     <branch
       repo="sourceforge"
-      module="libjpeg-turbo/1.5.1/libjpeg-turbo-1.5.1.tar.gz"
-      version="1.5.1"
+      module="libjpeg-turbo/1.5.3/libjpeg-turbo-1.5.3.tar.gz"
+      version="1.5.3"
       >
       <patch file="patches/libjpeg-turbo-bool.patch" strip="1"/>
     </branch>
+    <dependencies>
+      <dep package="zlib"/>
+    </dependencies>
   </autotools>
 
   <!-- openexr does not work with mingw, it becomes very confused re.
@@ -508,8 +573,8 @@
     >
     <branch
       repo="tiff"
-      module="tiff-4.0.7.tar.gz"
-      version="4.0.7"
+      module="tiff-4.0.9.tar.gz"
+      version="4.0.9"
       >
     </branch>
     <dependencies>
@@ -561,8 +626,8 @@
     >
     <branch
       repo="orc"
-      module="orc-0.4.26.tar.gz"
-      version="0.4.26"
+      module="orc-0.4.28.tar.gz"
+      version="0.4.28"
     />
   </autotools>
 
@@ -577,15 +642,19 @@
     >
     <branch
       repo="cfitsio"
-      module="cfitsio3390.tar.gz"
-      version="3.39"
+      module="cfitsio3430.tar.gz"
+      version="3.43"
       checkoutdir="cfitsio"
       >
     </branch>
+    <dependencies>
+      <dep package="zlib"/>
+    </dependencies>
   </autotools>
 
   <autotools id="webp" 
     autogen-sh="configure"
+    autogenargs="--enable-libwebpmux --enable-libwebpdemux"
     >
     <branch
       repo="webp"
@@ -593,6 +662,12 @@
       version="1.0.0"
       >
     </branch>
+    <dependencies>
+      <dep package="libpng"/>
+      <dep package="libjpeg-turbo"/>
+      <dep package="giflib"/>
+      <dep package="tiff"/>
+    </dependencies>
   </autotools>
 
   <autotools id="libffi">
@@ -608,17 +683,18 @@
 
     -->
 
-  <autotools id="glib" autogenargs="--with-pcre=internal">
+  <autotools id="glib" 
+    autogenargs="--with-pcre=internal"
+    >
     <branch
       repo="gnome"
-      module="glib/2.52/glib-2.52.0.tar.xz"
-      version="2.52.0"
+      module="glib/2.54/glib-2.54.3.tar.xz"
+      version="2.54.3"
       >
     </branch>
     <dependencies>
+      <dep package="zlib"/>
       <dep package="libffi"/>
-      <dep package="libiconv"/>
-      <dep package="libxml2"/>
     </dependencies>
   </autotools>
 
@@ -638,13 +714,12 @@
     -->
 
   <autotools id="cairo" 
-    autogenargs="--disable-gl --disable-xlib --disable-xcb --enable-win32 --without-x --disable-script"
-    autogen-sh="configure"
+    autogenargs="--disable-gl --disable-xlib --disable-xcb --enable-win32 --without-x --disable-ps --disable-script"
     >
     <branch 
       repo="cairo" 
-      module="cairo-1.14.8.tar.xz"
-      version="1.14.8"
+      module="cairo-1.15.12.tar.xz"
+      version="1.15.12"
       >
     </branch>
     <dependencies>
@@ -657,20 +732,19 @@
   </autotools>
 
   <autotools id="pango" 
-      autogenargs="--with-cairo --disable-introspection"
-      autogen-sh="configure"
+    autogenargs="--with-cairo --disable-introspection"
     >
     <branch
       repo="gnome"
-      module="pango/1.40/pango-1.40.5.tar.xz"
-      version="1.40.5"
+      module="pango/1.40/pango-1.40.14.tar.xz"
+      version="1.40.14"
       >
     </branch>
     <dependencies>
       <dep package="glib"/>
-      <dep package="harfbuzz"/>
       <dep package="cairo"/>
       <dep package="freetype"/>
+      <dep package="harfbuzz"/>
     </dependencies>
   </autotools>
 
@@ -704,8 +778,8 @@
     >
     <branch
       repo="gnome"
-      module="libgsf/1.14/libgsf-1.14.41.tar.xz"
-      version="1.14.41"
+      module="libgsf/1.14/libgsf-1.14.42.tar.xz"
+      version="1.14.42"
       >
     </branch>
   </autotools>
@@ -757,7 +831,7 @@
 
     <branch
       repo="vips"
-      module="v8.7.0-alpha2/vips-8.7.0.tar.gz"
+      module="v8.7.0-rc2/vips-8.7.0-rc2.tar.gz"
       version="8.7.0"
       checkoutdir="vips-8.7.0"
       >
@@ -864,7 +938,7 @@
     >
     <branch
       repo="nip2"
-      module="8.7.0-beta1/nip2-8.7.0.tar.gz"
+      module="v8.7.0-rc2/nip2-8.7.0-rc2.tar.gz"
       version="8.7.0"
       checkoutdir="nip2-8.7.0"
     />

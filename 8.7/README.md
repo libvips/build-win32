@@ -99,33 +99,13 @@ git This
 	mkdir ~/dev
 	cd ~/dev
 	git clone git://github.com/jcupitt/build-win32.git
-	cd build-win32/7.42
+	cd build-win32/8.7
 
 Check versions
 --------------
 The variables.sh script defines some common variables (eg. vips version
 number) used by the other scripts. Check they are all OK, and that the version
 numbers in vips.modules are up to date too.
-
-GNOME win32 Packages
---------------------
-As we are building a win32 executable, we need some DLLs to link against,
-and the GNOME project kindly provides us with a large number of these ready
-to use! 
-
-Run this script to create some directories for zips, tarballs and the
-build tree and download all the zips you need from Gnome:
-
-	./get-win32-packages.sh
-
-If you desire to modify the packages used, just open up the
-script and edit the list near the end. This is completely optional though,
-as the ones checked out "should" work just fine for you needs.
-
-After downloading, run the unpack script to unzip the files to your build
-area:
-
-	./unpack.sh
 
 JHBUILD VERIFICATION
 ====================
@@ -138,6 +118,17 @@ This will most likely complain that it couldn't find automake-1.8 which
 is fine, we didn't install that. If it complains about anything else,
 let me know.
 
+Binary packages
+===============
+Some packages don't build well on 32-bit systems. We download binary zips for
+these. Run
+
+  ./get-win32-packages.sh 
+
+Building
+========
+
+  ./unpack.sh
 	export BASEDIR=$(pwd)
 	jhbuild --file=jhbuildrc --moduleset=vips.modules build --nodeps nip2
 
@@ -145,17 +136,6 @@ let me know.
 
 Many servers will block direct downlods of .exe files. You might need to put
 the .exe in a zip file.
-
-CLEAN UP
-========
-It is always good to clean up after yourself. Be careful though, this command
-will delete the package you just created! You did upload it to your favorite
-server didn't you?
-
-	./clean.sh
-
-You'll need to run the unpack script again if you clean up. You won't need to
-redownload the zips though.
 
 OTHER NOTES
 ===========
