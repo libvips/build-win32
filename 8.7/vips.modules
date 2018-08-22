@@ -210,7 +210,7 @@
   <!-- the zlib configure is a bit basic and does not support
        cross-compiling, so use cmake 
 
-       zlib will make libzlib.dll, but we want libz.dll so we must 
+       zlib will make libzlib.dll, but we want libz.dll, so we must 
        patch CMakeLists.txt
 
     -->
@@ -243,7 +243,7 @@
 
        it works fine with a 64-bit Windows target, very odd
 
-       -->
+    -->
 
   <autotools id="expat" 
     autogen-sh="configure"
@@ -274,6 +274,8 @@
   </autotools>
 
   <!-- icu will pull in standard linux headers, which we don't want
+
+       we are forced to use an old pango for gtk+-2, so we don't use harfbuzz
 
     -->
 
@@ -363,8 +365,8 @@
   </autotools>
 
   <autotools id="libcroco" 
-    supports-non-srcdir-builds="no"
     autogen-sh="configure"
+    supports-non-srcdir-builds="no"
     >
     <pkg-config>libcroco-0.6.pc</pkg-config>
     <branch
@@ -379,6 +381,7 @@
   </autotools>
 
   <autotools id="librsvg" 
+    autogen-sh="configure"
     supports-non-srcdir-builds="no"
     autogenargs="--disable-introspection --disable-pixbuf-loader">
     >
@@ -421,6 +424,7 @@
     -->
 
   <autotools id="poppler" 
+    autogen-sh="configure"
     autogenargs="--with-font-configuration=win32 --disable-xpdf-headers --disable-splash-output --enable-poppler-glib --disable-gtk-test --disable-utils --disable-poppler-cpp" 
     makeargs="POPPLER_GLIB_DISABLE_DEPRECATED="
     >
@@ -467,7 +471,7 @@
 
        BASEDIR is set for us by build.sh
 
-       -->
+    -->
 
   <cmake id="openjpeg"
     cmakeargs="-DBUILD_PKGCONFIG_FILES=ON -DCMAKE_TOOLCHAIN_FILE=$BASEDIR/Toolchain-x86_64-w32-mingw32.cmake"
@@ -487,7 +491,7 @@
 
   <!-- starting in openslide-3.4.0, sqlite3 is a requirement.
 
-       -->
+    -->
 
   <autotools id="sqlite3"
     autogen-sh="configure"
@@ -526,10 +530,11 @@
        without-turbojpeg turns off a library we don't use (we just use the 
        libjpeg API)
 
-       -->
+    -->
 
   <autotools id="libjpeg-turbo" 
-    autogen-sh="configure --without-turbojpeg"
+    autogen-sh="configure"
+    autogenargs="--without-turbojpeg"
     >
     <branch
       repo="sourceforge"
@@ -571,10 +576,10 @@
 
        disable the C++ API for now, we don't use it anyway
 
-       -->
+    -->
 
   <autotools id="tiff" 
-    autogen-sh="./configure"
+    autogen-sh="configure"
     autogenargs="--disable-cxx"
     >
     <branch
@@ -676,7 +681,9 @@
     </dependencies>
   </autotools>
 
-  <autotools id="libffi">
+  <autotools id="libffi"
+    autogen-sh="configure"
+    >
     <branch
       repo="sourceware"
       module="libffi/libffi-3.2.1.tar.gz"
@@ -687,16 +694,23 @@
 
   <!-- don't do any of doc stuff
 
+       we need an old version of glib or atk compile will fail later
+
+       2.36 fails needing automake 1.13
+
+       disable warnings or compile will fail with a win32 target
+
     -->
 
   <autotools id="glib" 
     autogen-sh="configure"
     autogenargs="--with-pcre=internal"
+    makeargs="CFLAGS=-w"
     >
     <branch
       repo="gnome"
-      module="glib/2.54/glib-2.54.3.tar.xz"
-      version="2.54.3"
+      module="glib/2.40/glib-2.40.2.tar.xz"
+      version="2.40.2"
       >
     </branch>
     <dependencies>
@@ -741,21 +755,24 @@
     </dependencies>
   </autotools>
 
+  <!-- 1.40.14 needs a newer glib than we can use
+
+    -->
+
   <autotools id="pango" 
     autogen-sh="configure"
     autogenargs="--with-cairo --disable-introspection"
     >
     <branch
       repo="gnome"
-      module="pango/1.40/pango-1.40.14.tar.xz"
-      version="1.40.14"
+      module="pango/1.30/pango-1.30.1.tar.xz"
+      version="1.30.1"
       >
     </branch>
     <dependencies>
       <dep package="glib"/>
       <dep package="cairo"/>
       <dep package="freetype"/>
-      <dep package="harfbuzz"/>
     </dependencies>
   </autotools>
 
@@ -879,6 +896,35 @@
     />
   </autotools>
 
+  <autotools id="atk"
+    >
+    <branch 
+      repo="gnome"
+      module="atk/1.32/atk-1.32.0.tar.xz"
+      version="1.32.0"
+    />
+    <dependencies>
+      <dep package="glib"/>
+    </dependencies>
+  </autotools>
+
+  <autotools id="gtk+"
+    autogen-sh="configure"
+    >
+    <branch 
+      repo="gnome"
+      module="gtk+/2.24/gtk+-2.24.32.tar.xz"
+      version="2.24.32"
+    />
+    <dependencies>
+      <dep package="glib"/>
+      <dep package="pango"/>
+      <dep package="cairo"/>
+      <dep package="gdk-pixbuf"/>
+      <dep package="atk"/>
+    </dependencies>
+  </autotools>
+
   <!-- our own goffice module
 
        0.9.x is gtk3, we are stuck with gtk2 for now, so we need the 0.8.x 
@@ -891,7 +937,7 @@
 
        the patch helps goffice find the pcre support in recent glibs
 
-       -->
+    -->
 
   <autotools id="goffice-noprint"
     autogen-sh="configure"
@@ -932,7 +978,7 @@
 
        2.20.x is the last one that works with gtk2
 
-       -->
+    -->
 
   <autotools id="gtkengines"
     autogen-sh="configure"
