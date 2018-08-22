@@ -470,6 +470,7 @@
 
   <cmake id="openjpeg"
     cmakeargs="-DBUILD_PKGCONFIG_FILES=ON -DCMAKE_TOOLCHAIN_FILE=$BASEDIR/Toolchain-x86_64-w32-mingw32.cmake"
+    use-ninja="False"
     >
     <branch 
       repo="openjpeg"
@@ -688,6 +689,7 @@
     -->
 
   <autotools id="glib" 
+    autogen-sh="configure"
     autogenargs="--with-pcre=internal"
     >
     <branch
@@ -702,7 +704,9 @@
     </dependencies>
   </autotools>
 
-  <autotools id="pixman" autogen-sh="configure">
+  <autotools id="pixman" 
+    autogen-sh="configure"
+    >
     <branch 
       repo="cairo" 
       module="pixman-0.34.0.tar.gz"
@@ -718,12 +722,13 @@
     -->
 
   <autotools id="cairo" 
+    autogen-sh="configure"
     autogenargs="--disable-gl --disable-xlib --disable-xcb --enable-win32 --without-x --disable-ps --disable-script"
     >
     <branch 
       repo="cairo" 
-      module="cairo-1.15.12.tar.xz"
-      version="1.15.12"
+      module="cairo-1.14.12.tar.xz"
+      version="1.14.12"
       >
     </branch>
     <dependencies>
@@ -736,6 +741,7 @@
   </autotools>
 
   <autotools id="pango" 
+    autogen-sh="configure"
     autogenargs="--with-cairo --disable-introspection"
     >
     <branch
@@ -760,6 +766,7 @@
     -->
 
   <autotools id="gdk-pixbuf"
+    autogen-sh="configure"
     autogenargs="--disable-introspection --disable-installed-tests --disable-always-build-tests --disable-glibtest --with-included-loaders=png,gdip-jpeg"
     >
     <branch
@@ -910,6 +917,7 @@
     -->
 
   <autotools id="graphviz"
+    autogen-sh="configure"
     autogenargs="--enable-swig=no --enable-sharp=no --enable-guile=no --enable-java=no--enable-io=no --enable-lua=no --enable-ocaml=no --enable-perl=no --enable-php=no --enable-python=no --enable-r=no --enable-ruby=no --enable-tcl=no --with-rsvg=no --with-ghostscript=no"
     >
     <branch
@@ -947,6 +955,7 @@
       checkoutdir="nip2-8.7.0"
     />
     <dependencies>
+      <dep package="gtk+"/>
       <dep package="libvips"/>
       <dep package="gsl"/>
       <dep package="goffice-noprint"/>
