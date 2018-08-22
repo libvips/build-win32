@@ -216,7 +216,7 @@
     -->
 
   <cmake id="zlib"
-    cmakeargs="-D CMAKE_TOOLCHAIN_FILE=$BASEDIR/Toolchain-x86_64-w32-mingw32.cmake"
+    cmakeargs="-DCMAKE_TOOLCHAIN_FILE=$BASEDIR/Toolchain-x86_64-w32-mingw32.cmake"
     use-ninja="False"
     >
     <branch
@@ -283,10 +283,11 @@
     >
     <branch 
       repo="freedesktop.org"
-      module="harfbuzz/release/harfbuzz-1.8.7.tar.bz2"
-      version="1.8.7"
+      module="harfbuzz/release/harfbuzz-1.8.8.tar.bz2"
+      version="1.8.8"
     />
     <dependencies>
+      <dep package="glib"/>
       <dep package="libiconv"/>
       <dep package="expat"/>
       <dep package="freetype"/>
@@ -723,7 +724,7 @@
 
   <autotools id="cairo" 
     autogen-sh="configure"
-    autogenargs="--disable-gl --disable-xlib --disable-xcb --enable-win32 --without-x --disable-ps --disable-script"
+    autogenargs="--disable-gl --disable-xlib --disable-xcb --enable-win32 --without-x --disable-script"
     >
     <branch 
       repo="cairo" 

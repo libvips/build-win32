@@ -131,7 +131,6 @@ Building
   ./unpack.sh
 	export BASEDIR=$(pwd)
 	jhbuild --file=jhbuildrc --moduleset=vips.modules build --nodeps nip2
-
 	./package-nip2.sh
 
 Many servers will block direct downlods of .exe files. You might need to put
