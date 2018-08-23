@@ -380,6 +380,12 @@
     </dependencies>
   </autotools>
 
+  <!-- 2.40.19 needs pangocairo >= 1.38.0
+
+       we are forced onto pango 1.27, so we need an older rsvg
+
+    -->
+
   <autotools id="librsvg" 
     autogen-sh="configure"
     supports-non-srcdir-builds="no"
@@ -387,8 +393,8 @@
     >
     <branch
       repo="gnome"
-      module="librsvg/2.40/librsvg-2.40.19.tar.xz"
-      version="2.40.19">
+      module="librsvg/2.31/librsvg-2.31.0.tar.gz"
+      version="2.31.0">
     </branch>
     <dependencies>
       <dep package="glib"/>
@@ -423,10 +429,14 @@
 
     -->
 
+  <!-- -fpermissive or g++ complains about int->enum conversions
+
+    -->
+
   <autotools id="poppler" 
     autogen-sh="configure"
     autogenargs="--with-font-configuration=win32 --disable-xpdf-headers --disable-splash-output --enable-poppler-glib --disable-gtk-test --disable-utils --disable-poppler-cpp" 
-    makeargs="POPPLER_GLIB_DISABLE_DEPRECATED="
+    makeargs="CXXFLAGS=-fpermissive POPPLER_GLIB_DISABLE_DEPRECATED="
     >
     <pkg-config>poppler-glib.pc</pkg-config>
     <branch repo="poppler.freedesktop.org"
@@ -757,16 +767,42 @@
 
   <!-- 1.40.14 needs a newer glib than we can use
 
+       1.30.2 fails to build under mingw due to a _snprintf conflict
+
+       1.20.5 is too old for gtk+-2, missing pango_font_map_create_context
+
+       1.25.6 fails with "flexible array member in union" ... it's using a 
+       gcc extension which gcc6 bans
+
+       1.27.1 fails with the _snprintf error
+
+       1.26.2 fails with the _snprintf error
+
+	patch: remove 
+
+		#define snprintf _snprintf
+
+	from pango/openfont/hb-private.h
+
+       rsvg 2.40.19 needs pangocairo >= 1.38.0
+
+       pango 1.38 needs harfbuzz to make pangoft2, and we need pangoft2
+
+       1.27.1 plus the snprintf patch makes pangoft2 correctly
+
+       with-dynamic-modules=no to stop pango loading modules at runtime:
+       these are hard to relocate
+
     -->
 
   <autotools id="pango" 
     autogen-sh="configure"
-    autogenargs="--with-cairo --disable-introspection"
+    autogenargs="--with-cairo --disable-introspection --with-included-modules=yes --with-dynamic-modules=no"
     >
     <branch
       repo="gnome"
-      module="pango/1.30/pango-1.30.1.tar.xz"
-      version="1.30.1"
+      module="pango/1.27/pango-1.27.1.tar.gz"
+      version="1.27.1"
       >
     </branch>
     <dependencies>
@@ -781,6 +817,8 @@
 
        disable run-time loading of modules, it's difficult when cross-compiling
 
+       2.36.0 fails with our ancient glib
+
     -->
 
   <autotools id="gdk-pixbuf"
@@ -789,8 +827,8 @@
     >
     <branch
       repo="gnome"
-      module="gdk-pixbuf/2.36/gdk-pixbuf-2.36.0.tar.xz"
-      version="2.36.0"
+      module="gdk-pixbuf/2.25/gdk-pixbuf-2.25.2.tar.xz"
+      version="2.25.2"
       >
     </branch>
     <dependencies>
@@ -896,12 +934,22 @@
     />
   </autotools>
 
+  <!-- 1.32.0 fails with our old glib, G_CONST_RETURN
+
+       1.26.0 fails with our old glib, G_CONST_RETURN
+
+       1.19.6 fails with our old glib, G_CONST_RETURN
+
+       1.91.92 fails with our old glib, G_CONST_RETURN
+
+    -->
+
   <autotools id="atk"
     >
     <branch 
       repo="gnome"
-      module="atk/1.32/atk-1.32.0.tar.xz"
-      version="1.32.0"
+      module="atk/2.11/atk-2.11.92.tar.xz"
+      version="2.11.92"
     />
     <dependencies>
       <dep package="glib"/>

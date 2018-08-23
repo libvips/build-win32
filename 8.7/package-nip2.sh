@@ -32,10 +32,9 @@ echo cleaning build $repackagedir
 
 ( cd $repackagedir/bin ; strip --strip-unneeded *.exe )
 
-# for some reason we can't strip zlib1
-( cd $repackagedir/bin ; mkdir ../poop ; mv zlib1.dll ../poop ; strip --strip-unneeded *.dll ; mv ../poop/zlib1.dll . ; rmdir ../poop )
+( cd $repackagedir/bin ; strip --strip-unneeded *.dll )
 
-( cd $repackagedir/share ; rm -rf aclocal applications glib-2.0 gtk-2.0 gtk-doc ImageMagick-* info jhbuild man mime pixmaps xml goffice)
+( cd $repackagedir/share ; rm -rf aclocal applications glib-2.0 gtk-2.0 gtk-doc ImageMagick-* info jhbuild man mime pixmaps xml goffice )
 
 ( cd $repackagedir/share/doc ; mkdir ../poop ; mv nip2 ../poop ; rm -rf * ; mv ../poop/nip2 . ; rmdir ../poop )
 
