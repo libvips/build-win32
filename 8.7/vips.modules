@@ -782,7 +782,7 @@
 
 		#define snprintf _snprintf
 
-	from pango/openfont/hb-private.h
+	from pango/opentype/hb-private.h
 
        rsvg 2.40.19 needs pangocairo >= 1.38.0
 
@@ -804,6 +804,7 @@
       module="pango/1.27/pango-1.27.1.tar.gz"
       version="1.27.1"
       >
+      <patch file="patches/pango-snprintf.patch" strip="1"/>
     </branch>
     <dependencies>
       <dep package="glib"/>

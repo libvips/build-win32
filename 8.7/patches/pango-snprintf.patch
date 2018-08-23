@@ -1,0 +1,11 @@
+diff -Naur pango-1.27.1-orig/pango/opentype/hb-private.h pango-1.27.1/pango/opentype/hb-private.h
+--- pango-1.27.1-orig/pango/opentype/hb-private.h	2010-02-17 20:13:32.000000000 +0000
++++ pango-1.27.1/pango/opentype/hb-private.h	2018-08-23 12:47:39.812439251 +0100
+@@ -170,7 +170,6 @@
+ 
+ 
+ #if (defined(__WIN32__) && !defined(__WINE__)) || defined(_MSC_VER)
+-#define snprintf _snprintf
+ #endif
+ 
+ #ifdef _MSC_VER
