@@ -3,6 +3,7 @@ checkout
 inst
 vips-dev-*
 nip2-*
+!*.ico
 .*.swp
 *.zip
 *.log

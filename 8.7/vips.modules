@@ -899,7 +899,7 @@
 
     <branch
       repo="vips"
-      module="v8.7.0-rc2/vips-8.7.0-rc2.tar.gz"
+      module="v8.7.0-rc3/vips-8.7.0-rc3.tar.gz"
       version="8.7.0"
       checkoutdir="vips-8.7.0"
       >
