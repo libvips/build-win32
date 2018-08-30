@@ -133,34 +133,5 @@ Building
 	jhbuild --file=jhbuildrc --moduleset=vips.modules build --nodeps nip2
 	./package-nip2.sh
 
-Many servers will block direct downlods of .exe files. You might need to put
+Many servers will block direct downloads of .exe files. You might need to put
 the .exe in a zip file.
-
-OTHER NOTES
-===========
-
-Patching
---------
-A primary reason one might desire to build their own executable, you simply
-want to make a few changes to the code, or otherwise control how it was
-compiled. 
-
-First, build as described above:
-
-	./unpack.sh
-
-	jhbuild --file=jhbuildrc --moduleset=vips.modules build libvips
-
-Now go to checkout/vips-7.32.0 and make any source changes you want. Build
-again to compile your changes.
-
-	jhbuild --file=jhbuildrc --moduleset=vips.modules build libvips
-
-And package your new version.
-
-	./package-vipsdev.sh
-
-I suggest you rename your zip to avoid confusion. Call it something like
-vips-dev-7.42.0-rob1.zip.
-
-- remove strcasecmp() hacks from cfitsio, see "eval_l.c"
